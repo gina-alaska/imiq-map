@@ -1,0 +1,24 @@
+// Place all the styles related to the maps controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+#map {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+#search-panel {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 400px;
+  background-color: rgba(255,255,255, 0.7);
+  .panel-heading {
+    background-color: rgba(255,255,255, 0.7);    
+  }
+}
+
+
+.map-container {
+  height: 100%;
+}
