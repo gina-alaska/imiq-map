@@ -1,0 +1,25 @@
+- if @map.errors
+  .alert.alert-danger
+    - @map.errors.full_messages.each do |msg|
+      %p= msg
+= form_for @map, html: { role: 'form', class: 'form-horizontal' } do |f|
+  .form-group
+    = f.label :question, class: 'control-label col-lg-3'
+    .col-lg-9
+      = f.text_area :question, class: 'form-control'
+  .form-group
+    = f.label :answer, class: 'control-label col-lg-3'
+    .col-lg-9
+      = f.text_area :answer, class: 'form-control'
+  .form-group
+    = f.label :bounds, class: 'control-label col-lg-3'
+    .col-lg-9
+      = f.text_area :bounds, class: 'form-control'
+        
+  .pull-right
+    = f.submit 'Save location', class: 'btn btn-primary'
+
+:javascript
+  $(document).on('ready', function() {
+    new MapForm($('#map').data('map').map, $('#map_bounds'));
+  })

@@ -1,0 +1,10 @@
+= render 'map'
+
+#question
+  = render 'question'
+
+:javascript
+  $(document).on('click', '[data-behavior="show-answer"]', function() {
+    $('#answer').removeClass('hidden');
+    $(this).addClass('hidden');
+  })

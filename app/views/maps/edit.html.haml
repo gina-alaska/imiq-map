@@ -1,0 +1,18 @@
+= render 'map'
+
+#search-panel.panel.panel-default.pull-right
+  .panel-heading
+    %h3.panel-title What, where?
+  .panel-body
+    = render 'form'
+    
+:javascript
+  $(document).on('ready', function() {
+    var elems = #{@map.bounds.split(',').collect(&:to_f)};
+    var map = $('#map').data('map').map;
+
+    map.fitBounds([
+      [elems[1], elems[0]],
+      [elems[3], elems[2]]
+    ])
+  })

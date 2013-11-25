@@ -13,4 +13,7 @@
       = submit_tag 'Search', class: 'btn btn-primary pull-right'
 
 :javascript
-  var map = new Map('map')
+  $(document).on('ready', function() {
+    var map = new Map('map');
+    map.fromGeoJSON(#{@sites.to_json});  
+  })

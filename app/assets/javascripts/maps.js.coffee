@@ -13,6 +13,15 @@ class @Map
       console.log @map.getZoom()
     @map.whenReady(when_ready_func, @) if when_ready_func? 
     
+  fromGeoJSON: (geojson) =>
+    @features = L.geoJson(geojson)
+    @features.addTo(@map);
+    
+    # this is needed to handle issue with zooming to soon after initialization
+    setTimeout(=> 
+      @map.fitBounds(@features.getBounds())
+    , 100)
+    
   fromWKT: (wkt, fit = true) =>
     reader = new Wkt.Wkt();
     reader.read(wkt)

@@ -7,6 +7,7 @@ gem 'rails', '4.0.1'
 gem 'pg'
 gem 'haml'
 gem 'bower-rails'
+gem 'httparty'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'

@@ -1,0 +1,24 @@
+#search-panel.panel.panel-default.pull-right
+  .panel-heading
+    %h3.panel-title
+      = @map.question
+  .panel-body
+    %p
+      #answer.hidden
+        %strong Answer:
+        = @map.answer.html_safe
+      
+      %button.btn.btn-info.btn-block{ data: { behavior: 'show-answer' }} Click here to see the answer
+    .links    
+      = link_to "Previous", map_path(@prev), class: 'btn btn-success' if @prev
+      = link_to "Next", map_path(@next), class: 'btn btn-success pull-right' if @next
+:javascript
+  $(document).on('ready', function() {
+    var elems = #{@map.bounds.split(',').collect(&:to_f)};
+    var map = $('#map').data('map').map;
+  
+    map.fitBounds([
+      [elems[1], elems[0]],
+      [elems[3], elems[2]]
+    ])
+  })
