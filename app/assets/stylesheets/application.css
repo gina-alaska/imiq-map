@@ -9,6 +9,8 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require leaflet/leaflet
+ *= require markerclusters/dist/MarkerCluster.css 
+ *= require markerclusters/dist/MarkerCluster.Default.css 
  *= require bootstrap/dist/css/bootstrap
  *= require_self
  *= require_tree .

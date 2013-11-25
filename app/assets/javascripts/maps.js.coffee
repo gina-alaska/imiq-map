@@ -14,12 +14,15 @@ class @Map
     @map.whenReady(when_ready_func, @) if when_ready_func? 
     
   fromGeoJSON: (geojson) =>
-    @features = L.geoJson(geojson)
-    @features.addTo(@map);
+    unless @markers?
+      @markers = new L.MarkerClusterGroup()
+      @map.addLayer(@markers)
+          
+    @markers.addLayer(L.geoJson(geojson))
     
     # this is needed to handle issue with zooming to soon after initialization
     setTimeout(=> 
-      @map.fitBounds(@features.getBounds())
+      @map.fitBounds(@markers.getBounds())
     , 100)
     
   fromWKT: (wkt, fit = true) =>
