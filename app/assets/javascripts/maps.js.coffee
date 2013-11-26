@@ -11,7 +11,22 @@ class @Map
     }).addTo(@map);
     
     @map.whenReady(when_ready_func, @) if when_ready_func? 
+  
+  fromPagedAPI: (url, page) =>
+    @progress ||= new Progress('loading layer...')
     
+    @fromAPI("#{url}?page=#{page}&limit=3000&geometry=point&callback=?").done (response) => 
+      if response.features.length > 0
+        @progress.next()
+        @fromPagedAPI(url, page+1) 
+      else
+        @progress.done()
+        delete @progress
+      
+  fromAPI: (url) =>
+    $.getJSON url, (response) =>
+      @fromGeoJSON(response)
+  
   fromGeoJSON: (geojson) =>
     unless @markers?
       @markers = new L.MarkerClusterGroup()
@@ -26,9 +41,9 @@ class @Map
     )
     
     # this is needed to handle issue with zooming to soon after initialization
-    setTimeout(=> 
-      @map.fitBounds(@markers.getBounds())
-    , 100)
+    # setTimeout(=> 
+    #   @map.fitBounds(@markers.getBounds())
+    # , 100)
     
   fromWKT: (wkt, fit = true) =>
     reader = new Wkt.Wkt();

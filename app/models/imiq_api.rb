@@ -5,7 +5,7 @@ class ImiqAPI
   def initialize
   end
   
-  def sites(type = :point, page = 1, limit = 100, options={})
+  def sites(page = 1, limit = 3000, type = :point, options={})
     self.class.get("/sites.geojson?geometry=#{type}&page=#{page}&limit=#{limit}", options)
   end
   

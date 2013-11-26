@@ -13,7 +13,9 @@
       = submit_tag 'Search', class: 'btn btn-primary pull-right'
 
 :javascript
+  var getSites;
+
   $(document).on('ready', function() {
     var map = new Map('map');
-    map.fromGeoJSON(#{@sites.to_json});  
-  })
+    map.fromPagedAPI('http://imiq-api.dev/sites.geojson', 1);
+  });

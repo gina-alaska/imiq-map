@@ -8,6 +8,9 @@ ImiqMap::Application.routes.draw do
   # root 'welcome#index'
   root 'maps#index'
 
+
+  get '/sites/:page' => 'maps#sites'
+  
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
