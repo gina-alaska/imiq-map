@@ -8,6 +8,7 @@ gem 'pg'
 gem 'haml'
 gem 'bower-rails'
 gem 'httparty'
+gem 'quiet_assets'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'

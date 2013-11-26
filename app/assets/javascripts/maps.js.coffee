@@ -7,18 +7,23 @@ class @Map
     @map = L.map(@selector).setView([64.8658580026598, -147.83855438232422], 3)
     
     L.tileLayer('http://tiles.gina.alaska.edu/tilesrv/bdl/tile/{x}/{y}/{z}', {
-      maxZoom: 18
+      maxZoom: 15
     }).addTo(@map);
-    @map.on 'zoomend', =>
-      console.log @map.getZoom()
+    
     @map.whenReady(when_ready_func, @) if when_ready_func? 
     
   fromGeoJSON: (geojson) =>
     unless @markers?
       @markers = new L.MarkerClusterGroup()
       @map.addLayer(@markers)
+      @markers.on('click', @markerClick)
           
-    @markers.addLayer(L.geoJson(geojson))
+    @markers.addLayer(
+      L.geoJson(geojson, {
+        onEachFeature: (feature, layer) =>
+          layer.bindPopup(@description(feature));
+      })
+    )
     
     # this is needed to handle issue with zooming to soon after initialization
     setTimeout(=> 
@@ -36,4 +41,11 @@ class @Map
         @map.fitBounds(object.getBounds(), { animate: true })
       , 100
       
-      
+  description: (feature) ->
+    output = "<fieldset class='site-marker-popup'><legend>#{feature.properties.sitename}</legend>"
+    output +=  "<label>Location: </label> (#{feature.geometry.coordinates[1]}, #{feature.geometry.coordinates[0]})<br/>
+                <label>Elevation:</label> #{feature.geometry.coordinates[2]} (M)<br/>"
+    output +=  "<label>Comments: </label> #{feature.properties.comments}<br/>" if feature.properties.comments?
+    output += "</fieldset>"
+    
+    output
