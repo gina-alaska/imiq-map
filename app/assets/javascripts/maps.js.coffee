@@ -3,7 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 class @Map
   constructor: (@selector, when_ready_func = null) ->
-    @ready = false
+    L.Icon.Default.imagePath = '/images';
     @map = L.map(@selector).setView([64.8658580026598, -147.83855438232422], 3)
     
     L.tileLayer('http://tiles.gina.alaska.edu/tilesrv/bdl/tile/{x}/{y}/{z}', {
@@ -15,11 +15,16 @@ class @Map
   fromPagedAPI: (url, page) =>
     @progress ||= new Progress('loading sites...')
     
-    @fromAPI("#{url}?page=#{page}&limit=300&geometry=point&callback=?").done (response) => 
+    request = @fromAPI("#{url}?page=#{page}&limit=300&geometry=point&callback=?")
+    request.done (response) => 
       if response.features.length > 0
         @progress.next()
         @fromPagedAPI(url, page+1) 
       else
+        @progress.done()
+        delete @progress
+    request.fail (response) =>
+      if @progress?
         @progress.done()
         delete @progress
       
