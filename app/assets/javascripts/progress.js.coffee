@@ -9,7 +9,7 @@ class @Progress
       </div>
     </div>')
     
-    $('body').append(@progress)
+    $('body').append(@progress).hide().fadeIn()
     
   next: =>
     @percent += 10

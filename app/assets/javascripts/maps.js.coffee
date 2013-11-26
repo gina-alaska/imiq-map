@@ -13,9 +13,9 @@ class @Map
     @map.whenReady(when_ready_func, @) if when_ready_func? 
   
   fromPagedAPI: (url, page) =>
-    @progress ||= new Progress('loading layer...')
+    @progress ||= new Progress('loading sites...')
     
-    @fromAPI("#{url}?page=#{page}&limit=3000&geometry=point&callback=?").done (response) => 
+    @fromAPI("#{url}?page=#{page}&limit=300&geometry=point&callback=?").done (response) => 
       if response.features.length > 0
         @progress.next()
         @fromPagedAPI(url, page+1) 
