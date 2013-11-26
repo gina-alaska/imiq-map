@@ -2,15 +2,16 @@
 
 #search-panel.panel.panel-default.pull-right
   .panel-heading
-    %h3.panel-title IMIQ Search
+    %h3.panel-title IMIQ Sensor net activated!
   .panel-body
-    = form_tag '/search', remote: true, role: 'form', class: 'form-horizontal' do
-      .form-group
-        = label_tag :q, 'Keywords', class: 'control-label col-lg-3'
-        .col-lg-9
-          = text_field_tag :q, params[:q], class: 'form-control'
-      
-      = submit_tag 'Search', class: 'btn btn-primary pull-right'
+    Normally a form would go here, but we haven't added searches to the api yet
+    / = form_tag '/search', remote: true, role: 'form', class: 'form-horizontal' do
+    /   .form-group
+    /     = label_tag :q, 'Keywords', class: 'control-label col-lg-3'
+    /     .col-lg-9
+    /       = text_field_tag :q, params[:q], class: 'form-control'
+    /   
+    /   = submit_tag 'Search', class: 'btn btn-primary pull-right'
 
 :javascript
   var getSites;
