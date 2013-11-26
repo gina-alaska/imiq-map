@@ -10,6 +10,9 @@ gem 'bower-rails'
 gem 'httparty'
 gem 'quiet_assets'
 
+#heroku gems
+gem 'rails_12factor'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
@@ -47,3 +50,4 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+ruby '2.0.0'
