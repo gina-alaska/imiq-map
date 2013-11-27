@@ -12,14 +12,16 @@ class @Map
     
     @map.whenReady(when_ready_func, @) if when_ready_func? 
   
-  fromPagedAPI: (url, page) =>
+  fromPagedAPI: (url) =>
     @progress ||= new Progress('loading sites...')
     
-    request = @fromAPI("#{url}?page=#{page}&limit=300&geometry=point&callback=?")
-    request.done (response) => 
-      if response.features.length > 0
-        @progress.next()
-        @fromPagedAPI(url, page+1) 
+    request = @fromAPI(url)
+    request.done (response, text, xhr) => 
+      links = $.parseJSON(xhr.getResponseHeader('Links'))
+      
+      if links.next_page?
+        @progress.update(parseInt(links.offset / links.total * 100))
+        @fromPagedAPI(links.next_page) 
       else
         @progress.done()
         delete @progress
