@@ -1,22 +1,7 @@
-#map
+= render 'map'
 
-#search-panel.panel.panel-default.pull-right
+#search-panel.panel.panel-default
   .panel-heading
     %h3.panel-title IMIQ Sensor net activated!
   .panel-body
-    Normally a form would go here, but we haven't added searches to the api yet
-    / = form_tag '/search', remote: true, role: 'form', class: 'form-horizontal' do
-    /   .form-group
-    /     = label_tag :q, 'Keywords', class: 'control-label col-lg-3'
-    /     .col-lg-9
-    /       = text_field_tag :q, params[:q], class: 'form-control'
-    /   
-    /   = submit_tag 'Search', class: 'btn btn-primary pull-right'
-
-:javascript
-  var getSites;
-
-  $(document).on('ready', function() {
-    var map = new Map('map');
-    map.fromPagedAPI('http://imiq-api.gina.alaska.edu/sites.geojson?limit=500&geometry=point', 1);
-  });
+    = render 'form'

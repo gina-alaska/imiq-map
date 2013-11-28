@@ -12,27 +12,35 @@ class @Map
     
     @map.whenReady(when_ready_func, @) if when_ready_func? 
   
+  clearMarkers: =>
+    if @request?
+      @request.abort();
+      
+    @markers.clearLayers();
+  
   fromPagedAPI: (url) =>
     @progress ||= new Progress('loading sites...')
     
-    request = @fromAPI(url)
-    request.done (response, text, xhr) => 
+    @request = @fromAPI(url)
+    @request.done (response, text, xhr) => 
       links = $.parseJSON(xhr.getResponseHeader('Links'))
-      
+      # links = {}
       if links.next_page?
         @progress.update(parseInt(links.offset / links.total * 100))
         @fromPagedAPI(links.next_page) 
       else
-        @progress.done()
-        delete @progress
-    request.fail (response) =>
-      if @progress?
-        @progress.done()
-        delete @progress
+        @finishRequest
+        
+    @request.fail @finishRequest
+      
+  finishRequest: =>
+    if @progress?
+      @progress.done()
+    delete @progress
+    delete @request    
       
   fromAPI: (url) =>
-    $.getJSON url, (response) =>
-      @fromGeoJSON(response)
+    $.getJSON url, @fromGeoJSON
   
   fromGeoJSON: (geojson) =>
     unless @markers?

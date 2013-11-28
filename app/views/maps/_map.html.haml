@@ -1,7 +1,8 @@
 #map
 :javascript
-  var map;
-  $(document).ready(function() {
-    map = new Map('map');
+  $(document).on('ready', function() {
+    var map = new Map('map');
     $('#map').data('map', map);
+    
+    map.fromPagedAPI('#{ imiq_api.sites_uri }');
   });

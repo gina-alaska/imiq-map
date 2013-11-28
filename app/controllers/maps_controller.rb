@@ -6,11 +6,28 @@ class MapsController < ApplicationController
   def sites
     respond_to do |format|
       format.geojson {
-        api = ImiqAPI.new    
-        @sites = api.sites(params[:page])
+        @sites = imiq_api.sites(params[:page])
     
         render json: @sites
       }      
     end
   end
+  
+  def search
+    respond_to do |format|
+      format.js
+    end
+  end
+  
+  protected
+  
+  def search_params
+    @search ||= params.permit(:q, :datatype, :samplemedium, :variablename, :organizationcode)
+  end
+  helper_method :search_params
+  
+  def imiq_api
+    @api ||= ImiqAPI.new
+  end
+  helper_method :imiq_api
 end
