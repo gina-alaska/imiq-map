@@ -1,6 +1,6 @@
 class ImiqAPI
   include HTTParty
-  base_uri 'imiq-api.dev'
+  base_uri 'imiq-api.gina.alaska.edu'
   
   def initialize
   end
