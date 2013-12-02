@@ -11,6 +11,8 @@ class @Map
     }).addTo(@map);
     
     @map.whenReady(when_ready_func, @) if when_ready_func? 
+    @progress = new Progress('loading sites...')
+          
   
   clearMarkers: =>
     if @request?
@@ -19,25 +21,25 @@ class @Map
     @markers.clearLayers();
   
   fromPagedAPI: (url) =>
-    @progress ||= new Progress('loading sites...')
-    
     @request = @fromAPI(url)
     @request.done (response, text, xhr) => 
-      links = $.parseJSON(xhr.getResponseHeader('Links'))
+      links = {
+        next_page: xhr.getResponseHeader('X-Next-Link'),
+        offset: parseInt(xhr.getResponseHeader('X-Page')),
+        total: parseInt(xhr.getResponseHeader('X-Total-Pages'))
+      }
       # links = {}
-      if links.next_page?
+      
+      if links.next_page? and links.next_page != ''
         @progress.update(parseInt(links.offset / links.total * 100))
         @fromPagedAPI(links.next_page) 
       else
-        @finishRequest
+        @finishRequest()
         
     @request.fail @finishRequest
       
   finishRequest: =>
-    if @progress?
-      @progress.done()
-    delete @progress
-    delete @request    
+    @progress.done()      
       
   fromAPI: (url) =>
     $.getJSON url, @fromGeoJSON
