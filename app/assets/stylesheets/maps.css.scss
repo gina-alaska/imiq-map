@@ -7,15 +7,26 @@
   position: relative;
 }
 
+#map-panel {
+  position: absolute;
+  top: 0;
+  right: 300px;
+  bottom: 0;
+  left: 0;
+}
+
 #search-panel {
   position: absolute;
-  right: 10px;
-  top: 10px;
+  right: 0;
+  top: 0;
+  bottom: 0;
   width: 300px;
-  background-color: rgba(255,255,255, 0.7);
-  .panel-heading {
-    background-color: rgba(255,255,255, 0.7);    
-  }
+  border-radius: 0;
+  margin-bottom: 0;
+//  background-color: rgba(255,255,255, 0.7);
+//  .panel-heading {
+//    background-color: rgba(255,255,255, 0.7);    
+//  }
 }
 
 .site-marker-popup {
