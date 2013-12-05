@@ -5,11 +5,11 @@
 
   .form-group
     = label_tag :generalcategory, 'General Categories', class: 'control-label'
-    = select_tag :generalcategory, options_for_select(imiq_api.variables_list['generalcategories']), prompt: 'Select a variable name', class: 'form-control'
+    = select_tag :generalcategory, options_for_select(imiq_api.variables_list['generalcategories']), prompt: 'Select a general category', class: 'form-control'
 		
   .form-group
     = label_tag :valuetype, 'Value Types', class: 'control-label'
-    = select_tag :valuetype, options_for_select(imiq_api.variables_list['valuetypes']), prompt: 'Select a variable name', class: 'form-control'
+    = select_tag :valuetype, options_for_select(imiq_api.variables_list['valuetypes']), prompt: 'Select a value type', class: 'form-control'
 		
   .form-group
     = label_tag :variablename, 'Variables', class: 'control-label'
