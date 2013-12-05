@@ -6,11 +6,11 @@ class ImiqAPI
   def initialize
   end
   
-  def sites(search = {}, page = 1, limit = 500, type = :point)
+  def sites(search = {}, page = 1, limit = 1500, type = :point)
     self.class.get(sites_url(search, page, limit, type))
   end
   
-  def sites_uri(search = {}, page = 1, limit = 500, type = :point)
+  def sites_uri(search = {}, page = 1, limit = 1500, type = :point)
     search.merge!({ page: page, limit: limit, geometry: type }).reject! { |k,v| v.blank? }
     self.class.get_uri("/sites.geojson?#{search.to_param}")
   end

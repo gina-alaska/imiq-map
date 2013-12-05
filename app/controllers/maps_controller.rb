@@ -22,7 +22,7 @@ class MapsController < ApplicationController
   protected
   
   def search_params
-    @search ||= params.permit(:q, :datatype, :samplemedium, :variablename, :organizationcode)
+    @search ||= params.permit(:q, :datatype, :samplemedium, :generalcategory, :valuetype, :variablename, :organizationcode)
   end
   helper_method :search_params
   
