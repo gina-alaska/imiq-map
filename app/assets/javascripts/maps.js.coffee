@@ -11,7 +11,7 @@ class @Map
     }).addTo(@map);
     
     @map.whenReady(when_ready_func, @) if when_ready_func? 
-    @progress = new Progress('loading sites...')
+    @progress = new Progress("##{@selector}", 'loading sites...')
           
   
   clearMarkers: =>

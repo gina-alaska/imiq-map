@@ -1,5 +1,6 @@
 class @Progress
-  constructor: (@msg, @percent) ->
+  constructor: (@target, @msg, @percent) ->
+    @start()
     
   next: =>
     @start()
@@ -25,7 +26,7 @@ class @Progress
         </div>
       </div>
     </div>')    
-    $('body').append(@progress)
+    $(@target).append(@progress)
   
   done: =>
     @update(100)
