@@ -75,9 +75,16 @@ class @Map
       
   description: (feature) ->
     output = "<fieldset class='site-marker-popup'><legend>#{feature.properties.sitename}</legend>"
-    output +=  "<label>Location: </label> (#{feature.geometry.coordinates[1]}, #{feature.geometry.coordinates[0]})<br/>
-                <label>Elevation:</label> #{feature.geometry.coordinates[2]} (M)<br/>"
-    output +=  "<label>Comments: </label> #{feature.properties.comments}<br/>" if feature.properties.comments?
+    output += "<label>Site ID: </label> #{feature.properties.siteid}<br/>" 
+    output += "<label>Location: </label> (#{feature.geometry.coordinates[1]}, #{feature.geometry.coordinates[0]})<br/>
+              <label>Elevation:</label> #{feature.geometry.coordinates[2]} (M)<br/>"         
+    output += "<label>Comments: </label> #{feature.properties.comments}<br/>" if feature.properties.comments?
+#    output += "<label>Datastreams:</label><br/>"
+#    for val in feature.properties.datastreams
+#        output += "#{val} <br/>"
+    output += "<label>Variables:</label><br/>"
+    for val in feature.properties.variables
+      output += "#{val} <br/>"
     output += "</fieldset>"
     
     output
