@@ -14,6 +14,9 @@ class MapsController < ApplicationController
   end
   
   def search
+    
+    @imiq_api_url = imiq_api.sites_uri(search_params).to_s
+    
     respond_to do |format|
       format.js
     end
