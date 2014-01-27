@@ -86,5 +86,9 @@ class @Map
     for val in feature.properties.variables
       output += "#{val} <br/>"
     output += "</fieldset>"
+#    output += "<label>Derived Variables:</label><br/>"
+#    for val in feature.properties.derived_variables
+#      output += "#{val} <br/>"
+#    output += "</fieldset>"
     
     output
