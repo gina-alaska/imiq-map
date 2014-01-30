@@ -74,21 +74,19 @@ class @Map
       , 100
       
   description: (feature) ->
-    output = "<fieldset class='site-marker-popup'><legend>#{feature.properties.sitename}</legend>"
-    output += "<label>Site ID: </label> #{feature.properties.siteid}<br/>" 
-    output += "<label>Location: </label> (#{feature.geometry.coordinates[1]}, #{feature.geometry.coordinates[0]})<br/>
-              <label>Elevation:</label> #{feature.geometry.coordinates[2]} (M)<br/>"         
-    output += "<label>Comments: </label> #{feature.properties.comments}<br/>" if feature.properties.comments?
-#    output += "<label>Datastreams:</label><br/>"
-#    for val in feature.properties.datastreams
-#        output += "#{val} <br/>"
-    output += "<label>Variables:</label><br/>"
-    for val in feature.properties.variables
-      output += "#{val} <br/>"
-    output += "</fieldset>"
-#    output += "<label>Derived Variables:</label><br/>"
-#    for val in feature.properties.derived_variables
-#      output += "#{val} <br/>"
-#    output += "</fieldset>"
+    output = """
+      <fieldset class='site-marker-popup'><legend>#{feature.properties.sitename}</legend>
+        <label>Site ID: </label> #{feature.properties.siteid}<br/>
+        <label>Lat/Lon/Elev: </label> (#{feature.geometry.coordinates[1].toFixed(2)}, #{feature.geometry.coordinates[0].toFixed(2)}, #{feature.geometry.coordinates[2]} M) <br/>
+        <label>Organization: </label> #{feature.properties.source.organization} <br/>
+        <label>Contact Name: </label> #{feature.properties.source.contactname} <br/>
+        <label>Contact Info: </label> <a href=#{feature.properties.source.sourcelink} target="_blank">#{feature.properties.source.sourcelink}</a><br/>
+        <label>Start Date (UTC): </label> #{feature.properties.begindatetimeutc} <br/>
+        <label>End Date (UTC): </label> #{feature.properties.enddatetimeutc} <br/>
+        <label>Variables: </label> <br/>
+        #{feature.properties.variables.join("<br/>")}<br/>
+        <a href="/sites/#{feature.properties.siteid}" data-remote="true" class="btn btn-primary">Export</a>
+      </fieldset>
+    """
     
     output
