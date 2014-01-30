@@ -1,0 +1,17 @@
+.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{ type: "button", data: { dismiss: "modal" } }
+          &times;
+          
+        %h4.modal-title
+          Export Daily Products
+      .modal-body
+        = link_to "Daily air temperature", "http://imiq-api.dev/daily/airtemp?siteid=#{params[:id]}" 
+        %p
+        = link_to "Daily relative humidity", "http://imiq-api.dev/daily/relativehumidity?siteid=#{params[:id]}"
+        %p
+      .modal-footer
+        %button.btn.btn-default{ type: "button", data: { dismiss: "modal" } }
+          Close
