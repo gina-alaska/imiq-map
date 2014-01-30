@@ -85,7 +85,7 @@ class @Map
         <label>End Date (UTC): </label> #{feature.properties.enddatetimeutc} <br/>
         <label>Variables: </label> <br/>
         #{feature.properties.variables.join("<br/>")}<br/>
-        <a href="/sites/#{feature.properties.siteid}" data-remote="true" class="btn btn-primary">Export</a>
+        <a href="/sites/#{feature.properties.siteid}" data-remote="true" class="btn btn-primary" >Export Daily Values</a>
       </fieldset>
     """
     

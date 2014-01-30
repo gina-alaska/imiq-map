@@ -28,9 +28,4 @@ class MapsController < ApplicationController
     @search ||= params.permit(:q, :datatype, :samplemedium, :generalcategory, :valuetype, :variablename, :organizationcode, :derived_values)
   end
   helper_method :search_params
-  
-  def imiq_api
-    @api ||= ImiqAPI.new
-  end
-  helper_method :imiq_api
 end

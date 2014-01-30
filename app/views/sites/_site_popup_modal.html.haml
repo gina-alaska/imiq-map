@@ -6,12 +6,29 @@
           &times;
           
         %h4.modal-title
-          Export Daily Products
+          Export Value-Added Products
       .modal-body
-        = link_to "Daily air temperature", "http://imiq-api.dev/daily/airtemp?siteid=#{params[:id]}" 
-        %p
-        = link_to "Daily relative humidity", "http://imiq-api.dev/daily/relativehumidity?siteid=#{params[:id]}"
-        %p
+          
+        - @sitedervars.each do |sitedervar|
+          - if "#{sitedervar}" == "Daily Air Temperature"
+            %p= link_to "#{sitedervar}", "http://imiq-api.dev/daily/airtemp?siteid=#{params[:id]}"
+          - if "#{sitedervar}" == "Daily Relative Humidity"
+            %p= link_to "#{sitedervar}", "http://imiq-api.dev/daily/relativehumidity?siteid=#{params[:id]}"
+          - if "#{sitedervar}" == "Daily Discharge"
+            %p= link_to "#{sitedervar}", "http://imiq-api.dev/daily/discharge?siteid=#{params[:id]}"
+          - if "#{sitedervar}" == "Daily Precipitation"
+            %p= link_to "#{sitedervar}", "http://imiq-api.dev/daily/precipitation?siteid=#{params[:id]}"
+          - if "#{sitedervar}" == "Daily Snow Depth"
+            %p= link_to "#{sitedervar}", "http://imiq-api.dev/daily/snowdepth?siteid=#{params[:id]}"
+          - if "#{sitedervar}" == "Daily Snow Water Equivalent"
+            %p= link_to "#{sitedervar}", "http://imiq-api.dev/daily/swe?siteid=#{params[:id]}"
+          - if "#{sitedervar}" == "Daily Wind Direction"
+            %p= link_to "#{sitedervar}", "http://imiq-api.dev/daily/winddirection?siteid=#{params[:id]}"              
+          - if "#{sitedervar}" == "Daily Wind Speed"
+            %p= link_to "#{sitedervar}", "http://imiq-api.dev/daily/windspeed?siteid=#{params[:id]}"
+              
+      
+
       .modal-footer
         %button.btn.btn-default{ type: "button", data: { dismiss: "modal" } }
           Close
