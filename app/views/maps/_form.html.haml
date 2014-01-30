@@ -7,21 +7,21 @@
     = label_tag :generalcategory, 'General Categories', class: 'control-label'
     = select_tag :generalcategory, options_for_select(imiq_api.variables_list['generalcategories']), prompt: 'Select a general category', class: 'form-control'
 		
-  .form-group
-    = label_tag :valuetype, 'Value Types', class: 'control-label'
-    = select_tag :valuetype, options_for_select(imiq_api.variables_list['valuetypes']), prompt: 'Select a value type', class: 'form-control'
+  -#  .form-group
+  -#  label_tag :valuetype, 'Value Types', class: 'control-label'
+  -#  select_tag :valuetype, options_for_select(imiq_api.variables_list['valuetypes']), prompt: 'Select a value type', class: 'form-control'
 		
   .form-group
     = label_tag :variablename, 'Variables', class: 'control-label'
     = select_tag :variablename, options_for_select(imiq_api.variables_list['names']), prompt: 'Select a variable name', class: 'form-control'
 		
-  .form-group
-    = label_tag :datatype, 'Data types', class: 'control-label'
-    = select_tag :datatype, options_for_select(imiq_api.variables_list['datatypes']), prompt: 'Select a data type', class: 'form-control'
+  -#.form-group
+  -#  = label_tag :datatype, 'Data types', class: 'control-label'
+  -#  = select_tag :datatype, options_for_select(imiq_api.variables_list['datatypes']), prompt: 'Select a data type', class: 'form-control'
 		
-  .form-group
-    = label_tag :samplemedium, 'Sample mediums', class: 'control-label'
-    = select_tag :samplemedium, options_for_select(imiq_api.variables_list['samplemediums']), prompt: 'Select a sample medium',  class: 'form-control'
+  -#.form-group
+  -#  = label_tag :samplemedium, 'Sample mediums', class: 'control-label'
+  -#  = select_tag :samplemedium, options_for_select(imiq_api.variables_list['samplemediums']), prompt: 'Select a sample medium',  class: 'form-control'
 	
   .form-group
     = label_tag :derived_values, 'Value-Added Products', class: 'control-label'
