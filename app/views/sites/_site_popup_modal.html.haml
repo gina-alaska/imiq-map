@@ -1,0 +1,34 @@
+.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{ type: "button", data: { dismiss: "modal" } }
+          &times;
+          
+        %h4.modal-title
+          Export Value-Added Products
+      .modal-body
+          
+        - @sitedervars.each do |sitedervar|
+          - if "#{sitedervar}" == "Daily Air Temperature"
+            %p= link_to "#{sitedervar}", "http://imiq-api.dev/daily/airtemp?siteid=#{params[:id]}"
+          - if "#{sitedervar}" == "Daily Relative Humidity"
+            %p= link_to "#{sitedervar}", "http://imiq-api.dev/daily/relativehumidity?siteid=#{params[:id]}"
+          - if "#{sitedervar}" == "Daily Discharge"
+            %p= link_to "#{sitedervar}", "http://imiq-api.dev/daily/discharge?siteid=#{params[:id]}"
+          - if "#{sitedervar}" == "Daily Precipitation"
+            %p= link_to "#{sitedervar}", "http://imiq-api.dev/daily/precipitation?siteid=#{params[:id]}"
+          - if "#{sitedervar}" == "Daily Snow Depth"
+            %p= link_to "#{sitedervar}", "http://imiq-api.dev/daily/snowdepth?siteid=#{params[:id]}"
+          - if "#{sitedervar}" == "Daily Snow Water Equivalent"
+            %p= link_to "#{sitedervar}", "http://imiq-api.dev/daily/swe?siteid=#{params[:id]}"
+          - if "#{sitedervar}" == "Daily Wind Direction"
+            %p= link_to "#{sitedervar}", "http://imiq-api.dev/daily/winddirection?siteid=#{params[:id]}"              
+          - if "#{sitedervar}" == "Daily Wind Speed"
+            %p= link_to "#{sitedervar}", "http://imiq-api.dev/daily/windspeed?siteid=#{params[:id]}"
+              
+      
+
+      .modal-footer
+        %button.btn.btn-default{ type: "button", data: { dismiss: "modal" } }
+          Close

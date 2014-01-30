@@ -17,7 +17,7 @@ class ImiqAPI
   
   # single site return
   def site(id, format=:json, options= {})
-    self.class.get("/site/#{id}.#{format}")
+    self.class.get("/sites/#{id}.#{format}?#{options.to_param}")
   end
   
   #get list of unique varible values

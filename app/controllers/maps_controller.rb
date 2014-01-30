@@ -14,6 +14,9 @@ class MapsController < ApplicationController
   end
   
   def search
+    
+    @imiq_api_url = imiq_api.sites_uri(search_params).to_s
+    
     respond_to do |format|
       format.js
     end
@@ -22,12 +25,7 @@ class MapsController < ApplicationController
   protected
   
   def search_params
-    @search ||= params.permit(:q, :datatype, :samplemedium, :generalcategory, :valuetype, :variablename, :organizationcode)
+    @search ||= params.permit(:q, :datatype, :samplemedium, :generalcategory, :valuetype, :variablename, :organizationcode, :derived_values)
   end
   helper_method :search_params
-  
-  def imiq_api
-    @api ||= ImiqAPI.new
-  end
-  helper_method :imiq_api
 end
