@@ -1,4 +1,4 @@
-= form_tag '/search', remote: true, role: 'form', class: '' do
+= form_tag '/search', remote: true, role: 'form', class: '', id: 'search-form' do
   .form-group
     = label_tag :organizationcode, 'Organizations', class: 'control-label'
     = select_tag :organizationcode, organization_option_list, prompt: 'Select an organization', class: 'form-control'

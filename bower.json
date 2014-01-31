@@ -20,6 +20,7 @@
     "bootstrap": "https://github.com/twbs/bootstrap.git",
     "leaflet": "http://leaflet-cdn.s3.amazonaws.com/build/leaflet-0.7.zip",
     "markerclusters": "https://github.com/Leaflet/Leaflet.markercluster.git",
-    "wicket": "https://github.com/arthur-e/Wicket/archive/v1.0.zip"
+    "wicket": "https://github.com/arthur-e/Wicket/archive/v1.0.zip",
+    "leaflet.draw": "~0.2.3"
   }
 }

@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require leaflet/leaflet
+//= require leaflet.draw/dist/leaflet.draw
 //= require markerclusters/dist/leaflet.markercluster
 //= require wicket/wicket
 //= require wicket/wicket-leaflet

@@ -10,15 +10,21 @@ class @Map
       maxZoom: 15
     }).addTo(@map);
     
+    @initializeDrawControls()
     @map.whenReady(when_ready_func, @) if when_ready_func? 
-    @progress = new Progress("##{@selector}", 'loading sites...')
-          
+    @startSearch()          
   
   clearMarkers: =>
     if @request?
       @request.abort();
       
     @markers.clearLayers();
+  
+  filterByBounds: (bounds) =>
+    @markers.clearLayers()
+    
+  startSearch: =>
+    @progress = new Progress("##{@selector}", 'loading sites...')
   
   fromPagedAPI: (url) =>
     @request = @fromAPI(url)
@@ -37,10 +43,61 @@ class @Map
         @finishRequest()
         
     @request.fail @finishRequest
-      
+    
+  initializeDrawControls: =>
+    # Initialise the FeatureGroup to store editable layers
+    @drawnItems = new L.FeatureGroup()
+    @map.addLayer(@drawnItems)
+
+    # Initialise the draw control and pass it the FeatureGroup of editable layers
+    @drawControl = new L.Control.Draw({
+      draw: {
+        polyline: false,
+        polygon: false,
+        circle: false,
+        marker: false
+      },
+      edit: {
+          featureGroup: @drawnItems
+      }
+    })
+    @map.addControl(@drawControl)
+    
+    @map.on('draw:created', @handleDrawCreated)
+    @map.on('draw:edited', @handleDrawEdited)
+    @map.on('draw:deleted', @handleDrawDeleted)
+    
+  handleDrawDeleted: (e) =>
+    type = e.layerType
+    layer = e.layer
+
+    delete @filterBounds
+    
+  handleDrawEdited: (e) =>
+    e.layers.eachLayer (l) =>
+      @filterByLayer(l)
+    
+  handleDrawCreated: (e) =>    
+    layer = e.layer
+    @filterByLayer(layer)
+    
+  filterByLayer: (layer) =>
+    @filterBounds = layer.getBounds()
+
+    @drawnItems.clearLayers()
+    @drawnItems.addLayer(layer)
+    
   finishRequest: =>
     @progress.done()      
       
+  # we will use this method to control features being shown in the marker layers
+  filterMarkers: (feature, layer) =>    
+    if @filterBounds?
+      c = feature.geometry.coordinates
+      return @filterBounds.contains([c[1], c[0]])
+    else
+      return true
+    
   fromAPI: (url) =>
     $.getJSON url, @fromGeoJSON
   
@@ -52,6 +109,7 @@ class @Map
           
     @markers.addLayer(
       L.geoJson(geojson, {
+        filter: @filterMarkers,
         onEachFeature: (feature, layer) =>
           layer.bindPopup(@description(feature));
       })
