@@ -83,9 +83,9 @@ class @Map
     
   filterByLayer: (layer) =>
     @filterBounds = layer.getBounds()
-
     @drawnItems.clearLayers()
     @drawnItems.addLayer(layer)
+    @map.fitBounds(@filterBounds)
     
   finishRequest: =>
     @progress.done()      
