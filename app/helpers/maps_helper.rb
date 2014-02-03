@@ -6,4 +6,13 @@ module MapsHelper
       }
     )
   end
+  
+  def format_geolocation(location) 
+    results = location.match(/(-{0,1}\d+\.\d+) (-{0,1}\d+\.\d+)/)
+    if results.nil?
+      ''
+    else
+      "(#{results[2].to_f.round(3)}, #{results[1].to_f.round(3)})"
+    end
+  end
 end

@@ -1,0 +1,37 @@
+.modal.fade
+  .modal-dialog{ style: 'width: 80%;' }
+    .modal-content
+      .modal-header
+        %button.close{ type: "button", data: { dismiss: "modal" } }
+          &times;
+          
+        %h4.modal-title
+          Sites
+      .modal-body{ style: 'max-height: 600px; overflow: auto; padding: 0; margin: 0;' }
+        %table.table
+          %thead
+            %tr
+              %th Site name
+              %th Location
+              %th Start Date
+              %th End Date
+              %th
+                %abbr{ title: 'Value added product' } VAP
+              %th 
+                Variables
+          %tbody
+            - @sites.each do |site|
+              %tr
+                %td
+                  %abbr{ title: site['sitename'] }
+                    = truncate(site['sitename'], length: 25, omission: '...')
+                %td
+                  %nobr= format_geolocation(site['geolocation'])
+                %td= DateTime.parse(site['begindatetimeutc']).to_date
+                %td= DateTime.parse(site['enddatetimeutc']).to_date
+                %td= site['derived_variables'].try(:join, ', ').try(:gsub, 'Daily', '')
+                %td= site['variables'].try(:uniq).try(:join, ', ')
+
+      .modal-footer
+        %button.btn.btn-default{ type: "button", data: { dismiss: "modal" } }
+          Close

@@ -15,10 +15,15 @@ class MapsController < ApplicationController
   
   def search
     
-    @imiq_api_url = imiq_api.sites_uri(search_params).to_s
-    
     respond_to do |format|
-      format.js
+      format.js {
+        if params[:commit] == 'Tabular View'
+          @sites = imiq_api.sites(search_params)
+          render 'table_results'
+        else
+          @imiq_api_url = imiq_api.sites_uri(search_params).to_s    
+        end
+      }
     end
   end
   
