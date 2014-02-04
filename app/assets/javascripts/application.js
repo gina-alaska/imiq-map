@@ -20,3 +20,11 @@
 //= require wicket/wicket-leaflet
 //= require bootstrap/dist/js/bootstrap
 //= require_tree .
+
+
+$(document).on('ajax:before', function() {
+  $('.spinner').removeClass('hidden');
+});
+$(document).on('ajax:complete', function() {
+  $('.spinner').addClass('hidden');
+});
