@@ -18,7 +18,9 @@ class MapsController < ApplicationController
     respond_to do |format|
       format.js {
         if params[:commit] == 'Tabular View'
-          @sites = imiq_api.sites(search_params)
+          p = search_params.merge({ verbose: true })
+          @sites = imiq_api.sites(p, params[:page], params[:limit])
+          
           render 'table_results'
         else
           @imiq_api_url = imiq_api.sites_uri(search_params).to_s    
@@ -30,7 +32,7 @@ class MapsController < ApplicationController
   protected
   
   def search_params
-    @search ||= params.permit(:q, :datatype, :samplemedium, :generalcategory, :valuetype, :variablename, :organizationcode, :derived_values)
+    @search ||= params.permit(:q, :datatype, :samplemedium, :generalcategory, :valuetype, :variablename, :organizationcode, :derived_values, :bounds)
   end
   helper_method :search_params
 end

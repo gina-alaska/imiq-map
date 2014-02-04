@@ -1,4 +1,5 @@
 = form_tag '/search', remote: true, role: 'form', class: '', id: 'search-form' do
+  = hidden_field_tag :bounds, params[:bounds], id: 'bounds_field'
   .form-group
     = label_tag :organizationcode, 'Organizations', class: 'control-label'
     = select_tag :organizationcode, organization_option_list, prompt: 'Select an organization', class: 'form-control'
@@ -29,3 +30,13 @@
   .btn-group.pull-right
     = submit_tag 'Tabular View', class: 'btn btn-default'
     = submit_tag 'Search', class: 'btn btn-primary'
+    
+:javascript
+
+  $(document).on('aoi::drawn', function(e, layer) {
+    
+    $('#bounds_field').val(layer.getBounds().toBBoxString());
+  });
+  $(document).on('aoi::removed', function(e) {
+    $('#bounds_field').val('');
+  });

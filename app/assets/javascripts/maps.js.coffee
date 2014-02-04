@@ -70,7 +70,9 @@ class @Map
   handleDrawDeleted: (e) =>
     type = e.layerType
     layer = e.layer
-
+    
+    $(document).trigger('aoi::removed')
+    
     delete @filterBounds
     
   handleDrawEdited: (e) =>
@@ -85,6 +87,9 @@ class @Map
     @filterBounds = layer.getBounds()
     @drawnItems.clearLayers()
     @drawnItems.addLayer(layer)
+
+    $(document).trigger('aoi::drawn', [layer])
+
     @map.fitBounds(@filterBounds)
     
   finishRequest: =>
@@ -109,7 +114,7 @@ class @Map
           
     @markers.addLayer(
       L.geoJson(geojson, {
-        filter: @filterMarkers,
+        # filter: @filterMarkers,
         onEachFeature: (feature, layer) =>
           layer.bindPopup(@description(feature));
       })
@@ -133,18 +138,21 @@ class @Map
       
   description: (feature) ->
     output = """
-      <fieldset class='site-marker-popup'><legend>#{feature.properties.sitename}</legend>
-        <label>Site ID: </label> #{feature.properties.siteid}<br/>
-        <label>Lat/Lon/Elev: </label> (#{feature.geometry.coordinates[1].toFixed(2)}, #{feature.geometry.coordinates[0].toFixed(2)}, #{feature.geometry.coordinates[2]} M) <br/>
-        <label>Organization: </label> #{feature.properties.source.organization} <br/>
-        <label>Contact Name: </label> #{feature.properties.source.contactname} <br/>
-        <label>Contact Info: </label> <a href=#{feature.properties.source.sourcelink} target="_blank">#{feature.properties.source.sourcelink}</a><br/>
-        <label>Start Date (UTC): </label> #{feature.properties.begindatetimeutc} <br/>
-        <label>End Date (UTC): </label> #{feature.properties.enddatetimeutc} <br/>
-        <label>Variables: </label> <br/>
-        #{feature.properties.variables.join("<br/>")}<br/>
-        <a href="/sites/#{feature.properties.siteid}" data-remote="true" class="btn btn-primary" >Export Daily Values</a>
-      </fieldset>
+      <dl class='site-marker-popup dl-horizontal'>
+        <legend>#{feature.properties.sitename}</legend>
+        <dt>Site ID: </dt><dd> #{feature.properties.siteid}</dd>
+        <dt>Lat/Lon/Elev: </dt><dd> (#{feature.geometry.coordinates[1].toFixed(2)}, #{feature.geometry.coordinates[0].toFixed(2)}, #{feature.geometry.coordinates[2]} M) </dd>
+        <dt>Organization: </dt><dd> #{feature.properties.source.organization} </dd>
+        <dt>Contact Name: </dt><dd> #{feature.properties.source.contactname} </dd>
+        <dt>Contact Info: </dt><dd> <a href=#{feature.properties.source.sourcelink} target="_blank">#{feature.properties.source.sourcelink}</a></dd>
+        <dt>Start Date (UTC): </dt><dd> #{feature.properties.begindatetimeutc} </dd>
+        <dt>End Date (UTC): </dt><dd> #{feature.properties.enddatetimeutc}</dd>
+        <dt>Variables: </dt>
+        <dd>
+        #{feature.properties.variables.join(", ")}
+        </dd>
+        <a href="/sites/#{feature.properties.siteid}" data-remote="true" class="btn btn-block btn-primary" >Export Daily Values</a>
+      </dl>
     """
     
     output
