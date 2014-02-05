@@ -1,6 +1,10 @@
 = form_tag '/search', remote: true, role: 'form', class: '', id: 'search-form' do
   = hidden_field_tag :bounds, params[:bounds], id: 'bounds_field'
   .form-group
+    = label_tag :q, 'Keywords', class: 'control-label'
+    = text_field_tag :q, params[:q], class: 'form-control'
+    
+  .form-group
     = label_tag :organizationcode, 'Organizations', class: 'control-label'
     = select_tag :organizationcode, organization_option_list, prompt: 'Select an organization', class: 'form-control'
 
@@ -27,9 +31,8 @@
   .form-group
     = label_tag :derived_values, 'Value-Added Products', class: 'control-label'
     = select_tag :derived_values, options_for_select(imiq_api.variables_list['derived_variables']), prompt: 'Select a value-added product',  class: 'form-control'
-  .btn-group.pull-right
-    = submit_tag 'Tabular View', class: 'btn btn-default'
-    = submit_tag 'Search', class: 'btn btn-primary'
+  = submit_tag 'Search', class: 'btn btn-primary'
+  = submit_tag 'Tabular View', class: 'btn btn-default pull-right'
     
 :javascript
 
