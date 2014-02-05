@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require leaflet/leaflet
+//= require gina-map-layers/adapters/leaflet
 //= require leaflet.draw/dist/leaflet.draw
 //= require markerclusters/dist/leaflet.markercluster
 //= require wicket/wicket

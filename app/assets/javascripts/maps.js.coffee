@@ -4,10 +4,21 @@
 class @Map
   constructor: (@selector, when_ready_func = null) ->
     L.Icon.Default.imagePath = '/images';
-    @map = L.map(@selector).setView([65, -155], 5)
+    @map = L.map(@selector, {
+      maxZoom: 10
+    }).setView([65, -155], 5)
     
-    L.tileLayer('http://tiles.gina.alaska.edu/tilesrv/bdl/tile/{x}/{y}/{z}', {
-      maxZoom: 15
+    baseLayers = {}
+    for slug in ['TILE.EPSG:3857.BDL', 'TILE.EPSG:3857.TOPO', 'TILE.EPSG:3857.SHADED_RELIEF', 'TILE.EPSG:3857.LANDSAT_PAN']
+      l = Gina.Layers.get(slug, true)
+      baseLayers[l.name] = l.instance if l?
+    @map.addLayer(baseLayers['Best Data Layer'])  
+    
+    # L.tileLayer('http://tiles.gina.alaska.edu/tilesrv/bdl/tile/{x}/{y}/{z}', {
+    #   maxZoom: 15
+    # }).addTo(@map);
+    @layers_control = L.control.layers(baseLayers, [], {
+      autoZIndex: true
     }).addTo(@map);
     
     @initializeDrawControls()
