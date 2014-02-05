@@ -8,26 +8,11 @@
         %h4.modal-title
           Export Value-Added Products
       .modal-body
-          
-        - @sitedervars.each do |sitedervar|
-          - if "#{sitedervar}" == "airtemp"
-            %p= link_to "Daily Air Temperature", "http://imiq-api.dev/daily/airtemp?siteid=#{params[:id]}"
-          - if "#{sitedervar}" == "relativehumidity"
-            %p= link_to "Daily Relative Humidity", "http://imiq-api.dev/daily/relativehumidity?siteid=#{params[:id]}"
-          - if "#{sitedervar}" == "discharge"
-            %p= link_to "Daily Discharge", "http://imiq-api.dev/daily/discharge?siteid=#{params[:id]}"
-          - if "#{sitedervar}" == "precipitation"
-            %p= link_to "Daily Precipitation", "http://imiq-api.dev/daily/precipitation?siteid=#{params[:id]}"
-          - if "#{sitedervar}" == "snowdepth"
-            %p= link_to "Daily Snow Depth", "http://imiq-api.dev/daily/snowdepth?siteid=#{params[:id]}"
-          - if "#{sitedervar}" == "swe"
-            %p= link_to "Daily Snow Water Equivalent", "http://imiq-api.dev/daily/swe?siteid=#{params[:id]}"
-          - if "#{sitedervar}" == "winddirection"
-            %p= link_to "Daily Wind Direction", "http://imiq-api.dev/daily/winddirection?siteid=#{params[:id]}"              
-          - if "#{sitedervar}" == "windspeed"
-            %p= link_to "Daily Wind Speed", "http://imiq-api.dev/daily/windspeed?siteid=#{params[:id]}"
-              
-      
+        - @download_urls.each do |time_period, url_list|
+          %h4= time_period.humanize
+          %ul.nav
+            - url_list.each do |name,url|
+              %li= link_to name.humanize, url
 
       .modal-footer
         %button.btn.btn-default{ type: "button", data: { dismiss: "modal" } }

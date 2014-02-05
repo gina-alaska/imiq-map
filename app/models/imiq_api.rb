@@ -20,6 +20,10 @@ class ImiqAPI
     self.class.get("/sites/#{id}.#{format}?#{options.to_param}")
   end
   
+  def site_downloads(id, format=:json, options = {})
+    self.class.get("/sites/#{id}/downloads.#{format}?#{options.to_param}")
+  end
+  
   #get list of unique varible values
   def variables_list
     @variables_list ||= self.class.get("/variables/list.json")

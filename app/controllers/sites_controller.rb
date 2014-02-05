@@ -1,7 +1,7 @@
 class SitesController < ApplicationController
   def show
-    @site = imiq_api.site(params[:id], :json, { verbose: true })
-    @sitedervars = @site['derived_variables']
+    @download_urls = imiq_api.site_downloads(params[:id])
+    
     respond_to do |format|
       format.js
     end
