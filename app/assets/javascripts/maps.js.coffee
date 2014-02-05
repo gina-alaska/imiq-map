@@ -5,7 +5,7 @@ class @Map
   constructor: (@selector, when_ready_func = null) ->
     L.Icon.Default.imagePath = '/images';
     @map = L.map(@selector, {
-      maxZoom: 10
+      maxZoom: 13
     }).setView([65, -155], 5)
     
     baseLayers = {}
