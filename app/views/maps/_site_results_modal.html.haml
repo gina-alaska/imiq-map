@@ -27,8 +27,8 @@
                     = truncate(site['sitename'], length: 25, omission: '...')
                 %td
                   %nobr= format_geolocation(site['geolocation'])
-                %td= DateTime.parse(site['begindatetimeutc']).to_date if site['begindatetimeutc'].present?
-                %td= DateTime.parse(site['enddatetimeutc']).to_date if site['enddatetimeutc'].present?
+                %td= site['begin_date'] if site['begin_date'].present?
+                %td= site['end_date'] if site['end_date'].present?
                 %td= site['derived_variables'].try(:join, ', ').try(:gsub, 'Daily', '')
                 %td= site['variables'].try(:uniq).try(:join, ', ')
 

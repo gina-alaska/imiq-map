@@ -156,8 +156,8 @@ class @Map
         <dt>Organization: </dt><dd> #{feature.properties.source.organization} </dd>
         <dt>Contact Name: </dt><dd> #{feature.properties.source.contactname} </dd>
         <dt>Contact Info: </dt><dd> <a href=#{feature.properties.source.sourcelink} target="_blank">#{feature.properties.source.sourcelink}</a></dd>
-        <dt>Start Date (UTC): </dt><dd> #{feature.properties.begindatetimeutc} </dd>
-        <dt>End Date (UTC): </dt><dd> #{feature.properties.enddatetimeutc}</dd>
+        <dt>Start Date (UTC): </dt><dd> #{feature.properties.begin_date} </dd>
+        <dt>End Date (UTC): </dt><dd> #{feature.properties.end_date}</dd>
         <dt>Variables: </dt>
         <dd>
         #{feature.properties.variables.join("; ")}
