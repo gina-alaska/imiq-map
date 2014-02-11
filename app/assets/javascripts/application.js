@@ -11,8 +11,10 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
 //= require turbolinks
+
 //= require leaflet/leaflet
 //= require gina-map-layers/adapters/leaflet
 //= require leaflet.draw/dist/leaflet.draw
@@ -31,13 +33,21 @@ $(document).on('ajax:complete', function() {
 });
 
 var initialize_map = function() {
-  console.log('test');
-  if ($('#map')) {
+  el = $('#map');
+  if (el[0]) {
     var map = new Map('map');
     $('#map').data('map', map);
-    map.fromPagedAPI('#{ imiq_api.sites_uri }');    
+    $('document').trigger('map:load', [map]);
+    $('#search-form').submit();
   }
 }
 
+var load_map_results = function(url) {
+ var map = $('#map').data('map');
+ map.startSearch();
+ map.clearMarkers();
+ map.fromPagedAPI(url);    
+}
+
 // $(document).on('ready', initialize_map);
-$(document).on('page:change', initialize_map);
+$(document).ready(initialize_map);

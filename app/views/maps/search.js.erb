@@ -1,4 +1,1 @@
-var map = $('#map').data('map');
-map.startSearch()
-map.clearMarkers();
-map.fromPagedAPI('<%= @imiq_api_url.html_safe %>');
+load_map_results('<%= @imiq_api_url.html_safe %>');
