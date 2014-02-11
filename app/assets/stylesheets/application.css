@@ -26,16 +26,20 @@ html, body {
 }
 
 #header {
-  height: 45px;
+  height: 42px;
   margin:0;
-  padding:5px;
+  padding:0;
+  padding-top: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #133766;
 }
 
 #header h1 {
-  padding:0;
-  margin:0;
-  font-size: 35px;
-  line-height: 35px;
+  margin: 0;
+  padding: 0;
+  font-size: 30px;
+  color: #fff;
 }
 
 #footer {
@@ -44,11 +48,14 @@ html, body {
   height: 20px;
   margin: 0;
   padding: 0;
+  width: 100%;
+  background-color: #000;
+  color: #fff;
 }
 
 #content {
   position: absolute;
-  top: 45px;
+  top: 42px;
   bottom: 20px;
   width: 100%;
 }
