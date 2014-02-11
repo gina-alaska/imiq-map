@@ -29,3 +29,15 @@ $(document).on('ajax:before', function() {
 $(document).on('ajax:complete', function() {
   $('.spinner').addClass('hidden');
 });
+
+var initialize_map = function() {
+  console.log('test');
+  if ($('#map')) {
+    var map = new Map('map');
+    $('#map').data('map', map);
+    map.fromPagedAPI('#{ imiq_api.sites_uri }');    
+  }
+}
+
+// $(document).on('ready', initialize_map);
+$(document).on('page:change', initialize_map);
