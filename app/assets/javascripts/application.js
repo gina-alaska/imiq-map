@@ -32,6 +32,13 @@ $(document).on('ajax:complete', function() {
   $('.spinner').addClass('hidden');
 });
 
+$(document).on('page:fetch', function() {
+  $('.spinner').removeClass('hidden');
+});
+$(document).on('page:load', function() {
+  $('.spinner').addClass('hidden');
+});
+
 var initialize_map = function() {
   el = $('#map');
   if (el[0]) {
