@@ -10,8 +10,8 @@
  *
  *= require leaflet/leaflet
  *= require leaflet.draw/dist/leaflet.draw
- *= require markerclusters/dist/MarkerCluster.css 
- *= require markerclusters/dist/MarkerCluster.Default.css 
+ *= require leaflet.markercluster/dist/MarkerCluster.css 
+ *= require leaflet.markercluster/dist/MarkerCluster.Default.css 
  *= require bootstrap/dist/css/bootstrap
  *= require_self
  *= require_tree .

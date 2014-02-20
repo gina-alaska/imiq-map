@@ -127,7 +127,7 @@ class @Map
    
   fromGeoJSON: (geojson) =>
     unless @markers?
-      @markers = new L.MarkerClusterGroup({ maxClusterRadius: 40, disableClusteringAtZoom: 6 })
+      @markers = new L.MarkerClusterGroup({ maxClusterRadius: 40, disableClusteringAtZoom: 8 })
       @map.addLayer(@markers)
           
     @markers.addLayer(
