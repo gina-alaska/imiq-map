@@ -22,15 +22,40 @@ html, body {
   height: 100%;
   padding:0;
   margin:0;
+  position: relative;
 }
 
 #header {
-  height: 80px;
+  height: 42px;
   margin:0;
   padding:0;
+  padding-top: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #133766;
+}
+
+#header h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 30px;
+  color: #fff;
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: #000;
+  color: #fff;
 }
 
 #content {
-  height: 100%;
+  position: absolute;
+  top: 42px;
+  bottom: 20px;
   width: 100%;
 }

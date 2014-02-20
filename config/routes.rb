@@ -1,4 +1,6 @@
 ImiqMap::Application.routes.draw do
+  resources :pages
+
   resources :maps
   resources :sites, only: [:show]
   # The priority is based upon order of creation: first created -> highest priority.
@@ -6,9 +8,12 @@ ImiqMap::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
-  root 'maps#index'
+  root 'pages#show'
   
   post '/search' => 'maps#search'
+  
+  
+  get '/:id' => 'pages#show'
   
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

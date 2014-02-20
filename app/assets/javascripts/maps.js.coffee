@@ -22,14 +22,12 @@ class @Map
     }).addTo(@map);
     
     @initializeDrawControls()
-    @map.whenReady(when_ready_func, @) if when_ready_func? 
-    @startSearch()          
   
   clearMarkers: =>
     if @request?
       @request.abort();
-      
-    @markers.clearLayers();
+    if @markers?
+      @markers.clearLayers();
   
   filterByBounds: (bounds) =>
     @markers.clearLayers()

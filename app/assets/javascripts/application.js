@@ -11,8 +11,10 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
 //= require turbolinks
+
 //= require leaflet/leaflet
 //= require gina-map-layers/adapters/leaflet
 //= require leaflet.draw/dist/leaflet.draw
@@ -29,3 +31,30 @@ $(document).on('ajax:before', function() {
 $(document).on('ajax:complete', function() {
   $('.spinner').addClass('hidden');
 });
+
+$(document).on('page:fetch', function() {
+  $('.spinner').removeClass('hidden');
+});
+$(document).on('page:load', function() {
+  $('.spinner').addClass('hidden');
+});
+
+var initialize_map = function() {
+  el = $('#map');
+  if (el[0]) {
+    var map = new Map('map');
+    $('#map').data('map', map);
+    $('document').trigger('map:load', [map]);
+    $('#search-form').submit();
+  }
+}
+
+var load_map_results = function(url) {
+ var map = $('#map').data('map');
+ map.startSearch();
+ map.clearMarkers();
+ map.fromPagedAPI(url);    
+}
+
+// $(document).on('ready', initialize_map);
+$(document).ready(initialize_map);
