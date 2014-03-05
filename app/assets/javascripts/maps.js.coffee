@@ -115,15 +115,26 @@ class @Map
   fromAPI: (url) =>
     $.getJSON url, @fromGeoJSON
   
+  
+  geojsonMarkerOptions: {
+      radius: 8,
+      fillColor: "#d13636",
+      color: "#000",
+      weight: 1,
+      opacity: 1,
+      fillOpacity: 0.8
+  }
+   
   fromGeoJSON: (geojson) =>
     unless @markers?
-      @markers = new L.MarkerClusterGroup()
+      @markers = new L.MarkerClusterGroup({ maxClusterRadius: 40, disableClusteringAtZoom: 5 })
       @map.addLayer(@markers)
-      @markers.on('click', @markerClick)
           
     @markers.addLayer(
       L.geoJson(geojson, {
         # filter: @filterMarkers,
+        pointToLayer: (feature, latlng) =>
+          L.circleMarker(latlng, @geojsonMarkerOptions);         
         onEachFeature: (feature, layer) =>
           layer.bindPopup(@description(feature));
       })

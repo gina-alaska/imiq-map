@@ -18,7 +18,7 @@
 //= require leaflet/leaflet
 //= require gina-map-layers/adapters/leaflet
 //= require leaflet.draw/dist/leaflet.draw
-//= require markerclusters/dist/leaflet.markercluster
+//= require leaflet.markercluster/dist/leaflet.markercluster
 //= require wicket/wicket
 //= require wicket/wicket-leaflet
 //= require bootstrap/dist/js/bootstrap
