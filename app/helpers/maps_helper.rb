@@ -15,4 +15,31 @@ module MapsHelper
       "(#{results[2].to_f.round(3)}, #{results[1].to_f.round(3)})"
     end
   end
+  
+  def timesteps
+    [['Hourly','hourly'],['Daily', 'daily']]
+  end
+  
+  def geophysical_params(type = 'any')
+    vars = {
+      'daily'=> [
+        ['Discharge', 'discharge']  
+      ],
+      'hourly'=> [
+      ],
+      'any'=> [
+        ['Discharge', 'discharge']
+      ]   
+    }
+    
+    [
+      [ 'Air Temperature'       , 'air_temp'             ],            
+      [ 'Relative Humidity'     , 'relative_humidity'    ],   
+      [ 'Wind Speed'            , 'wind_speed'           ],         
+      [ 'Wind Direction'        , 'wind_direction'       ],
+      [ 'Precipitation'         , 'precipitation'        ],       
+      [ 'Snow Depth'            , 'snow_depth'           ],         
+      [ 'Snow Water Equivalent' , 'snow_water_equivalent']
+    ] + (vars[type].present? ? vars[type] : [])
+  end
 end
