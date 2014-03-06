@@ -22,6 +22,7 @@
 //= require wicket/wicket
 //= require wicket/wicket-leaflet
 //= require bootstrap/dist/js/bootstrap
+//= require bootstrap3-datepicker/js/bootstrap-datepicker
 //= require_tree .
 
 
@@ -53,7 +54,7 @@ var load_map_results = function(url) {
  var map = $('#map').data('map');
  map.startSearch();
  map.clearMarkers();
- map.fromPagedAPI(url);    
+ map.fromPagedAPI(url);
 }
 
 // $(document).on('ready', initialize_map);

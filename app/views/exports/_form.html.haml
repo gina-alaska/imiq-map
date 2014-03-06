@@ -25,21 +25,20 @@
                 %td= site['begin_date'] if site['begin_date'].present?
                 %td= site['end_date'] if site['end_date'].present?
                 %td= site['derived_variables'].try(:join, ', ').try(:gsub, 'Daily', '')
-      .text-right{ style: 'padding:10px; border-top: 1px solid #efefef;' }              
+      .text-right{ style: 'padding:10px; border-top: 1px solid #efefef;' }
         %a.btn.btn-primary{ href: '#export-options', data: { toggle: 'tab' } }
           Next
           %i.glyphicon.glyphicon-arrow-right
     #export-options.tab-pane
       .form-content{ style: 'padding:10px;' }
-        .row
-          .col-lg-6        
-            .form-group
-              = f.label :starts_at, class: 'control-label'
-              = f.text_field :starts_at, class: 'form-control'
-          .col-lg-6
-            .form-group
-              = f.label :ends_at, class: 'control-label'
-              = f.text_field :ends_at, class: 'form-control'
+        .form-group
+          .row
+            .col-lg-4.col-md-4.col-sm-12
+              = f.label :starts_at, 'Date Range', class: 'control-label'
+              .input-daterange.input-group
+                = f.text_field :starts_at, class: 'form-control'
+                %span.input-group-addon to
+                = f.text_field :ends_at, class: 'form-control'
         .form-group
           %label Timestep
           - timesteps.each do |timestep|
@@ -54,9 +53,13 @@
               %label
                 = check_box :export, :variables, { multiple: true }, variable[1], nil
                 = variable[0]
-      .text-left{ style: 'padding:10px; border-top: 1px solid #efefef;' }                    
+      .text-left{ style: 'padding:10px; border-top: 1px solid #efefef;' }
         %a.btn.btn-primary{ href: '#site-list', data: { toggle: "tab" } }
           %i.glyphicon.glyphicon-arrow-left
           Back
-        = f.submit 'Export', class: 'btn btn-primary pull-right'                
-          
+        = f.submit 'Export', class: 'btn btn-primary pull-right'
+:javascript
+  $('.input-daterange').datepicker({
+    autoclose: true,
+    todayHighlight: true
+  });
