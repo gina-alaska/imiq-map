@@ -17,11 +17,12 @@ class MapsController < ApplicationController
     
     respond_to do |format|
       format.js {
-        if params[:commit] == 'Tabular View'
+        if params[:commit] == 'Export'
           p = search_params.merge({ verbose: true })
           @sites = imiq_api.sites(p, params[:page], params[:limit])
+          @export = Export.new
           
-          render 'table_results'
+          render '/exports/new'
         else
           @imiq_api_url = imiq_api.sites_uri(search_params).to_s    
         end

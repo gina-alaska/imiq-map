@@ -7,14 +7,11 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <section id="header">
-    <%= render 'layouts/header' %>
-  </section>
   <section id="content">
     <%= yield %>
   </section>
   <section id="footer">
-    Test
+    <%= render 'layouts/footer' %>
   </section>
   <div class="spinner hidden">
     <div class="rect1"></div>
