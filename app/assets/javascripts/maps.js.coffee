@@ -4,22 +4,40 @@
 class @Map
   constructor: (@selector, when_ready_func = null) ->
     L.Icon.Default.imagePath = '/images';
-    @map = L.map(@selector, {
-      maxZoom: 13
-    }).setView([65, -155], 5)
+    @map = L.mapbox.map(@selector, {
+      "attribution": "<a href='https://www.mapbox.com/about/maps/' target='_blank'>&copy; Mapbox &copy; OpenStreetMap</a> <a class='mapbox-improve-map' href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a>",
+      "autoscale": true,
+      "bounds": [-180, -85, 180, 85],
+      "center": [-152.841796875, 64.20637724320852, 5],
+      "description": "Lighter colors to work better on presentation",
+      "maxzoom": 19,
+      "minzoom": 0,
+      "name": "IMIQ Map",
+      "scheme": "xyz",
+      "tilejson": "2.0.0",
+      "tiles": ["http://a.tiles.mapbox.com/v3/gina-alaska.heb1gpfg/{z}/{x}/{y}.png", "http://b.tiles.mapbox.com/v3/gina-alaska.heb1gpfg/{z}/{x}/{y}.png", "http://c.tiles.mapbox.com/v3/gina-alaska.heb1gpfg/{z}/{x}/{y}.png", "http://d.tiles.mapbox.com/v3/gina-alaska.heb1gpfg/{z}/{x}/{y}.png"],
+    })
 
-    baseLayers = {}
+    baseLayers = {
+      'Terrain': L.mapbox.tileLayer('gina-alaska.heb1gpfg')
+    }
+
     for slug in ['TILE.EPSG:3857.BDL', 'TILE.EPSG:3857.TOPO', 'TILE.EPSG:3857.SHADED_RELIEF', 'TILE.EPSG:3857.LANDSAT_PAN']
       l = Gina.Layers.get(slug, true)
       baseLayers[l.name] = l.instance if l?
-    @map.addLayer(baseLayers['Best Data Layer'])
+    @map.addLayer(baseLayers['Terrain'])
 
     # L.tileLayer('http://tiles.gina.alaska.edu/tilesrv/bdl/tile/{x}/{y}/{z}', {
     #   maxZoom: 15
     # }).addTo(@map);
     @layers_control = L.control.layers(baseLayers, [], {
       autoZIndex: true
-    }).addTo(@map);
+    }).addTo(@map)
+
+    L.control.coordinates({
+      position:"bottomleft",
+      useLatLngOrder: true
+    }).addTo(@map)
 
     @initializeDrawControls()
 
@@ -127,7 +145,7 @@ class @Map
 
   fromGeoJSON: (geojson) =>
     unless @markers?
-      @markers = new L.MarkerClusterGroup({ maxClusterRadius: 40, disableClusteringAtZoom: 5 })
+      @markers = new L.MarkerClusterGroup({ maxClusterRadius: 50, disableClusteringAtZoom: 5 })
       @map.addLayer(@markers)
 
     @markers.addLayer(
