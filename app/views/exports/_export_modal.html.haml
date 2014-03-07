@@ -1,0 +1,12 @@
+.modal.fade
+  .modal-dialog{ style: 'min-width: 1024px;' }
+    .modal-content
+      .modal-header
+        %button.close{ type: "button", data: { dismiss: "modal" } }
+          &times;
+            
+        %h4.modal-title
+          Export options
+
+      .modal-body{ style: 'max-height: 800px; overflow: auto; padding: 0; margin: 0;' }
+        = render '/exports/form'

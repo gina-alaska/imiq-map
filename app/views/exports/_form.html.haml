@@ -1,0 +1,65 @@
+= form_for @export do |f|
+  .tab-content
+    #site-list.tab-pane.active
+      .list{ style: 'max-height: 500px; overflow: auto;' }
+        %table.table
+          %thead
+            %tr
+              %th
+                = check_box_tag :select_all, 1, true
+              %th Site name
+              %th Location
+              %th Start Date
+              %th End Date
+              %th Geophysical Parameters
+          %tbody
+            - @sites.each do |site|
+              %tr
+                %td
+                  = check_box_tag "sites[]", site['siteid'], true
+                %td
+                  %abbr{ title: site['sitename'] }
+                    = truncate(site['sitename'], length: 25, omission: '...')
+                %td
+                  %nobr= format_geolocation(site['geolocation'])
+                %td= site['begin_date'] if site['begin_date'].present?
+                %td= site['end_date'] if site['end_date'].present?
+                %td= site['derived_variables'].try(:join, ', ').try(:gsub, 'Daily', '')
+      .text-right{ style: 'padding:10px; border-top: 1px solid #efefef;' }
+        %a.btn.btn-primary{ href: '#export-options', data: { toggle: 'tab' } }
+          Next
+          %i.glyphicon.glyphicon-arrow-right
+    #export-options.tab-pane
+      .form-content{ style: 'padding:10px;' }
+        .form-group
+          .row
+            .col-lg-4.col-md-4.col-sm-12
+              = f.label :starts_at, 'Date Range', class: 'control-label'
+              .input-daterange.input-group
+                = f.text_field :starts_at, class: 'form-control'
+                %span.input-group-addon to
+                = f.text_field :ends_at, class: 'form-control'
+        .form-group
+          %label Timestep
+          - timesteps.each do |timestep|
+            .radio
+              %label
+                = f.radio_button :timestep, timestep[1], { checked: timestep == timesteps.first }
+                = timestep[0]
+        .form-group
+          %label Geogphysical Parameters
+          - geophysical_params.each do |variable|
+            .checkbox
+              %label
+                = check_box :export, :variables, { multiple: true }, variable[1], nil
+                = variable[0]
+      .text-left{ style: 'padding:10px; border-top: 1px solid #efefef;' }
+        %a.btn.btn-primary{ href: '#site-list', data: { toggle: "tab" } }
+          %i.glyphicon.glyphicon-arrow-left
+          Back
+        = f.submit 'Export', class: 'btn btn-primary pull-right'
+:javascript
+  $('.input-daterange').datepicker({
+    autoclose: true,
+    todayHighlight: true
+  });

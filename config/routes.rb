@@ -1,6 +1,6 @@
 ImiqMap::Application.routes.draw do
   resources :pages
-
+  resources :exports
   resources :maps
   resources :sites, only: [:show]
   # The priority is based upon order of creation: first created -> highest priority.
