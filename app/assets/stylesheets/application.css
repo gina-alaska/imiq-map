@@ -62,3 +62,12 @@ html, body {
   bottom: 25px;
   width: 100%;
 }
+
+#flash_messages {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  margin-left: -300px;
+  width: 350px;
+  z-index: 10000;
+}

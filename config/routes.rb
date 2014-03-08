@@ -8,13 +8,13 @@ ImiqMap::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
-  root 'pages#show'
-  
+  root 'maps#index'
+
   post '/search' => 'maps#search'
-  
-  
+
+
   get '/:id' => 'pages#show'
-  
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

@@ -1,7 +1,7 @@
 - dvars = []
-- mindate = @sites.first['begin_date']
-- maxdate = @sites.first['end_date']
-  
+- mindate = @sites.first.try(:[], 'begin_date')
+- maxdate = @sites.first.try(:[], 'end_date')
+
 = form_for @export do |f|
   .tab-content
     #site-list.tab-pane.active

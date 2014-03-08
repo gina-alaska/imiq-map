@@ -10,10 +10,11 @@ class ExportsController < ApplicationController
     @export = Export.new(export_params)
     respond_to do |format|
       format.html {
-        if @export.save
+        if @export.save and @export.urls.count > 0
           redirect_to @export.urls.first.to_s
         else
-          render :edit
+          flash[:danger] = "Unable to export using the given options"
+          redirect_to root_path
         end
       }
     end
