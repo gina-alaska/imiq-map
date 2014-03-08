@@ -19,7 +19,7 @@ class MapsController < ApplicationController
       format.js {
         if params[:commit] == 'Export'
           p = search_params.merge({ verbose: true })
-          @sites = imiq_api.sites(p, params[:page], params[:limit])
+          @sites = imiq_api.sites(p, 1, 1500)
           @export = Export.new
 
           render '/exports/new'

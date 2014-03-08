@@ -1,3 +1,7 @@
+- dvars = []
+- mindate = @sites.first['begin_date']
+- maxdate = @sites.first['end_date']
+  
 = form_for @export do |f|
   .tab-content
     #site-list.tab-pane.active
@@ -14,9 +18,12 @@
               %th Geophysical Parameters
           %tbody
             - @sites.each do |site|
+              - dvars += site['derived_variables']
+              - mindate = site['begin_date'] if mindate > site['begin_date']
+              - maxdate = site['end_date'] if maxdate < site['end_date']
               %tr
                 %td
-                  = check_box_tag "sites[]", site['siteid'], true
+                  = check_box_tag "export[sites][]", site['siteid'], true
                 %td
                   %abbr{ title: site['sitename'] }
                     = truncate(site['sitename'], length: 25, omission: '...')
@@ -24,7 +31,7 @@
                   %nobr= format_geolocation(site['geolocation'])
                 %td= site['begin_date'] if site['begin_date'].present?
                 %td= site['end_date'] if site['end_date'].present?
-                %td= site['derived_variables'].try(:join, ', ').try(:gsub, 'Daily', '')
+                %td= site['derived_variables'].try(:join, ', ')
       .text-right{ style: 'padding:10px; border-top: 1px solid #efefef;' }
         %a.btn.btn-primary{ href: '#export-options', data: { toggle: 'tab' } }
           Next
@@ -33,12 +40,14 @@
       .form-content{ style: 'padding:10px;' }
         .form-group
           .row
-            .col-lg-4.col-md-4.col-sm-12
-              = f.label :starts_at, 'Date Range', class: 'control-label'
-              .input-daterange.input-group
-                = f.text_field :starts_at, class: 'form-control'
-                %span.input-group-addon to
-                = f.text_field :ends_at, class: 'form-control'
+            .col-lg-2.col-md-2.col-sm-12
+              .form-group
+                = f.label :starts_at, class: 'control-label'
+                = f.text_field :starts_at, class: 'form-control datepicker', placeholder: 'YYYY/MM/DD'
+            .col-lg-2.col-md-2.col-sm-12
+              .form-group
+                = f.label :ends_at, class: 'control-label'
+                = f.text_field :ends_at, class: 'form-control datepicker', placeholder: 'YYYY/MM/DD'
         .form-group
           %label Timestep
           - timesteps.each do |timestep|
@@ -48,18 +57,23 @@
                 = timestep[0]
         .form-group
           %label Geogphysical Parameters
-          - geophysical_params.each do |variable|
+          - dvars.uniq!
+          - dvars.each do |variable|
             .checkbox
               %label
-                = check_box :export, :variables, { multiple: true }, variable[1], nil
-                = variable[0]
+                = check_box :export, :variables, { multiple: true }, variable.downcase.gsub(/\s+/, '_'), nil
+                = variable
       .text-left{ style: 'padding:10px; border-top: 1px solid #efefef;' }
         %a.btn.btn-primary{ href: '#site-list', data: { toggle: "tab" } }
           %i.glyphicon.glyphicon-arrow-left
           Back
         = f.submit 'Export', class: 'btn btn-primary pull-right'
 :javascript
-  $('.input-daterange').datepicker({
+  $('.datepicker').datepicker({
+    startDate: "#{mindate}",
+    endDate: "#{maxdate}",
     autoclose: true,
-    todayHighlight: true
+    todayHighlight: true,
+    forceParse: false,
+    format: 'yyyy/mm/dd'
   });
