@@ -11,6 +11,7 @@
   .form-group
     = label_tag :generalcategory, 'General Categories', class: 'control-label'
     = select_tag :generalcategory, options_for_select(imiq_api.variables_list['generalcategories']), prompt: 'Select a general category', class: 'form-control'
+    = label_tag :generalcategory, 'Environment Classifications', class: 'control-label'
 		
   -#  .form-group
   -#  label_tag :valuetype, 'Value Types', class: 'control-label'
