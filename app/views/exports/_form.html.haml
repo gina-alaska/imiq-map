@@ -10,7 +10,7 @@
           %thead
             %tr
               %th
-                = check_box_tag :select_all, 1, true
+                = check_box_tag :select_all, 1, true, data: { toggle: 'checkboxes', target: '.site_ids' }
               %th Site name
               %th Location
               %th Start Date
@@ -23,7 +23,7 @@
               - maxdate = site['end_date'] if maxdate < site['end_date']
               %tr
                 %td
-                  = check_box_tag "export[sites][]", site['siteid'], true
+                  = check_box_tag "export[sites][]", site['siteid'], true, class: 'site_ids'
                 %td
                   %abbr{ title: site['sitename'] }
                     = truncate(site['sitename'], length: 25, omission: '...')
