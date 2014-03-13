@@ -53,7 +53,7 @@
           - timesteps.each do |timestep|
             .radio
               %label
-                = f.radio_button :timestep, timestep[1], { checked: timestep == timesteps.first }
+                = f.radio_button :timestep, timestep[1], { checked: timestep == timesteps.first, class: 'export_timestep' }
                 = timestep[0]
         .form-group
           %label Geogphysical Parameters
@@ -61,7 +61,7 @@
           - dvars.each do |variable|
             .checkbox
               %label
-                = check_box :export, :variables, { multiple: true }, variable.downcase.gsub(/\s+/, '_'), nil
+                = check_box :export, :variables, { multiple: true, class: 'export_variable'}, variable.downcase.gsub(/\s+/, '_'), nil
                 = variable
       .text-left{ style: 'padding:10px; border-top: 1px solid #efefef;' }
         %a.btn.btn-primary{ href: '#site-list', data: { toggle: "tab" } }
@@ -77,3 +77,12 @@
     forceParse: false,
     format: 'yyyy/mm/dd'
   });
+
+  var selected_timestep = $('#time_step option:selected').val();
+  if (selected_timestep.toLowerCase() != 'any') {
+    $('.export_timestep[value="'+ selected_timestep  +'"]').click();
+  }
+  var selected_variable = $('#variablename option:selected').val();
+  if (selected_variable.toLowerCase() != 'any') {
+    $('.export_variable[value="'+ selected_variable +'"]').click();
+  }
