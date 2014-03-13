@@ -6,11 +6,11 @@
     
   .form-group
     = label_tag :organizationcode, 'Organizations', class: 'control-label'
-    = select_tag :organizationcode, organization_option_list, prompt: 'Select an organization', class: 'form-control'
+    = select_tag :organizationcode, organization_option_list, prompt: 'Any', class: 'form-control'
 
   .form-group
-    = label_tag :generalcategory, 'General Categories', class: 'control-label'
-    = select_tag :generalcategory, options_for_select(imiq_api.variables_list['generalcategories']), prompt: 'Select a general category', class: 'form-control'
+    = label_tag :generalcategory, 'Environment Classifications', class: 'control-label'
+    = select_tag :generalcategory, options_for_select(imiq_api.variables_list['generalcategories']), prompt: 'Any', class: 'form-control'
 		
   -#  .form-group
   -#  label_tag :valuetype, 'Value Types', class: 'control-label'
@@ -19,10 +19,10 @@
   .form-group
     = label_tag :variablename, 'Geophysical Parameters', class: 'control-label'
     / = select_tag :variablename, options_for_select(imiq_api.variables_list['names']), prompt: 'Select a variable name', class: 'form-control'
-    = select_tag :variablename, options_for_select(geophysical_params), prompt: 'Select a geophysical parameter', class: 'form-control'
+    = select_tag :variablename, options_for_select(geophysical_params), prompt: 'Any', class: 'form-control'
 	
   .form-group
-    = label_tag :time_step, 'Time Step', class: 'control-label'
+    = label_tag :time_step, 'Time Steps', class: 'control-label'
     = select_tag :time_step, options_for_select(timesteps), prompt: 'Any', class: 'form-control'
       
   -#.form-group
