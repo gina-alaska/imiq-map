@@ -1,41 +1,47 @@
-= form_tag '/search', remote: true, role: 'form', class: '', id: 'search-form' do
-  = hidden_field_tag :bounds, params[:bounds], id: 'bounds_field'
-  .form-group
-    = label_tag :q, 'Keywords', class: 'control-label'
-    = text_field_tag :q, params[:q], class: 'form-control'
-    
-  .form-group
-    = label_tag :organizationcode, 'Organizations', class: 'control-label'
-    = select_tag :organizationcode, organization_option_list, prompt: 'Any', class: 'form-control'
-
-  .form-group
-    = label_tag :generalcategory, 'Environment Classifications', class: 'control-label'
-    = select_tag :generalcategory, options_for_select(imiq_api.variables_list['generalcategories']), prompt: 'Any', class: 'form-control'
-		
-  -#  .form-group
-  -#  label_tag :valuetype, 'Value Types', class: 'control-label'
-  -#  select_tag :valuetype, options_for_select(imiq_api.variables_list['valuetypes']), prompt: 'Select a value type', class: 'form-control'
-		
-  .form-group
-    = label_tag :variablename, 'Geophysical Parameters', class: 'control-label'
-    / = select_tag :variablename, options_for_select(imiq_api.variables_list['names']), prompt: 'Select a variable name', class: 'form-control'
-    = select_tag :variablename, options_for_select(geophysical_params), prompt: 'Any', class: 'form-control'
-	
-  .form-group
-    = label_tag :time_step, 'Time Steps', class: 'control-label'
-    = select_tag :time_step, options_for_select(timesteps), prompt: 'Any', class: 'form-control'
-      
-  -#.form-group
-  -#  = label_tag :datatype, 'Data types', class: 'control-label'
-  -#  = select_tag :datatype, options_for_select(imiq_api.variables_list['datatypes']), prompt: 'Select a data type', class: 'form-control'
-		
-  -#.form-group
-  -#  = label_tag :samplemedium, 'Sample mediums', class: 'control-label'
-  -#  = select_tag :samplemedium, options_for_select(imiq_api.variables_list['samplemediums']), prompt: 'Select a sample medium',  class: 'form-control'
+= form_tag '/search', remote: true, role: 'form', class: 'form-horizontal', id: 'search-form' do
+  = label_tag :q, 'Keywords', class: 'control-label'
+  = text_field_tag :q, params[:q], class: 'form-control'
   
-  / .form-group
-  /   = label_tag :derived_values, 'Value-Added Products', class: 'control-label'
-  /   = select_tag :derived_values, options_for_select(imiq_api.variables_list['derived_variables']), prompt: 'Select a value-added product',  class: 'form-control'
+  = label_tag :organizationcode, 'Organizations', class: 'control-label'
+  = select_tag :organizationcode, organization_option_list, prompt: 'Any', class: 'form-control'
+
+  = label_tag :generalcategory, 'Environment Classifications', class: 'control-label'
+  = select_tag :generalcategory, options_for_select(imiq_api.variables_list['generalcategories']), prompt: 'Any', class: 'form-control'
+		
+  = label_tag :variablename, 'Geophysical Parameters', class: 'control-label'
+  / = select_tag :variablename, options_for_select(imiq_api.variables_list['names']), prompt: 'Select a variable name', class: 'form-control'
+  = select_tag :variablename, options_for_select(geophysical_params), prompt: 'Any', class: 'form-control'
+	
+  = label_tag :time_step, 'Time Steps', class: 'control-label'
+  = select_tag :time_step, options_for_select(timesteps), prompt: 'Any', class: 'form-control'
+
+  = label_tag :bounds, 'Bounds', class: 'control-label'
+  .row
+    .col-lg-2.col-md-2
+      &nbsp;
+    .col-lg-5.col-md-5
+      = label_tag :bounds_ll_lat, 'Latitude'
+    .col-lg-5.col-md-5
+      = label_tag :bounds_ll_lng, 'Longitude'
+  .row{ style: 'margin-bottom: 5px;' }
+    .col-lg-2.col-md-2
+      %abbr{ title: 'South West' }
+        = label_tag :lower_left, 'SW', class: 'control-label'
+        
+    .col-lg-5.col-md-5
+      = text_field_tag 'bounds[sw_lat]', params[:bounds].try(:[], :sw_lat), class: 'form-control bounds'
+    .col-lg-5.col-md-5
+      = text_field_tag 'bounds[sw_lng]', params[:bounds].try(:[], :sw_lng), class: 'form-control bounds'
+  .row
+    .col-lg-2.col-md-2
+      %abbr{ title: 'North East' }
+        = label_tag :upper_right, 'NE', class: 'control-label'       
+    .col-lg-5.col-md-5
+      = text_field_tag 'bounds[ne_lat]', params[:bounds].try(:[], :ne_lat), class: 'form-control bounds'
+    .col-lg-5.col-md-5
+      = text_field_tag 'bounds[ne_lng]', params[:bounds].try(:[], :ne_lng), class: 'form-control bounds'
+      
+  %br/
   = submit_tag 'Search', class: 'btn btn-primary'
   = submit_tag 'Export', class: 'btn btn-default pull-right'
     

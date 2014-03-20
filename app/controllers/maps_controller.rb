@@ -25,6 +25,7 @@ class MapsController < ApplicationController
           render '/exports/new'
         else
           @imiq_api_url = imiq_api.sites_uri(search_params).to_s
+          Rails.logger.info @imiq_api_url
         end
       }
     end
@@ -32,10 +33,10 @@ class MapsController < ApplicationController
 
   protected
 
-  def search_params
+  def search_params    
     @search ||= params.permit(:q, :datatype, :samplemedium, :generalcategory,
-      :valuetype, :variablename, :organizationcode, :derived_values, :bounds,
-      :time_step)
+      :valuetype, :variablename, :organizationcode, :derived_values,
+      :time_step, bounds: [:sw_lat, :sw_lng, :ne_lat, :ne_lng])      
   end
   helper_method :search_params
 end
