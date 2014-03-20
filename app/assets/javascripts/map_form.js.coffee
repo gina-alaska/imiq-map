@@ -12,7 +12,6 @@ class @MapForm
     try
       @map_container.drawBounds(L.rectangle(points, { color: '#f06eaa' }))
     catch
-      console.log 'foo'
     
   update_form_field: =>
     @field.val(@map_container.map.getBounds().toBBoxString())

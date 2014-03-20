@@ -121,7 +121,6 @@ class @Map
   drawBounds: (layer) =>
     @drawnItems.clearLayers()
     @drawnItems.addLayer(layer)
-    console.log(layer)
     
 
   filterByLayer: (layer) =>
