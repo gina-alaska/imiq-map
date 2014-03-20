@@ -8,7 +8,6 @@ class @Map
       "attribution": "<a href='https://www.mapbox.com/about/maps/' target='_blank'>&copy; Mapbox &copy; OpenStreetMap</a> <a class='mapbox-improve-map' href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a>",
       "autoscale": true,
       "bounds": [-180, -85, 180, 85],
-      "center": [-152.841796875, 64.20637724320852, 5],
       "description": "Lighter colors to work better on presentation",
       "maxzoom": 19,
       "minzoom": 0,
@@ -17,6 +16,9 @@ class @Map
       "tilejson": "2.0.0",
       "tiles": ["http://a.tiles.mapbox.com/v3/gina-alaska.heb1gpfg/{z}/{x}/{y}.png", "http://b.tiles.mapbox.com/v3/gina-alaska.heb1gpfg/{z}/{x}/{y}.png", "http://c.tiles.mapbox.com/v3/gina-alaska.heb1gpfg/{z}/{x}/{y}.png", "http://d.tiles.mapbox.com/v3/gina-alaska.heb1gpfg/{z}/{x}/{y}.png"],
     })
+    @defaultZoom()
+    
+    @form = new MapForm(@)
 
     baseLayers = {
       'Terrain': L.mapbox.tileLayer('gina-alaska.heb1gpfg')
@@ -41,6 +43,8 @@ class @Map
 
     @initializeDrawControls()
 
+  defaultZoom: =>
+    @map.setView([64.20637724320852, -152.841796875], 5)
   clearMarkers: =>
     if @request?
       @request.abort();
@@ -99,7 +103,11 @@ class @Map
     layer = e.layer
 
     $(document).trigger('aoi::removed')
-
+    @defaultZoom()
+    setTimeout(=>
+      @form.update_bounds_fields(@map.getBounds())
+    , 500)
+      
     delete @filterBounds
 
   handleDrawEdited: (e) =>
@@ -110,13 +118,19 @@ class @Map
     layer = e.layer
     @filterByLayer(layer)
 
-  filterByLayer: (layer) =>
-    @filterBounds = layer.getBounds()
+  drawBounds: (layer) =>
     @drawnItems.clearLayers()
     @drawnItems.addLayer(layer)
+    console.log(layer)
+    
 
+  filterByLayer: (layer) =>
+    @filterBounds = layer.getBounds()
+    @drawBounds(layer)
+    
     $(document).trigger('aoi::drawn', [layer])
 
+    @form.update_bounds_fields(@filterBounds)      
     @map.fitBounds(@filterBounds)
 
   finishRequest: =>
