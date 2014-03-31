@@ -56,7 +56,7 @@
                 = f.radio_button :timestep, timestep[1], { checked: timestep == timesteps.first, class: 'export_timestep' }
                 = timestep[0]
         .form-group
-          %label Geogphysical Parameters
+          %label Geophysical Parameters
           - dvars.uniq!
           - dvars.each do |variable|
             .checkbox
