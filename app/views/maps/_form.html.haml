@@ -1,6 +1,9 @@
 = form_tag '/search', remote: true, role: 'form', class: 'form-horizontal', id: 'search-form' do
   = label_tag :q, 'Keywords', class: 'control-label'
   = text_field_tag :q, params[:q], class: 'form-control'
+
+  = label_tag :networkcode, 'Networks', class: 'control-label'
+  = select_tag :networkcode, network_option_list, prompt: 'Any', class: 'form-control'
   
   = label_tag :organizationcode, 'Organizations', class: 'control-label'
   = select_tag :organizationcode, organization_option_list, prompt: 'Any', class: 'form-control'
