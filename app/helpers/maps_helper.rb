@@ -1,4 +1,12 @@
 module MapsHelper
+  def network_option_list
+    options_for_select(
+      imiq_api.network_list.collect{ |org| 
+        [org['networkcode']]
+      }
+    )
+  end
+  
   def organization_option_list
     options_for_select(
       imiq_api.organization_list.collect{ |org| 

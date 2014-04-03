@@ -35,7 +35,7 @@ class MapsController < ApplicationController
 
   def search_params    
     @search ||= params.permit(:q, :datatype, :samplemedium, :generalcategory,
-      :valuetype, :variablename, :organizationcode, :derived_values,
+      :valuetype, :variablename, :networkcode, :organizationcode, :derived_values,
       :time_step, bounds: [:sw_lat, :sw_lng, :ne_lat, :ne_lng])      
   end
   helper_method :search_params
