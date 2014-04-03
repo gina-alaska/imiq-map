@@ -23,12 +23,14 @@ module MapsHelper
   def geophysical_params(type = 'any')
     vars = {
       'daily'=> [
-        ['Discharge', 'discharge']  
+        ['Discharge', 'discharge'],
+        ['Water Temperature', 'water_temp']    
       ],
       'hourly'=> [
       ],
       'any'=> [
-        ['Discharge', 'discharge']
+        ['Discharge', 'discharge'],
+        ['Water Temperature', 'water_temp']  
       ]   
     }
     
