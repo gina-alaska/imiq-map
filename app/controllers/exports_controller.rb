@@ -11,7 +11,12 @@ class ExportsController < ApplicationController
     respond_to do |format|
       format.html {
         if @export.save and @export.urls.count > 0
-          redirect_to @export.urls.first.to_s
+          if Rails.env.production?
+            flash[:info] = "Exports are currently disabled"
+            redirect_to root_path
+          else
+            redirect_to @export.urls.first.to_s
+          end
         else
           flash[:danger] = "Unable to export using the given options"
           redirect_to root_path
