@@ -7,9 +7,6 @@
   
   = label_tag :organizationcode, 'Organizations', class: 'control-label'
   = select_tag :organizationcode, organization_option_list, prompt: 'Any', class: 'form-control'
-
-  = label_tag :generalcategory, 'Environment Classifications', class: 'control-label'
-  = select_tag :generalcategory, options_for_select(imiq_api.variables_list['generalcategories']), prompt: 'Any', class: 'form-control'
 		
   = label_tag :variablename, 'Geophysical Parameters', class: 'control-label'
   / = select_tag :variablename, options_for_select(imiq_api.variables_list['names']), prompt: 'Select a variable name', class: 'form-control'
