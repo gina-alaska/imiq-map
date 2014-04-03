@@ -167,7 +167,7 @@ class @Map
         pointToLayer: (feature, latlng) =>
           L.circleMarker(latlng, @geojsonMarkerOptions);
         onEachFeature: (feature, layer) =>
-          layer.bindPopup(@description(feature));
+          layer.bindPopup(@description(feature), { maxWidth: 500 });
       })
     )
 
@@ -199,12 +199,12 @@ class @Map
         <dt>Contact Link: </dt><dd> <a href=#{feature.properties.source.sourcelink} target="_blank">#{feature.properties.source.sourcelink}</a></dd>
         <dt>Start Date (UTC): </dt><dd> #{feature.properties.begin_date} </dd>
         <dt>End Date (UTC): </dt><dd> #{feature.properties.end_date}</dd>
-        <dt>Variables: </dt>
+        <dt><abbr title="Exportable Geophysical Parameters">Exportable Parameters</abbr>: </dt>
         <dd>
         #{feature.properties.derived_variables.join("; ")}
         </dd>
-        <a href="/exports/new?siteid=#{feature.properties.siteid}" data-remote="true" class="btn btn-block btn-primary" >Export</a>
       </dl>
+      <a href="/exports/new?siteid=#{feature.properties.siteid}" data-remote="true" class="btn btn-block btn-primary" >Export</a>
     """
 
     output
