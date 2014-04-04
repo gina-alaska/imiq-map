@@ -193,8 +193,8 @@ class @Map
         <legend>#{feature.properties.sitename}</legend>
         <dt>Site ID: </dt><dd> #{feature.properties.siteid}</dd>
         <dt>Lat/Lon/Elev: </dt><dd> (#{parseFloat(feature.geometry.coordinates[1]).toFixed(3)}, #{parseFloat(feature.geometry.coordinates[0]).toFixed(3)}, #{parseFloat(feature.geometry.coordinates[2]).toFixed(2)} M) </dd>
-        <dt>Network: </dt><dd> #{feature.properties.networks} </dd>
-        <dt>Organization: </dt><dd> #{feature.properties.source.organization} </dd>
+        <dt>Networks: </dt><dd> #{feature.properties.networks} </dd>
+        <dt>Organizations: </dt><dd> #{feature.properties.source.organization} </dd>
         <dt>Contact Name: </dt><dd> #{feature.properties.source.contactname} </dd>
         <dt>Contact Link: </dt><dd> <a href=#{feature.properties.source.sourcelink} target="_blank">#{feature.properties.source.sourcelink}</a></dd>
         <dt>Start Date (UTC): </dt><dd> #{feature.properties.begin_date} </dd>
@@ -202,6 +202,10 @@ class @Map
         <dt><abbr title="Exportable Geophysical Parameters">Exportable Parameters</abbr>: </dt>
         <dd>
         #{feature.properties.derived_variables.join("; ")}
+        </dd>
+        <dt><abbr title="Available-by-Request Geophysical Parameters">By-Request Parameters</abbr>: </dt>
+        <dd>
+        #{feature.properties.variables.join("; ")}
         </dd>
       </dl>
       <a href="/exports/new?siteid=#{feature.properties.siteid}" data-remote="true" class="btn btn-block btn-primary" >Export</a>
