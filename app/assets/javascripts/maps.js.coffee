@@ -17,7 +17,7 @@ class @Map
       "tiles": ["http://a.tiles.mapbox.com/v3/gina-alaska.heb1gpfg/{z}/{x}/{y}.png", "http://b.tiles.mapbox.com/v3/gina-alaska.heb1gpfg/{z}/{x}/{y}.png", "http://c.tiles.mapbox.com/v3/gina-alaska.heb1gpfg/{z}/{x}/{y}.png", "http://d.tiles.mapbox.com/v3/gina-alaska.heb1gpfg/{z}/{x}/{y}.png"],
     })
     @defaultZoom()
-    
+
     @form = new MapForm(@)
 
     baseLayers = {
@@ -107,7 +107,7 @@ class @Map
     setTimeout(=>
       @form.update_bounds_fields(@map.getBounds())
     , 500)
-      
+
     delete @filterBounds
 
   handleDrawEdited: (e) =>
@@ -121,15 +121,15 @@ class @Map
   drawBounds: (layer) =>
     @drawnItems.clearLayers()
     @drawnItems.addLayer(layer)
-    
+
 
   filterByLayer: (layer) =>
     @filterBounds = layer.getBounds()
     @drawBounds(layer)
-    
+
     $(document).trigger('aoi::drawn', [layer])
 
-    @form.update_bounds_fields(@filterBounds)      
+    @form.update_bounds_fields(@filterBounds)
     @map.fitBounds(@filterBounds)
 
   finishRequest: =>
@@ -188,6 +188,11 @@ class @Map
       , 100
 
   description: (feature) ->
+    derived_variables = []
+    for index,item of feature.properties.derived_variables
+      for index2, variable of item
+        derived_variables.push(variable[0])
+
     output = """
       <dl class='site-marker-popup dl-horizontal'>
         <legend>#{feature.properties.sitename}</legend>
@@ -201,7 +206,7 @@ class @Map
         <dt>End Date (UTC): </dt><dd> #{feature.properties.end_date}</dd>
         <dt><abbr title="Exportable Geophysical Parameters">Exportable Parameters</abbr>: </dt>
         <dd>
-        #{feature.properties.derived_variables.join("; ")}
+        #{derived_variables.join('; ')}
         </dd>
         <dt><abbr title="Available-by-Request Geophysical Parameters">By-Request Parameters</abbr>: </dt>
         <dd>
