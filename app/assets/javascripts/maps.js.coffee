@@ -88,9 +88,8 @@ class @Map
         circle: false,
         marker: false
       },
-      edit: {
-          featureGroup: @drawnItems
-      }
+      edit: false,
+      remove: false
     })
     @map.addControl(@drawControl)
 
@@ -105,7 +104,8 @@ class @Map
     $(document).trigger('aoi::removed')
     @defaultZoom()
     setTimeout(=>
-      @form.update_bounds_fields(@map.getBounds())
+      # @form.update_bounds_fields(@map.getBounds())
+      @form.clear_bounds_fields()
     , 500)
 
     delete @filterBounds
@@ -122,6 +122,8 @@ class @Map
     @drawnItems.clearLayers()
     @drawnItems.addLayer(layer)
 
+  clearBounds: () =>
+    @drawnItems.clearLayers()
 
   filterByLayer: (layer) =>
     @filterBounds = layer.getBounds()

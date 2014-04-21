@@ -48,10 +48,10 @@ var initialize_map = function() {
     var form = new MapForm(map)
     $('#map').data('map', map);
     $('document').trigger('map:load', [map]);
-    
-    var bounds = map.map.getBounds();
-    map.form.update_bounds_fields(bounds);
-    $('#search-form').submit();    
+
+    // var bounds = map.map.getBounds();
+    // map.form.update_bounds_fields(bounds);
+    $('#search-form').submit();
   }
 }
 
