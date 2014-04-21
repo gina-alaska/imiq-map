@@ -33,14 +33,14 @@ class ImiqAPI
   def network_list
     @network_list ||= self.class.get("/networks/list.json")
   end
-  
+
   #get list of organizations
   def organization_list
     @organization_list ||= self.class.get("/organizations/list.json")
   end
 
   def self.export_uri(siteids, timestep, variable, opts = {}, format = 'csv')
-    get_uri("/export/#{timestep}/#{variable}.#{format}?siteids=#{siteids.join(',')}&#{opts.to_param}")
+    get_uri("/export/#{variable}.#{format}?siteids=#{siteids.join(',')}&#{opts.to_param}")
   end
 
   def self.get_uri(path, options = {}, &block)

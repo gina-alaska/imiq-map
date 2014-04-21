@@ -190,6 +190,11 @@ class @Map
       , 100
 
   description: (feature) ->
+    derived_variables = []
+    for index,item of feature.properties.derived_variables
+      for index2, variable of item
+        derived_variables.push(variable[0])
+
     output = """
       <dl class='site-marker-popup dl-horizontal'>
         <legend>#{feature.properties.sitename}</legend>
@@ -203,7 +208,7 @@ class @Map
         <dt>End Date (UTC): </dt><dd> #{feature.properties.end_date}</dd>
         <dt><abbr title="Exportable Geophysical Parameters">Exportable Parameters</abbr>: </dt>
         <dd>
-        #{feature.properties.derived_variables.join("; ")}
+        #{derived_variables.join('; ')}
         </dd>
         <dt><abbr title="Available-by-Request Geophysical Parameters">By-Request Parameters</abbr>: </dt>
         <dd>
