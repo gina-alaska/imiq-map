@@ -17,7 +17,7 @@ class @Map
       "tiles": ["http://a.tiles.mapbox.com/v3/gina-alaska.heb1gpfg/{z}/{x}/{y}.png", "http://b.tiles.mapbox.com/v3/gina-alaska.heb1gpfg/{z}/{x}/{y}.png", "http://c.tiles.mapbox.com/v3/gina-alaska.heb1gpfg/{z}/{x}/{y}.png", "http://d.tiles.mapbox.com/v3/gina-alaska.heb1gpfg/{z}/{x}/{y}.png"],
     })
     @defaultZoom()
-    
+
     @form = new MapForm(@)
 
     baseLayers = {
@@ -88,9 +88,8 @@ class @Map
         circle: false,
         marker: false
       },
-      edit: {
-          featureGroup: @drawnItems
-      }
+      edit: false,
+      remove: false
     })
     @map.addControl(@drawControl)
 
@@ -105,9 +104,10 @@ class @Map
     $(document).trigger('aoi::removed')
     @defaultZoom()
     setTimeout(=>
-      @form.update_bounds_fields(@map.getBounds())
+      # @form.update_bounds_fields(@map.getBounds())
+      @form.clear_bounds_fields()
     , 500)
-      
+
     delete @filterBounds
 
   handleDrawEdited: (e) =>
@@ -121,15 +121,17 @@ class @Map
   drawBounds: (layer) =>
     @drawnItems.clearLayers()
     @drawnItems.addLayer(layer)
-    
+
+  clearBounds: () =>
+    @drawnItems.clearLayers()
 
   filterByLayer: (layer) =>
     @filterBounds = layer.getBounds()
     @drawBounds(layer)
-    
+
     $(document).trigger('aoi::drawn', [layer])
 
-    @form.update_bounds_fields(@filterBounds)      
+    @form.update_bounds_fields(@filterBounds)
     @map.fitBounds(@filterBounds)
 
   finishRequest: =>

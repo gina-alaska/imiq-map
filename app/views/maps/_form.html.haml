@@ -4,14 +4,14 @@
 
   = label_tag :networkcode, 'Networks', class: 'control-label'
   = select_tag :networkcode, network_option_list, prompt: 'Any', class: 'form-control'
-  
+
   = label_tag :organizationcode, 'Organizations', class: 'control-label'
   = select_tag :organizationcode, organization_option_list, prompt: 'Any', class: 'form-control'
-		
+
   = label_tag :variablename, 'Geophysical Parameters', class: 'control-label'
   / = select_tag :variablename, options_for_select(imiq_api.variables_list['names']), prompt: 'Select a variable name', class: 'form-control'
   = select_tag :variablename, options_for_select(geophysical_params), prompt: 'Any', class: 'form-control'
-	
+
   = label_tag :time_step, 'Time Steps', class: 'control-label'
   = select_tag :time_step, options_for_select(timesteps), prompt: 'Any', class: 'form-control'
 
@@ -27,7 +27,7 @@
     .col-lg-2.col-md-2
       %abbr{ title: 'South West' }
         = label_tag :lower_left, 'SW', class: 'control-label'
-        
+
     .col-lg-5.col-md-5
       = text_field_tag 'bounds[sw_lat]', params[:bounds].try(:[], :sw_lat), class: 'form-control bounds'
     .col-lg-5.col-md-5
@@ -35,20 +35,22 @@
   .row
     .col-lg-2.col-md-2
       %abbr{ title: 'North East' }
-        = label_tag :upper_right, 'NE', class: 'control-label'       
+        = label_tag :upper_right, 'NE', class: 'control-label'
     .col-lg-5.col-md-5
       = text_field_tag 'bounds[ne_lat]', params[:bounds].try(:[], :ne_lat), class: 'form-control bounds'
     .col-lg-5.col-md-5
       = text_field_tag 'bounds[ne_lng]', params[:bounds].try(:[], :ne_lng), class: 'form-control bounds'
-      
+
   %br/
-  = submit_tag 'Search', class: 'btn btn-primary'
-  = submit_tag 'Export', class: 'btn btn-primary pull-right'
-    
+  .text-right
+    = submit_tag 'Search', class: 'btn btn-primary'
+    = submit_tag 'Export', class: 'btn btn-primary'
+    = link_to 'Reset form', '#', data: { behavior: 'reset-form' }, class: 'btn btn-default btn-danger'
+
 :javascript
 
   $(document).on('aoi::drawn', function(e, layer) {
-    
+
     $('#bounds_field').val(layer.getBounds().toBBoxString());
   });
   $(document).on('aoi::removed', function(e) {
