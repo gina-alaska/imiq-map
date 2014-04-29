@@ -59,7 +59,7 @@
             - dvars.each do |timestep, items|
               .tab-pane{ id: "#{timestep}_fields", class: timestep == 'daily' ? 'active' : '' }
                 .form-group
-                  - items.each do |variable|
+                  - items.uniq.sort.each do |variable|
                     .checkbox
                       %label
                         = check_box :export, :variables, { multiple: true, class: 'export_variable'}, variable.last, nil
