@@ -11,10 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140306023634) do
+ActiveRecord::Schema.define(version: 20140430233627) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "downloads", force: true do |t|
+    t.integer  "export_id"
+    t.string   "file"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "exports", force: true do |t|
     t.text     "sites"
@@ -27,6 +34,9 @@ ActiveRecord::Schema.define(version: 20140306023634) do
     t.text     "variables"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "status",     default: "queued"
+    t.integer  "progress",   default: 0
+    t.text     "message"
   end
 
   create_table "maps", force: true do |t|

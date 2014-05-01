@@ -9,6 +9,8 @@ gem 'haml'
 gem 'bower-tools', github: 'gina-alaska/bower-tools'
 gem 'httparty'
 gem 'quiet_assets'
+gem 'sidekiq'
+gem 'sinatra', '>= 1.3.0', :require => nil
 
 #heroku gems
 gem 'rails_12factor', group: 'production'

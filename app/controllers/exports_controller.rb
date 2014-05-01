@@ -9,25 +9,39 @@ class ExportsController < ApplicationController
   def create
     @export = Export.new(export_params)
     respond_to do |format|
-      format.html {
-        if @export.save and @export.urls.count > 0
-          if Rails.env.production?
+      if @export.save and @export.urls.count > 0
+        if Rails.env.production?
+        
+          format.html {        
             flash[:info] = "Exports are currently disabled"
             redirect_to root_path
-          else
-            redirect_to @export.urls.first.to_s
-          end
+          }
         else
-          flash[:danger] = "Unable to export using the given options"
-          redirect_to root_path
+          @export.async_build_download()
+          format.any { redirect_to @export }
         end
-      }
+      else
+        flash[:danger] = "Unable to export using the given options"
+        redirect_to root_path
+      end
     end
+  end
+  
+  def retry
+    @export = Export.find(params[:id])
+    @export.async_build_download()
+    
+    redirect_to @export
+  end
+  
+  def download
+    @export = Export.find(params[:id])
+    
+    send_file @export.download.file
   end
 
   def show
     @export = Export.find(params[:id])
-
     respond_with(@export)
   end
 

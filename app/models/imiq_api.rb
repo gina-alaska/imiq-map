@@ -39,7 +39,7 @@ class ImiqAPI
     @organization_list ||= self.class.get("/organizations/list.json")
   end
 
-  def self.export_uri(siteids, timestep, variable, opts = {}, format = 'csv')
+  def self.export_uri(siteids, variable, opts = {}, format = 'csv')
     get_uri("/export/#{variable}.#{format}?siteids=#{siteids.join(',')}&#{opts.to_param}")
   end
 
