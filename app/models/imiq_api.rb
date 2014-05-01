@@ -25,6 +25,12 @@ class ImiqAPI
   end
 
   #get list of unique varible values
+  def self.site_list_uri(siteids, opts={}, format = 'txt')
+    get_uri("/sites/list.#{format}?siteids=#{siteids.join(',')}&#{opts.to_param}")
+  end
+
+
+  #get list of unique varible values
   def variables_list
     @variables_list ||= self.class.get("/variables/list.json")
   end

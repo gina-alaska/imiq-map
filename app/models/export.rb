@@ -19,6 +19,10 @@ class Export < ActiveRecord::Base
     @urls
   end
   
+  def site_list_url
+    ImiqAPI.site_list_uri(self.sites)
+  end
+  
   def async_build_download
     DownloadWorker.perform_async(id)
     update_attributes(status: 'Queued', progress: 0)

@@ -9,7 +9,8 @@ class DownloadWorker
     now = Time.zone.now
 
     # number of urls + 2 extra steps
-    total = (export.urls.count + 2).to_f
+    fetch_api_uris = [export.site_list_url] + export.urls
+    total = (fetch_api_uris.count + 3).to_f
     prog = 0
     
     puts "Total steps: #{total}"
@@ -20,8 +21,14 @@ class DownloadWorker
     zip_filename = "imiq_export_#{now.strftime('%Y%m%d_%H%M%S')}_#{id}.zip"
     
     FileUtils.mkdir_p(save_directory)
-    Dir.chdir(save_directory) do      
-      export.urls.each_with_index do |url,index|
+    
+    Dir.chdir(save_directory) do
+      `cp -r #{Rails.root.join('export_template/*')} .`
+      prog += 1
+      status(export, 'Copying template', (prog/total*100).to_i)          
+      
+      
+      fetch_api_uris.each_with_index do |url,index|
         `curl -O -J -L "#{url}"`
         prog += 1
         status(export, 'Downloading data', (prog/total*100).to_i)    
@@ -30,7 +37,7 @@ class DownloadWorker
       prog += 1
       status(export, 'Building zip file', (prog/total*100).to_i)    
 
-      `zip #{zip_filename} *.csv && rm *.csv`
+      `zip #{zip_filename} * && rm *.csv && rm *.txt`
       
       prog += 1      
       status(export, 'Building zip file', (prog/total*100).to_i)    
@@ -44,7 +51,7 @@ class DownloadWorker
     
     status(export, 'Complete', 100)
   rescue => e
-    export.update_attributes({ status: 'Error', message: e.error, progress: 0 })    
+    export.update_attributes({ status: 'Error', message: e.message, progress: 0 })    
     raise e
   end
   

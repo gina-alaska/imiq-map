@@ -51,6 +51,7 @@ class ExportsController < ApplicationController
     eparms = params.require(:export).permit({ sites: [] }, { variables: [] },
       :starts_at, :ends_at, :timestep, :email)
 
+    
     eparms
   end
 end
