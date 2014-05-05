@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.3'
+gem 'rails', '4.1.0'
 
 # Use sqlite3 as the database for Active Record
 gem 'pg'
@@ -11,9 +11,10 @@ gem 'httparty'
 gem 'quiet_assets'
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', :require => nil
+gem 'spring', group: :development
 
 #heroku gems
-gem 'rails_12factor', group: 'production'
+gem 'rails_12factor', group: :production
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
