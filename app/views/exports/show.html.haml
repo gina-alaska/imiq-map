@@ -1,26 +1,6 @@
 %h2 Export status
 
 %div{ style: 'width: 600px;' }
-  
-  %dl.dl-horizontal
-    %dt Status
-    %dd= @export.status
-  
-    %dt Progress
-    %dd
-      .progress
-        .progress-bar{ style: "width: #{@export.progress}%"}
-          = "#{@export.progress}%"
-  
-    - unless @export.message.nil?
-      %dt Message
-      %dd= @export.message
-
-  .text-center
-    .btn-group
-      - if Rails.env.development?
-        = link_to 'Retry', retry_export_path(@export), method: :patch, class: 'btn btn-default'  
-      - unless @export.download.nil?
-        = link_to 'Download', download_export_path(@export), class: 'btn btn-primary'
+  = render @export
     
         

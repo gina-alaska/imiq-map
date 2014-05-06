@@ -17,27 +17,35 @@ class DownloadWorker
     
     status(export, 'Downloading data', (prog/total*100).to_i)
     
+    identity = "imiq_export_#{now.strftime('%Y%m%d_%H%M%S')}"
     save_directory = Rails.root.join("exports/#{now.year}/#{now.month}/#{now.day}/#{now.to_i}#{id}").to_s
-    zip_filename = "imiq_export_#{now.strftime('%Y%m%d_%H%M%S')}_#{id}.zip"
+    zip_filename = "#{identity}_#{id}.zip"
     
     FileUtils.mkdir_p(save_directory)
     
     Dir.chdir(save_directory) do
-      `cp -r #{Rails.root.join('export_template/*')} .`
-      prog += 1
-      status(export, 'Copying template', (prog/total*100).to_i)          
-      
-      
-      fetch_api_uris.each_with_index do |url,index|
-        `curl -O -J -L "#{url}"`
+      FileUtils.mkdir_p(identity)
+      Dir.chdir(identity) do
+        run_cmd("cp -r #{Rails.root.join('export_template/*')} .")
+        
         prog += 1
-        status(export, 'Downloading data', (prog/total*100).to_i)    
+        status(export, 'Copying template', (prog/total*100).to_i)          
+      
+      
+        fetch_api_uris.each_with_index do |url,index|
+          run_cmd("curl -O -J -L \"#{url}\"")
+          
+          prog += 1
+          status(export, 'Downloading data', (prog/total*100).to_i)    
+        end
       end
-
+      
       prog += 1
       status(export, 'Building zip file', (prog/total*100).to_i)    
 
-      `zip #{zip_filename} * && rm *.csv && rm *.txt`
+      if run_cmd("zip -r #{zip_filename} #{identity}")
+        run_cmd("rm #{identity}/* && rmdir #{identity}")
+      end
       
       prog += 1      
       status(export, 'Building zip file', (prog/total*100).to_i)    
@@ -57,5 +65,12 @@ class DownloadWorker
   
   def status(m, message, progress)
     m.update_attributes(status: message, progress: progress)    
+  end
+  
+  protected
+  
+  def run_cmd(cmd, opts = {})
+    puts cmd
+    system(cmd) unless opts[:pretend]
   end
 end

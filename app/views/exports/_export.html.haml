@@ -1,0 +1,21 @@
+%dl.dl-horizontal
+  %dt Status
+  %dd.status-message= export.status
+
+  %dt Progress
+  %dd
+    .progress
+      .progress-bar{ style: "width: #{@export.progress}%"}
+        = "#{@export.progress}%"
+
+  - unless export.message.nil?
+    %dt Message
+    %dd= export.message
+
+.text-right
+  .btn-group
+    - if Rails.env.development?
+      = link_to 'Refresh', export_path(export), remote: true, class: 'btn btn-default'  
+      = link_to 'Retry', retry_export_path(export), method: :patch, remote: true, class: 'btn btn-danger'  
+    - unless export.download.nil?
+      = link_to 'Download', download_export_path(export), class: 'btn btn-primary', target: :_blank

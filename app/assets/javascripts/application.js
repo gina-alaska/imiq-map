@@ -26,21 +26,6 @@
 //= require bootstrap3-datepicker/js/bootstrap-datepicker
 //= require_tree .
 
-
-$(document).on('ajax:before', function() {
-  $('.spinner').removeClass('hidden');
-});
-$(document).on('ajax:complete', function() {
-  $('.spinner').addClass('hidden');
-});
-
-$(document).on('page:fetch', function() {
-  $('.spinner').removeClass('hidden');
-});
-$(document).on('page:load', function() {
-  $('.spinner').addClass('hidden');
-});
-
 var initialize_map = function() {
   el = $('#map');
   if (el[0]) {
@@ -63,4 +48,26 @@ var load_map_results = function(url) {
 }
 
 // $(document).on('ready', initialize_map);
-$(document).ready(initialize_map);
+$(document).ready(function() {
+  initialize_map();
+  
+  $(document).on('ajax:before', function() {
+    $('.spinner').removeClass('hidden');
+  });
+  $(document).on('ajax:complete', function() {
+    $('.spinner').addClass('hidden');
+  });
+  $(document).on('ajax:success', function() {
+    $('.spinner').addClass('hidden');
+  });
+  $(document).on('ajax:error', function() {
+    $('.spinner').addClass('hidden');
+  });
+
+  $(document).on('page:fetch', function() {
+    $('.spinner').removeClass('hidden');
+  });
+  $(document).on('page:load', function() {
+    $('.spinner').addClass('hidden');
+  });  
+})

@@ -1,5 +1,5 @@
 class ExportsController < ApplicationController
-  respond_to :html, :js
+  respond_to :html, :js, :json
   def new
     @export = Export.new
     @sites = [imiq_api.site(params[:siteid], 'json', { verbose: true })]
@@ -31,7 +31,7 @@ class ExportsController < ApplicationController
     @export = Export.find(params[:id])
     @export.async_build_download()
     
-    redirect_to @export
+    render 'show'
   end
   
   def download
@@ -42,7 +42,11 @@ class ExportsController < ApplicationController
 
   def show
     @export = Export.find(params[:id])
-    respond_with(@export)
+    
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   protected
