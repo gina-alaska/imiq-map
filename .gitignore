@@ -13,5 +13,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+/exports
 
+config/secrets.yml
 .kitchen/logs/kitchen.log

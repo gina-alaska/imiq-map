@@ -7,14 +7,13 @@
 
 ## Installation
 
+Checkout the code
+
     git clone <repo>
     bundle
     cp config/database.yml.example config/database.yml
-    cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
+    cp config/secrets.yml.example config/secrets.yml
     vim config/database.yml #add the appropriate values
-    
-    #install external javascript/css libraries
-    rake bower:install
     
     # start up the server / browser
     rails server
@@ -22,3 +21,16 @@
     rake db:setup
     # seed data into the database
     rake db:seed
+
+### Setup Ruby
+
+This application requires ruby 2.1.1
+
+
+In OSX run the following commands
+
+    brew update
+    brew upgrade rbenv ruby-install
+    rbenv install 2.1.1
+    gem install bundler
+    bundle

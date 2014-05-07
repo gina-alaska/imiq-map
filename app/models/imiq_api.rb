@@ -25,6 +25,12 @@ class ImiqAPI
   end
 
   #get list of unique varible values
+  def self.site_list_uri(siteids, opts={}, format = 'txt')
+    get_uri("/sites/list.#{format}?siteids=#{siteids.join(',')}&#{opts.to_param}")
+  end
+
+
+  #get list of unique varible values
   def variables_list
     @variables_list ||= self.class.get("/variables/list.json")
   end
@@ -39,7 +45,7 @@ class ImiqAPI
     @organization_list ||= self.class.get("/organizations/list.json")
   end
 
-  def self.export_uri(siteids, timestep, variable, opts = {}, format = 'csv')
+  def self.export_uri(siteids, variable, opts = {}, format = 'csv')
     get_uri("/export/#{variable}.#{format}?siteids=#{siteids.join(',')}&#{opts.to_param}")
   end
 

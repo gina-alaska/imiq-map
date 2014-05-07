@@ -1,5 +1,5 @@
 class ExportsController < ApplicationController
-  respond_to :html, :js
+  respond_to :html, :js, :json
   def new
     @export = Export.new
     @sites = [imiq_api.site(params[:siteid], 'json', { verbose: true })]
@@ -9,26 +9,44 @@ class ExportsController < ApplicationController
   def create
     @export = Export.new(export_params)
     respond_to do |format|
-      format.html {
-        if @export.save and @export.urls.count > 0
-          if Rails.env.production?
+      if @export.save and @export.urls.count > 0
+        if Rails.env.production?
+        
+          format.html {        
             flash[:info] = "Exports are currently disabled"
             redirect_to root_path
-          else
-            redirect_to @export.urls.first.to_s
-          end
+          }
         else
-          flash[:danger] = "Unable to export using the given options"
-          redirect_to root_path
+          @export.async_build_download()
+          format.any { redirect_to @export }
         end
-      }
+      else
+        flash[:danger] = "Unable to export using the given options"
+        redirect_to root_path
+      end
     end
+  end
+  
+  def retry
+    @export = Export.find(params[:id])
+    @export.async_build_download()
+    
+    render 'show'
+  end
+  
+  def download
+    @export = Export.find(params[:id])
+    
+    send_file @export.download.file
   end
 
   def show
     @export = Export.find(params[:id])
-
-    respond_with(@export)
+    
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   protected
@@ -37,6 +55,7 @@ class ExportsController < ApplicationController
     eparms = params.require(:export).permit({ sites: [] }, { variables: [] },
       :starts_at, :ends_at, :timestep, :email)
 
+    
     eparms
   end
 end

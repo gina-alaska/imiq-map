@@ -2,7 +2,7 @@
 - mindate = @sites.first.try(:[], 'begin_date')
 - maxdate = @sites.first.try(:[], 'end_date')
 
-= form_for @export do |f|
+= form_for @export, remote: true do |f|
   .tab-content
     #site-list.tab-pane.active
       .list{ style: 'max-height: 500px; overflow: auto;' }
@@ -98,12 +98,3 @@
     forceParse: false,
     format: 'yyyy/mm/dd'
   });
-
-  var selected_timestep = $('#time_step option:selected').val();
-  if (selected_timestep.toLowerCase() != 'any') {
-    $('.export_timestep[value="'+ selected_timestep  +'"]').click();
-  }
-  var selected_variable = $('#variablename option:selected').val();
-  if (selected_variable.toLowerCase() != 'any') {
-    $('.export_variable[value="'+ selected_variable +'"]').click();
-  }

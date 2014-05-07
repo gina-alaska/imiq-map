@@ -1,8 +1,16 @@
 ImiqMap::Application.routes.draw do
   resources :pages
-  resources :exports
+  resources :exports do
+    patch :retry, on: :member
+    get :download, on: :member
+  end
   resources :maps
   resources :sites, only: [:show]
+  
+  if Rails.env.development?
+    require 'sidekiq/web'
+    mount Sidekiq::Web, at: '/sidekiq'
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -11,7 +19,6 @@ ImiqMap::Application.routes.draw do
   root 'maps#index'
 
   post '/search' => 'maps#search'
-
 
   get '/:id' => 'pages#show'
 
