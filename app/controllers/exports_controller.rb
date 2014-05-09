@@ -10,16 +10,8 @@ class ExportsController < ApplicationController
     @export = Export.new(export_params)
     respond_to do |format|
       if @export.save and @export.urls.count > 0
-        if Rails.env.production?
-        
-          format.html {        
-            flash[:info] = "Exports are currently disabled"
-            redirect_to root_path
-          }
-        else
-          @export.async_build_download()
-          format.any { redirect_to @export }
-        end
+        @export.async_build_download()
+        format.any { redirect_to @export }
       else
         flash[:danger] = "Unable to export using the given options"
         redirect_to root_path

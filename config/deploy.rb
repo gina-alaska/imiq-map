@@ -7,7 +7,7 @@ set :deploy_to, '/www/imiq_map'
 set :scm, :git
 
 set :format, :pretty
-set :log_level, :error
+#set :log_level, :error
 # set :pty, true
 
 set :linked_files, %w{config/database.yml config/secrets.yml}
