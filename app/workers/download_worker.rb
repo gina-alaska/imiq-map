@@ -33,7 +33,8 @@ class DownloadWorker
       
       
         fetch_api_uris.each_with_index do |url,index|
-          run_cmd("curl -O -J -L \"#{url}\"")
+          # run_cmd("curl -O -J -L \"#{url}\"")
+          run_cmd("wget --content-disposition  \"#{url}\"")
           
           prog += 1
           status(export, 'Downloading data', (prog/total*100).to_i)    
