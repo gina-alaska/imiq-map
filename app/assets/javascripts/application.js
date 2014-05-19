@@ -24,6 +24,8 @@
 //= require wicket/wicket-leaflet
 //= require bootstrap/dist/js/bootstrap
 //= require bootstrap3-datepicker/js/bootstrap-datepicker
+//= require Highcharts-4.0.1/js/highcharts
+//= require chartkick
 //= require jQuery-ajaxTransport-XDomainRequest/jQuery.XDomainRequest
 //= require_tree .
 
@@ -42,10 +44,23 @@ var initialize_map = function() {
 }
 
 var load_map_results = function(url) {
- var map = $('#map').data('map');
- map.startSearch();
- map.clearMarkers();
- map.fromPagedAPI(url);
+  if (!$.support.cors) {
+    url = url + '&limit=100000'
+    showSpinner();
+  }
+  
+  var map = $('#map').data('map');
+  map.startSearch();
+  map.clearMarkers();
+  map.fromPagedAPI(url);
+}
+
+showSpinner = function() {
+  $('.spinner').removeClass('hidden');
+};
+
+hideSpinner = function() {
+  $('.spinner').addClass('hidden');
 }
 
 // $(document).on('ready', initialize_map);
@@ -53,22 +68,22 @@ $(document).ready(function() {
   initialize_map();
   
   $(document).on('ajax:before', function() {
-    $('.spinner').removeClass('hidden');
+    showSpinner();
   });
   $(document).on('ajax:complete', function() {
-    $('.spinner').addClass('hidden');
+    hideSpinner();
   });
   $(document).on('ajax:success', function() {
-    $('.spinner').addClass('hidden');
+    hideSpinner();
   });
   $(document).on('ajax:error', function() {
-    $('.spinner').addClass('hidden');
+    hideSpinner();
   });
 
   $(document).on('page:fetch', function() {
-    $('.spinner').removeClass('hidden');
+    showSpinner();
   });
   $(document).on('page:load', function() {
-    $('.spinner').addClass('hidden');
+    hideSpinner();
   });  
 })
