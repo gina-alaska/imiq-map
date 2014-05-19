@@ -1,0 +1,14 @@
+{
+  "name": "Highcharts-4.0.1",
+  "_cacheHeaders": {
+    "ETag": "\"718445ad91aec4848dbad0e080381a8e\"",
+    "Last-Modified": "Thu, 24 Apr 2014 08:25:48 GMT",
+    "Content-Length": "1186999",
+    "Content-Type": "application/zip"
+  },
+  "_release": "e-tag:718445ad9",
+  "_source": "http://code.highcharts.com/zips/Highcharts-4.0.1.zip",
+  "_target": "*",
+  "_originalSource": "http://code.highcharts.com/zips/Highcharts-4.0.1.zip",
+  "_direct": true
+}
