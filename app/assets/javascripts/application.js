@@ -24,6 +24,7 @@
 //= require wicket/wicket-leaflet
 //= require bootstrap/dist/js/bootstrap
 //= require bootstrap3-datepicker/js/bootstrap-datepicker
+//= require jQuery-ajaxTransport-XDomainRequest/jQuery.XDomainRequest
 //= require_tree .
 
 var initialize_map = function() {
