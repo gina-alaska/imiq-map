@@ -1,16 +1,16 @@
 class ImiqAPI
   include HTTParty
 
-  base_uri (Rails.env == 'development' ? 'http://imiq-api.dev' : 'http://imiq-api.gina.alaska.edu')
+  base_uri (Rails.env == 'development' ? "http://imiq-api.137.229.19.170.xip.io" : 'http://imiq-api.gina.alaska.edu')
 
   def initialize
   end
 
-  def sites(search = {}, page = 1, limit = 100, type = :point)
+  def sites(search = {}, page = 1, limit = 500, type = :point)
     self.class.get(sites_uri(search, page, limit, type, 'json'))
   end
 
-  def sites_uri(search = {}, page = 1, limit = 100, type = :point, format = 'geojson')
+  def sites_uri(search = {}, page = 1, limit = 500, type = :point, format = 'geojson')
     search.merge!({ page: page, limit: limit, geometry: type }).reject! { |k,v| v.blank? }
     self.class.get_uri("/sites.#{format}?#{search.to_param}").to_s
   end
