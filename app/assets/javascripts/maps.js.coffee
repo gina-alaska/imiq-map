@@ -158,11 +158,8 @@ class @Map
       fillOpacity: 0.8
   }
   
-  isIE: () ->
-    navigator.appVersion.indexOf("MSIE") != -1;
-  
   clusterConfig: () =>
-    if @isIE()
+    if IMIQ? and IMIQ.IE
       { disableClusteringAtZoom: 8 }
     else
       { maxClusterRadius: 50, disableClusteringAtZoom: 5 }
