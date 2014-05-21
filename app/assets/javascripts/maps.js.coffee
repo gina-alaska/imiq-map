@@ -157,10 +157,19 @@ class @Map
       opacity: 1,
       fillOpacity: 0.8
   }
+  
+  isIE: () ->
+    navigator.appVersion.indexOf("MSIE") != -1;
+  
+  clusterConfig: () =>
+    if @isIE()
+      { disableClusteringAtZoom: 8 }
+    else
+      { maxClusterRadius: 50, disableClusteringAtZoom: 5 }
 
   fromGeoJSON: (geojson) =>
     unless @markers?
-      @markers = new L.MarkerClusterGroup({ maxClusterRadius: 50, disableClusteringAtZoom: 5 })
+      @markers = new L.MarkerClusterGroup(@clusterConfig())
       @map.addLayer(@markers)
 
     @markers.addLayer(
