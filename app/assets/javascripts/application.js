@@ -46,7 +46,7 @@ var initialize_map = function() {
 
 var load_map_results = function(url) {
   if (!$.support.cors) {
-    url = url + '&limit=100000'
+    url = url + '&limit=100000';
     showSpinner();
   }
   
