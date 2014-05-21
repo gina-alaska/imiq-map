@@ -1,1 +1,7 @@
-= line_chart 'http://imiq-api.dev/export/daily_airtemp.json?siteids=10297'.html_safe
+/ = line_chart 'http://imiq-api.dev/export/daily_airtemp.json?siteids=10297'.html_safe
+
+#graph.graph
+
+:javascript
+  var graph = new LineGraph('#graph')
+  graph.loadURL('#{ImiqAPI.export_uri([params[:id]], params[:variable], {}, 'json')}')
