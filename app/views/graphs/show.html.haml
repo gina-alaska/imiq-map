@@ -4,4 +4,4 @@
 
 :javascript
   var graph = new LineGraph('#graph')
-  graph.loadURL('#{ImiqAPI.export_uri([params[:id]], params[:variable], {}, 'json')}')
+  graph.loadURL('#{ImiqAPI.export_uri([params[:id]], params[:variable], { graph: true, startdate: params[:startdate], enddate: params[:enddate] }, 'json')}')
