@@ -36,7 +36,7 @@
       .text-right{ style: 'padding:10px; border-top: 1px solid #efefef;' }
         %a.btn.btn-primary{ href: '#export-options', data: { toggle: 'tab' } }
           Next
-          %i.glyphicon.glyphicon-arrow-right
+          %i.fa.fa-arrow-right
     #export-options.tab-pane
       .form-content{ style: 'padding:10px;' }
         .form-group
@@ -66,11 +66,11 @@
                         = variable.first
       .text-left{ style: 'padding:10px; border-top: 1px solid #efefef;' }
         %a.btn.btn-primary{ href: '#site-list', data: { toggle: "tab" } }
-          %i.glyphicon.glyphicon-arrow-left
+          %i.fa.fa-arrow-left
           Back
         %a.btn.btn-primary.pull-right{ href: '#notification-options', data: { toggle: 'tab' } }
           Next
-          %i.glyphicon.glyphicon-arrow-right
+          %i.fa.fa-arrow-right
     #notification-options.tab-pane
       .form-content{ style: 'padding:10px;' }
         .form-group
@@ -86,7 +86,7 @@
           = f.text_field :email, class: 'form-control', placeholder: 'Email address'
       .text-left{ style: 'padding:10px; border-top: 1px solid #efefef;' }
         %a.btn.btn-primary{ href: '#export-options', data: { toggle: "tab" } }
-          %i.glyphicon.glyphicon-arrow-left
+          %i.fa.fa-arrow-left
           Back
         = f.submit 'Export', class: 'btn btn-primary pull-right'
 :javascript
