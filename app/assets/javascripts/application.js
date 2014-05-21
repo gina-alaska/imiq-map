@@ -27,6 +27,7 @@
 //= require Highcharts-4.0.1/js/highcharts
 //= require chartkick
 //= require jQuery-ajaxTransport-XDomainRequest/jQuery.XDomainRequest
+//= stub ie
 //= require_tree .
 
 var initialize_map = function() {

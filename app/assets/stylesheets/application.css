@@ -15,6 +15,7 @@
  *= require Leaflet.Coordinates/dist/Leaflet.Coordinates-0.1.3
  *= require bootstrap/dist/css/bootstrap
  *= require bootstrap3-datepicker/css/datepicker
+ *= require fontawesome/css/font-awesome
  *= require_self
  *= require_tree .
  */
@@ -25,6 +26,7 @@ html, body {
   padding:0;
   margin:0;
   position: relative;
+  overflow: hidden;
 }
 
 #header {
