@@ -204,7 +204,7 @@ class @Map
     output = """
       <dl class='site-marker-popup dl-horizontal'>
         <legend>#{feature.properties.sitename}</legend>
-        <dt>Site ID: </dt><dd> #{feature.properties.siteid}</dd>
+        <dt>Site ID (Site Code): </dt><dd> #{feature.properties.siteid} (#{feature.properties.sitecode})<dd>
         <dt>Lat/Lon/Elev: </dt><dd> (#{parseFloat(feature.geometry.coordinates[1]).toFixed(3)}, #{parseFloat(feature.geometry.coordinates[0]).toFixed(3)}, #{parseFloat(feature.geometry.coordinates[2]).toFixed(2)} M) </dd>
         <dt>Networks: </dt><dd> #{feature.properties.networks} </dd>
         <dt>Organizations: </dt><dd> #{feature.properties.source.organization} </dd>
