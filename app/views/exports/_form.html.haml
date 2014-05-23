@@ -76,14 +76,14 @@
         .form-group
           %label Export Instructions
           %p
-            The export process is still in development and not currently available to the public.
+            Data are provisional and subject to revision.  Data downloads will begin when you click the Export button in the bottom, right corner of this dialog box.
           %p
             Imiq hydroclimate database questions?
             Please contact
             = mail_to 'imiq@arcticlcc.org', 'imiq@arcticlcc.org'
         .form-group
           = f.label :email, class: 'control-label'
-          = f.text_field :email, class: 'form-control', placeholder: 'Email address'
+          = f.text_field :email, class: 'form-control', placeholder: 'Email address (not yet required)'
       .text-left{ style: 'padding:10px; border-top: 1px solid #efefef;' }
         %a.btn.btn-primary{ href: '#export-options', data: { toggle: "tab" } }
           %i.fa.fa-arrow-left
