@@ -3,15 +3,15 @@ class MapsController < ApplicationController
     # HTTParty.get('http://imiq-api.dev/sites.geojson?geometry=point&limit=5000')
   end
 
-  def sites
-    respond_to do |format|
-      format.geojson {
-        @sites = imiq_api.sites(params[:page])
-
-        render json: @sites
-      }
-    end
-  end
+  # def sites
+  #   respond_to do |format|
+  #     format.geojson {
+  #       @sites = imiq_api.sites(params[:page])
+  # 
+  #       render json: @sites
+  #     }
+  #   end
+  # end
 
   def search
 
@@ -25,7 +25,6 @@ class MapsController < ApplicationController
           render '/exports/new'
         else
           @imiq_api_url = imiq_api.sites_uri(search_params).to_s
-          Rails.logger.info @imiq_api_url
         end
       }
     end
