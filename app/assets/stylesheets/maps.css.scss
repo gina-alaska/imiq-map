@@ -45,10 +45,17 @@
   legend { text-overflow: ellipsis; overflow: hidden; }
   dt { width: 150px; font-weight: bold; display: inline-block; text-align:right; }
   dd { margin-left: 160px; }
+  height: 500px;
+  width: 100%;
 }
 
 .map-container {
   height: 100%;
+}
+
+.leaflet-container {
+  font: inherit;
+
 }
 
 .leaflet-container a.btn {
