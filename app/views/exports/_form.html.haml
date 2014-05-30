@@ -1,6 +1,8 @@
 - dvars = { 'daily' => [], 'hourly' => [] }
 - mindate = @sites.first.try(:[], 'begin_date')
 - maxdate = @sites.first.try(:[], 'end_date')
+- if params['variablename'].present? and params['time_step'].present?
+  - select_parameter = "#{params['time_step']}_#{params['variablename']}"
 
 = form_for @export, remote: true do |f|
   .tab-content
@@ -44,11 +46,11 @@
             .col-lg-2.col-md-2.col-sm-12
               .form-group
                 = f.label :starts_at, class: 'control-label'
-                = f.text_field :starts_at, class: 'form-control datepicker', placeholder: 'YYYY/MM/DD'
+                = f.text_field :starts_at, value: mindate.gsub('-', '/'), class: 'form-control datepicker', placeholder: 'YYYY/MM/DD'
             .col-lg-2.col-md-2.col-sm-12
               .form-group
                 = f.label :ends_at, class: 'control-label'
-                = f.text_field :ends_at, class: 'form-control datepicker', placeholder: 'YYYY/MM/DD'
+                = f.text_field :ends_at, value: maxdate.gsub('-', '/'), class: 'form-control datepicker', placeholder: 'YYYY/MM/DD'
         .form-group
           %label Geophysical Parameters
           %ul.nav.nav-tabs
@@ -62,7 +64,7 @@
                   - items.uniq.sort.each do |variable|
                     .checkbox
                       %label
-                        = check_box :export, :variables, { multiple: true, class: 'export_variable'}, variable.last, nil
+                        = check_box :export, :variables, { multiple: true, class: 'export_variable', checked: (variable.last == select_parameter ? 'checked' : '') }, variable.last, nil
                         = variable.first
       .text-left{ style: 'padding:10px; border-top: 1px solid #efefef;' }
         %a.btn.btn-primary{ href: '#site-list', data: { toggle: "tab" } }
