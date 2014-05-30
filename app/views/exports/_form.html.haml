@@ -3,7 +3,10 @@
 - maxdate = @sites.first.try(:[], 'end_date')
 - if params['variablename'].present? and params['time_step'].present?
   - select_parameter = "#{params['time_step']}_#{params['variablename']}"
-
+- if params['time_step'].present?
+  - active_tab = "#{params['time_step']}"
+- else
+  - active_tab = "daily"
 = form_for @export, remote: true do |f|
   .tab-content
     #site-list.tab-pane.active
@@ -55,11 +58,11 @@
           %label Geophysical Parameters
           %ul.nav.nav-tabs
             - dvars.each do |timestep, items|
-              %li{ class: timestep == 'daily' ? 'active' : '' }
+              %li{ class: timestep == "#{active_tab}" ? 'active' : '' }
                 %a{ href: "##{timestep}_fields", data: { toggle: 'tab' } }= timestep.capitalize
           #export_fields.tab-content
             - dvars.each do |timestep, items|
-              .tab-pane{ id: "#{timestep}_fields", class: timestep == 'daily' ? 'active' : '' }
+              .tab-pane{ id: "#{timestep}_fields", class: timestep == "#{active_tab}" ? 'active' : '' }
                 .form-group
                   - items.uniq.sort.each do |variable|
                     .checkbox
