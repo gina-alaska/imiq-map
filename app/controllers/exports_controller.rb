@@ -14,7 +14,11 @@ class ExportsController < ApplicationController
         format.any { redirect_to @export }
       else
         flash[:danger] = "Unable to export using the given options"
-        redirect_to root_path
+        flash[:danger] += ", you must select at least one variable to export" if @export.urls.count == 0
+        format.html {
+          redirect_to root_path          
+        }
+        format.js
       end
     end
   end

@@ -11,9 +11,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <section id="flash_messages">
-    <%= show_flash_messages %>
-  </section>
+  = render 'layouts/flash'
   <section id="content">
     <%= yield %>
   </section>
