@@ -4,6 +4,7 @@ if($('#download_status').length > 0) {
   $('.modal').modal('hide');
   var modal = $("<%= escape_javascript render('/exports/download_modal.html') %>").modal({ backdrop: 'static' })  
   modal.on('hidden.bs.modal', function() {
+    clearTimeout($(this).data('timer'));
     $(this).remove();
   });
 }
@@ -12,6 +13,7 @@ if($('#download_status').length > 0) {
 var timer = setTimeout(function() {
   $.get('<%= export_path(@export, :js) %>');
 }, 2000)
+$(modal).data('timer', timer);
 <% end %>
 
 $('.spinner').addClass('hidden');
