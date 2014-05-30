@@ -4,6 +4,22 @@ class Export < ActiveRecord::Base
 
   has_one :download
 
+  validate :end_date_after_start_date, :at_least_one_variable
+  
+  def at_least_one_variable
+    if self.variables.nil? or self.variables.size == 0
+      errors.add(:base, 'Must select at least one parameter')
+    end
+  end
+  
+  def end_date_after_start_date
+    if self.starts_at? and self.ends_at?
+      if self.ends_at < self.starts_at
+        errors.add(:base, 'End date must be after the start date')
+      end
+    end
+  end
+
   def urls
     @urls = []
     opts = {}
