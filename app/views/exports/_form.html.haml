@@ -27,6 +27,11 @@
               - dvars['hourly'] += site['derived_variables']['hourly']
               - mindate = site['begin_date'] if mindate > site['begin_date']
               - maxdate = site['end_date'] if maxdate < site['end_date']
+              - paramlist = []
+              - if site['derived_variables']['daily'].size > 0
+                - paramlist << site['derived_variables']['daily'].map { |v| v[0] }
+              - if site['derived_variables']['hourly'].size > 0
+                - paramlist << site['derived_variables']['hourly'].map { |v| v[0] }
               %tr
                 %td
                   = check_box_tag "export[sites][]", site['siteid'], true, class: 'site_ids'
@@ -37,7 +42,7 @@
                   %nobr= format_geolocation(site['geolocation'])
                 %td= site['begin_date'] if site['begin_date'].present?
                 %td= site['end_date'] if site['end_date'].present?
-                %td= site['derived_variables'].try(:join, ', ')
+                %td= "#{paramlist.try(:join, ', ') }"
       .text-right{ style: 'padding:10px; border-top: 1px solid #efefef;' }
         %a.btn.btn-primary{ href: '#export-options', data: { toggle: 'tab' } }
           Next
