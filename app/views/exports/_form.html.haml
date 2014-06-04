@@ -1,12 +1,12 @@
-- dvars = { 'daily' => [], 'hourly' => [] }
+- dvars = { 'daily' => [], 'hourly' => [], 'source' => [] }
 - mindate = @sites.first.try(:[], 'begin_date')
 - maxdate = @sites.first.try(:[], 'end_date')
-- if params['variablename'].present? and params['time_step'].present?
-  - select_parameter = "#{params['time_step']}_#{params['variablename']}"
+- active_tab = "daily"
 - if params['time_step'].present?
   - active_tab = "#{params['time_step']}"
-- else
-  - active_tab = "daily"
+- if params['variablename'].present? and params['time_step'].present?
+  - select_parameter = "#{params['time_step']}_#{params['variablename']}"
+
 = form_for @export, remote: true do |f|
   .tab-content
     #site-list.tab-pane.active
@@ -20,7 +20,7 @@
               %th Location
               %th Start Date
               %th End Date
-              %th Geophysical Parameters
+              %th Summary Data Products
           %tbody
             - @sites.each do |site|
               - dvars['daily'] += site['derived_variables']['daily']
@@ -60,7 +60,7 @@
                 = f.label :ends_at, class: 'control-label'
                 = f.text_field :ends_at, value: maxdate.gsub('-', '/'), class: 'form-control datepicker', placeholder: 'YYYY/MM/DD'
         .form-group
-          %label Geophysical Parameters
+          %label Data
           %ul.nav.nav-tabs
             - dvars.each do |timestep, items|
               %li{ class: timestep == "#{active_tab}" ? 'active' : '' }
@@ -69,11 +69,17 @@
             - dvars.each do |timestep, items|
               .tab-pane{ id: "#{timestep}_fields", class: timestep == "#{active_tab}" ? 'active' : '' }
                 .form-group
-                  - items.uniq.sort.each do |variable|
-                    .checkbox
-                      %label
-                        = check_box :export, :variables, { multiple: true, class: 'export_variable', checked: (variable.last == select_parameter ? 'checked' : '') }, variable.last, nil
-                        = variable.first
+                  - if "#{timestep}"  == "source"
+                    %p
+                      Calibrated, instantaneous source data from Imiq Database available by request.  Contact imiq@arcticlcc.org to check availability.
+                  - else 
+                    %p
+                      Time-averaged, summary product using one or more measurements from Imiq database.
+                    - items.uniq.sort.each do |variable|
+                      .checkbox
+                        %label
+                          = check_box :export, :variables, { multiple: true, class: 'export_variable', checked: (variable.last == select_parameter ? 'checked' : '') }, variable.last, nil
+                          = variable.first
       .text-left{ style: 'padding:10px; border-top: 1px solid #efefef;' }
         %a.btn.btn-primary{ href: '#site-list', data: { toggle: "tab" } }
           %i.fa.fa-arrow-left
