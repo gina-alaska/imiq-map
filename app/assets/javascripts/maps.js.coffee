@@ -212,13 +212,13 @@ class @Map
         <dt>Contact Link: </dt><dd> <a href=#{feature.properties.source.sourcelink} target="_blank">#{feature.properties.source.sourcelink}</a></dd>
         <dt>Start Date (UTC): </dt><dd> #{feature.properties.begin_date} </dd>
         <dt>End Date (UTC): </dt><dd> #{feature.properties.end_date}</dd>
-        <dt><abbr title="Exportable Geophysical Parameters">Exportable Parameters</abbr>: </dt>
+        <dt><abbr title="Exportable, Summary Data Products"></abbr>Summary Data Products:</dt>
         <dd>
-        #{derived_variables.join('; ')}
+        #{derived_variables.join(', ')}
         </dd>
-        <dt><abbr title="Available-by-Request Geophysical Parameters">By-Request Parameters</abbr>: </dt>
+        <dt><abbr title="Available-by-Request, Calibrated Measurements"></abbr>Source Data:</dt>
         <dd>
-        #{feature.properties.variables.join("; ")}
+        #{feature.properties.variables.join(", ")}
         </dd>
       </dl>
       <a href="/exports/new?siteid=#{feature.properties.siteid}" data-remote="true" class="btn btn-block btn-primary" >Export</a>
