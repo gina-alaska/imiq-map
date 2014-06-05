@@ -11,12 +11,9 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <%= render 'layouts/flash' %>
   <section id="content">
+    <%= render 'layouts/flash' %>
     <%= yield %>
-  </section>
-  <section id="footer">
-    <%= render 'layouts/footer' %>
   </section>
   <div class="spinner hidden">
     <div class="rect1"></div>

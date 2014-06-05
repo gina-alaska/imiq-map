@@ -14,8 +14,11 @@ class @Map
       "name": "IMIQ Map",
       "scheme": "xyz",
       "tilejson": "2.0.0",
+      "drawControlTooltips": true,
       "tiles": ["http://a.tiles.mapbox.com/v3/gina-alaska.heb1gpfg/{z}/{x}/{y}.png", "http://b.tiles.mapbox.com/v3/gina-alaska.heb1gpfg/{z}/{x}/{y}.png", "http://c.tiles.mapbox.com/v3/gina-alaska.heb1gpfg/{z}/{x}/{y}.png", "http://d.tiles.mapbox.com/v3/gina-alaska.heb1gpfg/{z}/{x}/{y}.png"],
     })
+    
+    @map.options.drawControlTooltips = true
     @defaultZoom()
 
     @form = new MapForm(@)
@@ -86,12 +89,13 @@ class @Map
         polyline: false,
         polygon: false,
         circle: false,
-        marker: false
+        marker: false,
+        rectangle: false
       },
       edit: false,
       remove: false
     })
-    @map.addControl(@drawControl)
+    @map.addControl(@drawControl)    
 
     @map.on('draw:created', @handleDrawCreated)
     @map.on('draw:edited', @handleDrawEdited)
