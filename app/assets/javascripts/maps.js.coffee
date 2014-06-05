@@ -235,7 +235,7 @@ class @Map
       for index2, variable of item
         derived_variables.push(variable[0])
         if index == 'daily'
-          graph_tabs.push("<li><a href=\"#graph_#{variable[1]}\" data-toggle=\"tab\" data-behavior=\"load-content\" data-url=\"http://imiq-map.dev/graphs/#{feature.properties.siteid}?variable=#{variable[1]}\">#{variable[0]}</a></li>")
+          graph_tabs.push("<li><a href=\"#graph_#{variable[1]}\" data-toggle=\"tab\" data-behavior=\"load-content\" data-url=\"/graphs/#{feature.properties.siteid}?variable=#{variable[1]}\">#{variable[0]}</a></li>")
           graph_tab_panes += "
           <div class=\"tab-pane\" id=\"graph_#{variable[1]}\">
           </div>
