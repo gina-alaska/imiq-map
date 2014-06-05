@@ -100,6 +100,15 @@ class @Map
     @map.on('draw:created', @handleDrawCreated)
     @map.on('draw:edited', @handleDrawEdited)
     @map.on('draw:deleted', @handleDrawDeleted)
+    
+    $(document).on 'shown.bs.tab', '.site-marker-popup a[data-behavior="load-content"]', (e) ->
+      item = $(this)
+      pane = $(item.attr('href'))
+      url = item.data('url')
+      if pane.data('loaded') != true
+        pane.load(url)
+        pane.data('loaded', true)
+      
 
   handleDrawDeleted: (e) =>
     type = e.layerType
@@ -199,33 +208,72 @@ class @Map
         @map.fitBounds(object.getBounds(), { animate: true })
       , 100
 
+  generate_graph_tabs: (tab_content) ->
+    output = ''
+    if tab_content.length > 2
+      output = tab_content[0..1].join(' ')
+      output += '
+          <li class="dropdown navbar-right"><a href="#" class="dropdown-toggle" data-toggle="dropdown">More <b class="caret"></b></a>
+            <ul class="dropdown-menu">'
+              
+      output += tab_content[2..tab_content.length].join(' ')
+              
+      output += '
+            </ul>
+          </li>'
+    else
+      output = tab_content.join(' ')
+      
+    output
+
   description: (feature) ->
     derived_variables = []
+    graph_tab_panes = ""
+    graph_tabs = []
+    
     for index,item of feature.properties.derived_variables
       for index2, variable of item
         derived_variables.push(variable[0])
+        if index == 'daily'
+          graph_tabs.push("<li><a href=\"#graph_#{variable[1]}\" data-toggle=\"tab\" data-behavior=\"load-content\" data-url=\"http://imiq-map.dev/graphs/#{feature.properties.siteid}?variable=#{variable[1]}\">#{variable[0]}</a></li>")
+          graph_tab_panes += "
+          <div class=\"tab-pane\" id=\"graph_#{variable[1]}\">
+          </div>
+          "
 
     output = """
-      <dl class='site-marker-popup dl-horizontal'>
-        <legend>#{feature.properties.sitename}</legend>
-        <dt>Site ID (Site Code): </dt><dd> #{feature.properties.siteid} (#{feature.properties.sitecode})<dd>
-        <dt>Lat/Lon/Elev: </dt><dd> (#{parseFloat(feature.geometry.coordinates[1]).toFixed(3)}, #{parseFloat(feature.geometry.coordinates[0]).toFixed(3)}, #{parseFloat(feature.geometry.coordinates[2]).toFixed(2)} M) </dd>
-        <dt>Networks: </dt><dd> #{feature.properties.networks} </dd>
-        <dt>Organizations: </dt><dd> #{feature.properties.source.organization} </dd>
-        <dt>Contact Name: </dt><dd> #{feature.properties.source.contactname} </dd>
-        <dt>Contact Link: </dt><dd> <a href=#{feature.properties.source.sourcelink} target="_blank">#{feature.properties.source.sourcelink}</a></dd>
-        <dt>Start Date (UTC): </dt><dd> #{feature.properties.begin_date} </dd>
-        <dt>End Date (UTC): </dt><dd> #{feature.properties.end_date}</dd>
-        <dt><abbr title="Exportable, Summary Data Products"></abbr>Summary Data Products:</dt>
-        <dd>
-        #{derived_variables.join(', ')}
-        </dd>
-        <dt><abbr title="Available-by-Request, Calibrated Measurements"></abbr>Source Data:</dt>
-        <dd>
-        #{feature.properties.variables.join(", ")}
-        </dd>
-      </dl>
-      <a href="/exports/new?siteid=#{feature.properties.siteid}" data-remote="true" class="btn btn-block btn-primary" >Export</a>
-    """
+      <div class='site-marker-popup'>
+        <h1>#{feature.properties.sitename}</h1>
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#site" data-toggle="tab">Site</a></li>
+          #{@generate_graph_tabs(graph_tabs)}
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="site">
+            <dl class="dl-horizontal">
+              <dt>Site ID: </dt><dd> #{feature.properties.siteid} (#{feature.properties.sitecode})</dd>
+              <dt>Lat/Lon/Elev: </dt><dd> (#{parseFloat(feature.geometry.coordinates[1]).toFixed(3)}, #{parseFloat(feature.geometry.coordinates[0]).toFixed(3)}, #{parseFloat(feature.geometry.coordinates[2]).toFixed(2)} M) </dd>
+              <dt>Networks: </dt><dd> #{feature.properties.networks} </dd>
+              <dt>Organizations: </dt><dd> #{feature.properties.source.organization} </dd>
+              <dt>Contact Name: </dt><dd> #{feature.properties.source.contactname} </dd>
+              <dt>Contact Link: </dt><dd> <a href=#{feature.properties.source.sourcelink} target="_blank">#{feature.properties.source.sourcelink}</a></dd>
+              <dt>Start Date (UTC): </dt><dd> #{feature.properties.begin_date} </dd>
+              <dt>End Date (UTC): </dt><dd> #{feature.properties.end_date}</dd>
+              <dt><abbr title="Exportable Geophysical Parameters">Exportable Parameters</abbr>: </dt>
+              <dd>
+              #{derived_variables.join('; ')}
+              </dd>
+              <dt style="text-align:left"><abbr title="Available-by-Request Geophysical Parameters">By-Request Parameters</abbr>: </dt>
+              <dd>
+              #{feature.properties.variables.join("; ")}
+              </dd>
+            </dl>
+          </div>
+          #{graph_tab_panes}
+        </div>
+      </div>
+    <a href="/exports/new?siteid=#{feature.properties.siteid}" data-remote="true" class="btn btn-block btn-primary" >Export</a>
+    """        
+
 
     output

@@ -45,14 +45,35 @@
   legend { text-overflow: ellipsis; overflow: hidden; }
   dt { width: 150px; font-weight: bold; display: inline-block; text-align:right; }
   dd { margin-left: 160px; }
+  height: 500px;
+  width: 100%;
+  
+  h1 { padding: 5px; }
+  
+  .nav-tabs li:first-child {
+    margin-left: 5px;
+  }
+  
+  .tab-pane {
+    padding: 5px;
+  }
 }
 
 .map-container {
   height: 100%;
 }
 
+.leaflet-container {
+  font: inherit;
+
+}
+
 .leaflet-container a.btn {
   color: #fff;
+}
+
+.leaflet-popup-content {
+  padding: 0;
 }
 
 #export_fields .tab-pane {

@@ -5,6 +5,7 @@ ImiqMap::Application.routes.draw do
     get :download, on: :member
   end
   resources :maps
+  resources :graphs
   resources :sites, only: [:show]
   
   if Rails.env.development?

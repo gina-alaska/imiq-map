@@ -24,6 +24,8 @@
 //= require wicket/wicket-leaflet
 //= require bootstrap/dist/js/bootstrap
 //= require bootstrap3-datepicker/js/bootstrap-datepicker
+//= require Highcharts-4.0.1/js/highcharts
+//= require chartkick
 //= require jQuery-ajaxTransport-XDomainRequest/jQuery.XDomainRequest
 //= stub ie
 //= require_tree .
@@ -44,7 +46,7 @@ var initialize_map = function() {
 
 var load_map_results = function(url) {
   if (!$.support.cors) {
-    url = url + '&limit=100000'
+    url = url + '&limit=100000';
     showSpinner();
   }
   

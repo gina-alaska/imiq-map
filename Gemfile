@@ -12,6 +12,7 @@ gem 'quiet_assets'
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'spring', group: :development
+gem "chartkick"
 
 #heroku gems
 #gem 'rails_12factor', group: :production
