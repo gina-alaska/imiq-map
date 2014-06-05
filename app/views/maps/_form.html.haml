@@ -8,7 +8,7 @@
   = label_tag :organizationcode, 'Organizations', class: 'control-label'
   = select_tag :organizationcode, organization_option_list, prompt: 'Any', class: 'form-control'
 
-  = label_tag :variablename, 'Geophysical Parameters', class: 'control-label'
+  = label_tag :variablename, 'Measurements', class: 'control-label'
   / = select_tag :variablename, options_for_select(imiq_api.variables_list['names']), prompt: 'Select a variable name', class: 'form-control'
   = select_tag :variablename, options_for_select(geophysical_params), prompt: 'Any', class: 'form-control'
 
@@ -41,11 +41,10 @@
     .col-lg-5.col-md-5
       = text_field_tag 'bounds[ne_lng]', params[:bounds].try(:[], :ne_lng), class: 'form-control bounds'
 
-  %br/
-  .text-right
-    = submit_tag 'Search', class: 'btn btn-primary'
-    = submit_tag 'Export', class: 'btn btn-primary'
-    = link_to 'Reset form', '#', data: { behavior: 'reset-form' }, class: 'btn btn-default btn-danger'
+  / %br/
+  = render 'layouts/navbar'
+  / .text-right
+  /   = link_to 'Reset form', '/', class: 'btn btn-default btn-danger'
 
 :javascript
 

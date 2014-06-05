@@ -9,12 +9,17 @@ class ExportsController < ApplicationController
   def create
     @export = Export.new(export_params)
     respond_to do |format|
-      if @export.save and @export.urls.count > 0
+      if @export.save
         @export.async_build_download()
         format.any { redirect_to @export }
       else
-        flash[:danger] = "Unable to export using the given options"
-        redirect_to root_path
+        Rails.logger.info @export.errors.full_messages
+        flash[:danger] = "Unable to create export.\n"
+        flash[:danger] += @export.errors.full_messages.join("\n")
+        format.html {
+          redirect_to root_path          
+        }
+        format.js
       end
     end
   end

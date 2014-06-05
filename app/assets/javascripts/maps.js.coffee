@@ -14,8 +14,11 @@ class @Map
       "name": "IMIQ Map",
       "scheme": "xyz",
       "tilejson": "2.0.0",
+      "drawControlTooltips": true,
       "tiles": ["http://a.tiles.mapbox.com/v3/gina-alaska.heb1gpfg/{z}/{x}/{y}.png", "http://b.tiles.mapbox.com/v3/gina-alaska.heb1gpfg/{z}/{x}/{y}.png", "http://c.tiles.mapbox.com/v3/gina-alaska.heb1gpfg/{z}/{x}/{y}.png", "http://d.tiles.mapbox.com/v3/gina-alaska.heb1gpfg/{z}/{x}/{y}.png"],
     })
+    
+    @map.options.drawControlTooltips = true
     @defaultZoom()
 
     @form = new MapForm(@)
@@ -86,16 +89,26 @@ class @Map
         polyline: false,
         polygon: false,
         circle: false,
-        marker: false
+        marker: false,
+        rectangle: false
       },
       edit: false,
       remove: false
     })
-    @map.addControl(@drawControl)
+    @map.addControl(@drawControl)    
 
     @map.on('draw:created', @handleDrawCreated)
     @map.on('draw:edited', @handleDrawEdited)
     @map.on('draw:deleted', @handleDrawDeleted)
+    
+    $(document).on 'shown.bs.tab', '.site-marker-popup a[data-behavior="load-content"]', (e) ->
+      item = $(this)
+      pane = $(item.attr('href'))
+      url = item.data('url')
+      if pane.data('loaded') != true
+        pane.load(url)
+        pane.data('loaded', true)
+      
 
   handleDrawDeleted: (e) =>
     type = e.layerType
@@ -222,24 +235,23 @@ class @Map
       for index2, variable of item
         derived_variables.push(variable[0])
         if index == 'daily'
-          graph_tabs.push("<li><a href=\"#graph_#{variable[1]}\" data-toggle=\"tab\">#{variable[0]}</a></li>")
+          graph_tabs.push("<li><a href=\"#graph_#{variable[1]}\" data-toggle=\"tab\" data-behavior=\"load-content\" data-url=\"http://imiq-map.dev/graphs/#{feature.properties.siteid}?variable=#{variable[1]}\">#{variable[0]}</a></li>")
           graph_tab_panes += "
           <div class=\"tab-pane\" id=\"graph_#{variable[1]}\">
-            <iframe src=\"http://imiq-map.dev/graphs/#{feature.properties.siteid}?variable=#{variable[1]}\" class=\"graph_iframe\"></iframe>
           </div>
           "
 
     output = """
-      <dl class='site-marker-popup dl-horizontal'>
-        <legend>#{feature.properties.sitename}</legend>
+      <div class='site-marker-popup'>
+        <h1>#{feature.properties.sitename}</h1>
         <ul class="nav nav-tabs">
           <li class="active"><a href="#site" data-toggle="tab">Site</a></li>
           #{@generate_graph_tabs(graph_tabs)}
         </ul>
         <div class="tab-content">
           <div class="tab-pane active" id="site">
-            <dl>
-              <dt>Site ID: </dt><dd> #{feature.properties.siteid}</dd>
+            <dl class="dl-horizontal">
+              <dt>Site ID: </dt><dd> #{feature.properties.siteid} (#{feature.properties.sitecode})</dd>
               <dt>Lat/Lon/Elev: </dt><dd> (#{parseFloat(feature.geometry.coordinates[1]).toFixed(3)}, #{parseFloat(feature.geometry.coordinates[0]).toFixed(3)}, #{parseFloat(feature.geometry.coordinates[2]).toFixed(2)} M) </dd>
               <dt>Networks: </dt><dd> #{feature.properties.networks} </dd>
               <dt>Organizations: </dt><dd> #{feature.properties.source.organization} </dd>
@@ -258,11 +270,8 @@ class @Map
             </dl>
           </div>
           #{graph_tab_panes}
-          <div class="tab-pane" id="messages">
-            BABA
-          </div>
         </div>
-      </dl>
+      </div>
     <a href="/exports/new?siteid=#{feature.properties.siteid}" data-remote="true" class="btn btn-block btn-primary" >Export</a>
     """        
 
