@@ -29,23 +29,6 @@ html, body {
   overflow: hidden;
 }
 
-#header {
-  height: 42px;
-  margin:0;
-  padding:0;
-  padding-top: 4px;
-  padding-left: 10px;
-  padding-right: 10px;
-  background-color: #133766;
-}
-
-#header h1 {
-  margin: 0;
-  padding: 0;
-  font-size: 30px;
-  color: #fff;
-}
-
 #footer {
   position: absolute;
   bottom: 0;
@@ -60,9 +43,13 @@ html, body {
 
 #content {
   position: absolute;
-  top: 0;
-  bottom: 25px;
+  top: 0px;
+  bottom: 50px;
   width: 100%;
+}
+
+#header .navbar {
+  margin-bottom: 0;
 }
 
 #flash_messages {

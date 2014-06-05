@@ -41,11 +41,10 @@
     .col-lg-5.col-md-5
       = text_field_tag 'bounds[ne_lng]', params[:bounds].try(:[], :ne_lng), class: 'form-control bounds'
 
-  %br/
-  .text-right
-    = submit_tag 'Search', class: 'btn btn-primary'
-    = submit_tag 'Export', class: 'btn btn-primary'
-    = link_to 'Reset form', '#', data: { behavior: 'reset-form' }, class: 'btn btn-default btn-danger'
+  / %br/
+  = render 'layouts/navbar'
+  / .text-right
+  /   = link_to 'Reset form', '/', class: 'btn btn-default btn-danger'
 
 :javascript
 

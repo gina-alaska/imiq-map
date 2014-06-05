@@ -1,0 +1,31 @@
+%nav.navbar.navbar-default.navbar-fixed-bottom
+  .container-fluid
+    .btn-group
+      = link_to 'https://github.com/gina-alaska/imiq-map/issues/new', target: :_blank, class: 'btn btn-default navbar-btn' do
+        %i.fa.fa-mail-reply
+        Send Feedback
+
+    .navbar-right
+      .btn-group
+        = link_to '#', class: 'btn btn-default navbar-btn', data: { behavior: 'draw-aoi', toggle: 'tooltip', placement: 'top', container: 'body' }, title: 'Select bounds' do
+          %i.fa.fa-pencil
+        = link_to '#', data: { behavior: 'clear-aoi', toggle: 'tooltip', placement: 'top', container: 'body' }, title: 'Remove Bounds', class: 'btn btn-danger navbar-btn' do
+          %i.fa.fa-trash-o
+          
+      .btn-group
+        = link_to '/', class: 'btn btn-danger navbar-btn' do
+          %i.fa.fa-refresh
+          Reset All
+          
+      .btn-group
+        %button.btn.btn-primary.navbar-btn
+          %i.fa.fa-cloud-download
+          Export
+      .btn-group
+        %button.btn.btn-primary.navbar-btn{ type: 'submit' }
+          %i.fa.fa-search 
+          Search
+        
+        
+      
+        
