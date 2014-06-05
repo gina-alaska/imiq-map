@@ -27,11 +27,7 @@
               - dvars['hourly'] += site['derived_variables']['hourly']
               - mindate = site['begin_date'] if mindate > site['begin_date']
               - maxdate = site['end_date'] if maxdate < site['end_date']
-              - paramlist = []
-              - if site['derived_variables']['daily'].size > 0
-                - paramlist << site['derived_variables']['daily'].map { |v| v[0] }
-              - if site['derived_variables']['hourly'].size > 0
-                - paramlist << site['derived_variables']['hourly'].map { |v| v[0] }
+              
               %tr
                 %td
                   = check_box_tag "export[sites][]", site['siteid'], true, class: 'site_ids'
@@ -40,9 +36,11 @@
                     = truncate(site['sitename'], length: 25, omission: '...')
                 %td
                   %nobr= format_geolocation(site['geolocation'])
-                %td= site['begin_date'] if site['begin_date'].present?
-                %td= site['end_date'] if site['end_date'].present?
-                %td= "#{paramlist.try(:join, ', ') }"
+                %td
+                  %nobr= site['begin_date'] if site['begin_date'].present?
+                %td
+                  %nobr= site['end_date'] if site['end_date'].present?
+                %td= "#{params_list(site) }"
       .text-right{ style: 'padding:10px; border-top: 1px solid #efefef;' }
         %a.btn.btn-primary{ href: '#export-options', data: { toggle: 'tab' } }
           Next
@@ -87,24 +85,7 @@
         %a.btn.btn-primary.pull-right{ href: '#notification-options', data: { toggle: 'tab' } }
           Next
           %i.fa.fa-arrow-right
-    #notification-options.tab-pane
-      .form-content{ style: 'padding:10px;' }
-        .form-group
-          %label Export Instructions
-          %p
-            Data are provisional and subject to revision.  Data downloads will begin when you click the Export button in the bottom, right corner of this dialog box.
-          %p
-            Imiq hydroclimate database questions?
-            Please contact
-            = mail_to 'imiq@arcticlcc.org', 'imiq@arcticlcc.org'
-        .form-group
-          = f.label :email, class: 'control-label'
-          = f.text_field :email, class: 'form-control', placeholder: 'Email address (not yet required)'
-      .text-left{ style: 'padding:10px; border-top: 1px solid #efefef;' }
-        %a.btn.btn-primary{ href: '#export-options', data: { toggle: "tab" } }
-          %i.fa.fa-arrow-left
-          Back
-        = f.submit 'Export', class: 'btn btn-primary pull-right'
+    = render 'notification_pane', f: f
 :javascript
   $('.datepicker').datepicker({
     startDate: "#{mindate}",
