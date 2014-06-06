@@ -1,4 +1,5 @@
 = form_tag '/search', remote: true, role: 'form', class: 'form-horizontal', id: 'search-form' do
+  = submit_tag '', style: 'width:0px; height:0px; padding:0; margin:0; display:none;' # default submit button!
   = label_tag :q, 'Keywords', class: 'control-label'
   = text_field_tag :q, params[:q], class: 'form-control'
 
@@ -47,9 +48,7 @@
   /   = link_to 'Reset form', '/', class: 'btn btn-default btn-danger'
 
 :javascript
-
   $(document).on('aoi::drawn', function(e, layer) {
-
     $('#bounds_field').val(layer.getBounds().toBBoxString());
   });
   $(document).on('aoi::removed', function(e) {

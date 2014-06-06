@@ -17,8 +17,9 @@
           %i.fa.fa-refresh
           Reset All
           
+      = hidden_field_tag :commit, 'submit', id: 'commit_value'
       .btn-group
-        %button.btn.btn-primary.navbar-btn
+        %button.btn.btn-primary.navbar-btn{ data: { behavior: 'export' } }
           %i.fa.fa-cloud-download
           Export
       .btn-group

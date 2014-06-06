@@ -85,7 +85,7 @@
         %a.btn.btn-primary.pull-right{ href: '#notification-options', data: { toggle: 'tab' } }
           Next
           %i.fa.fa-arrow-right
-    = render 'notification_pane', f: f
+    = render 'exports/notification_pane', f: f
 :javascript
   $('.datepicker').datepicker({
     startDate: "#{mindate}",

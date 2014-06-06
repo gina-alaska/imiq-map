@@ -17,7 +17,7 @@ class MapsController < ApplicationController
 
     respond_to do |format|
       format.js {
-        if params[:commit] == 'Export'
+        if params[:commit] == 'export'
           p = search_params.merge({ verbose: true })
           @sites = imiq_api.sites(p, 1, 1500)
           @export = Export.new
@@ -25,7 +25,6 @@ class MapsController < ApplicationController
           render '/exports/new'
         else
           @imiq_api_url = imiq_api.sites_uri(search_params).to_s
-          Rails.logger.info @imiq_api_url
         end
       }
     end

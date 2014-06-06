@@ -19,6 +19,13 @@ class @MapForm
         @reset_bounds()
         @submit()
         
+      $(document).on 'click', '[data-behavior="export"]', (e) =>
+        e.preventDefault()
+        $('#commit_value').val('export')
+        @submit()
+        $('#commit_value').val('submit')
+  
+        
       setTimeout () ->
         $('[data-toggle="tooltip"]').tooltip()
         $('[data-behavior="draw-aoi"]').tooltip('show')
