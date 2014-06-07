@@ -19,7 +19,7 @@ class @MapForm
         [parseFloat($('#bounds_sw_lat').val()), parseFloat($('#bounds_sw_lng').val())],
         [parseFloat($('#bounds_ne_lat').val()), parseFloat($('#bounds_ne_lng').val())]
       ]
-      @update_map_bounds(bounds)
+      @update_map_bounds(bounds,false)
   
     $(document).on 'click', '[data-behavior="clear-aoi"]', (e) =>
       e.preventDefault()
@@ -52,13 +52,13 @@ class @MapForm
     @clear_bounds_fields()
     @map_container.clearBounds()
 
-  update_map_bounds: (points) =>
+  update_map_bounds: (points,autosubmit=true) =>
     try
       layer = L.rectangle(points, { color: '#f06eaa' })
       @map_container.drawBounds(layer)
-      @update_bounds_fields(layer.getBounds())
+      @update_bounds_fields(layer.getBounds(),autosubmit)
     catch
-      @reset_bounds()
+ #     @reset_bounds()
 
   update_form_field: =>
     @field.val(@map_container.map.getBounds().toBBoxString())
@@ -72,11 +72,11 @@ class @MapForm
     $('#bounds_ne_lat').val('')
     $('#bounds_ne_lng').val('')
 
-  update_bounds_fields: (bounds) ->
+  update_bounds_fields: (bounds,autosubmit=true) ->
     $('#bounds_sw_lat').val(bounds.getSouthWest().lat)
     $('#bounds_sw_lng').val(bounds.getSouthWest().lng)
     $('#bounds_ne_lat').val(bounds.getNorthEast().lat)
     $('#bounds_ne_lng').val(bounds.getNorthEast().lng)
-    @submit()
+    @submit() if autosubmit
 
     

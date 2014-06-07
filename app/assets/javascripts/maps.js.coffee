@@ -92,7 +92,7 @@ class @Map
         marker: false,
         rectangle: false
       },
-      edit: false,
+      edit: false
       remove: false
     })
     @map.addControl(@drawControl)    
