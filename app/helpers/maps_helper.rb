@@ -42,14 +42,26 @@ module MapsHelper
       ]
     }
 
-    [
-      [ 'Air Temperature'       , 'airtemp'             ],
-      [ 'Relative Humidity'     , 'rh'                  ],
-      [ 'Wind Speed'            , 'windspeed'           ],
-      [ 'Wind Direction'        , 'winddirection'       ],
-      [ 'Precipitation'         , 'precip'              ],
-      [ 'Snow Depth'            , 'snowdepth'           ],
-      [ 'Snow Water Equivalent' , 'swe'                 ]
-    ] + (vars[type].present? ? vars[type] : [])
+    { 
+      'Exportable' => [
+        [ 'Air Temperature'                 , 'airtemp'             ],
+        [ 'Relative Humidity'               , 'rh'                  ],
+        [ 'Wind Speed'                      , 'windspeed'           ],
+        [ 'Wind Direction'                  , 'winddirection'       ],
+        [ 'Precipitation'                   , 'precip'              ],
+        [ 'Snow Depth'                      , 'snowdepth'           ],
+        [ 'Snow Water Equivalent'           , 'swe'                 ],
+        [ 'Discharge (only daily)'          , 'discharge'           ],
+        [ 'Water Temperature (only daily)'  , 'watertemp'           ]
+      ],
+      
+      'Other' => [
+        ["Ablation", "ablation"], ["Snowfall precipitation", "snowfall_precip"]
+      ],
+      
+      'Water' => [
+        ["Dissolved oxygen", "dissolved_oxygen"]
+      ]
+    }
   end
 end
