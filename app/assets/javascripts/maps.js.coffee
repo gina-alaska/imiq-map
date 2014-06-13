@@ -264,9 +264,7 @@ class @Map
               <dt>Start Date (UTC): </dt><dd> #{feature.properties.begin_date} </dd>
               <dt>End Date (UTC): </dt><dd> #{feature.properties.end_date}</dd>
               <dt><abbr title="Exportable Geophysical Parameters">Summary Products</abbr>: </dt>
-              <dd>
-              #{variable_output}
-              </dd>
+              <dd>#{variable_output} &nbsp;</dd>
               <dt><abbr title="Available-by-Request Source Parameters">Source Data</abbr>: </dt>
               <dd>
               #{feature.properties.variables.join(", ")}
