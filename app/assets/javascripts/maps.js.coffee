@@ -225,21 +225,25 @@ class @Map
       output = tab_content.join(' ')
       
     output
-
+  
   description: (feature) ->
     derived_variables = []
+    variable_output = ""
     graph_tab_panes = ""
     graph_tabs = []
     
     for index,item of feature.properties.derived_variables
-      for index2, variable of item
-        derived_variables.push(variable[0])
+      for variable in item
+        if index != 'source'
+          derived_variables.push(variable[0]) unless derived_variables.indexOf(variable[0]) >= 0
         if index == 'daily'
           graph_tabs.push("<li><a href=\"#graph_#{variable[1]}\" data-toggle=\"tab\" data-behavior=\"load-content\" data-url=\"/graphs/#{feature.properties.siteid}?variable=#{variable[1]}\">#{variable[0]}</a></li>")
           graph_tab_panes += "
           <div class=\"tab-pane\" id=\"graph_#{variable[1]}\">
           </div>
           "
+      
+    variable_output = derived_variables.sort().join(', ')
 
     output = """
       <div class='site-marker-popup'>
@@ -251,7 +255,7 @@ class @Map
         <div class="tab-content">
           <div class="tab-pane active" id="site">
             <dl class="dl-horizontal">
-              <dt>Site ID: </dt><dd> #{feature.properties.siteid} (#{feature.properties.sitecode})</dd>
+              <dt>Site ID (Site Code): </dt><dd> #{feature.properties.siteid} (#{feature.properties.sitecode})</dd>
               <dt>Lat/Lon/Elev: </dt><dd> (#{parseFloat(feature.geometry.coordinates[1]).toFixed(3)}, #{parseFloat(feature.geometry.coordinates[0]).toFixed(3)}, #{parseFloat(feature.geometry.coordinates[2]).toFixed(2)} M) </dd>
               <dt>Networks: </dt><dd> #{feature.properties.networks} </dd>
               <dt>Organizations: </dt><dd> #{feature.properties.source.organization} </dd>
@@ -259,13 +263,11 @@ class @Map
               <dt>Contact Link: </dt><dd> <a href=#{feature.properties.source.sourcelink} target="_blank">#{feature.properties.source.sourcelink}</a></dd>
               <dt>Start Date (UTC): </dt><dd> #{feature.properties.begin_date} </dd>
               <dt>End Date (UTC): </dt><dd> #{feature.properties.end_date}</dd>
-              <dt><abbr title="Exportable Geophysical Parameters">Exportable Parameters</abbr>: </dt>
+              <dt><abbr title="Exportable Geophysical Parameters">Summary Products</abbr>: </dt>
+              <dd>#{variable_output} &nbsp;</dd>
+              <dt><abbr title="Available-by-Request Source Parameters">Source Data</abbr>: </dt>
               <dd>
-              #{derived_variables.join('; ')}
-              </dd>
-              <dt style="text-align:left"><abbr title="Available-by-Request Geophysical Parameters">By-Request Parameters</abbr>: </dt>
-              <dd>
-              #{feature.properties.variables.join("; ")}
+              #{feature.properties.variables.join(", ")}
               </dd>
             </dl>
           </div>
