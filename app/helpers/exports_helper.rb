@@ -10,6 +10,6 @@ module ExportsHelper
       list += site['derived_variables']['hourly'].map { |v| v[0] }
     end
       
-    list.try(:join, ', ')
+    list.sort.uniq.try(:join, ', ')
   end
 end
