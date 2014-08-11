@@ -6,7 +6,7 @@
     "fontawesome": "latest",
     "gina-map-layers": "git://github.com/gina-alaska/gina-map-layers#1.0.4",
     "jQuery-ajaxTransport-XDomainRequest": "git://github.com/MoonScript/jQuery-ajaxTransport-XDomainRequest#1.0.2",
-    "mapbox.js": "1.6.4",
+    "mapbox.js": "git://github.com/gina-alaska/mapbox-dist#1.6.4",
     "leaflet.draw": "latest",
     "leaflet.markercluster": "latest",
     "wicket": "git://github.com/arthur-e/Wicket",

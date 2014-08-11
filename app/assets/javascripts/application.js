@@ -15,7 +15,7 @@
 //= require jquery_ujs
 //= require turbolinks
 
-//= require mapbox.js/dist/mapbox.js
+//= require mapbox.js/mapbox.js
 //= require gina-map-layers/adapters/leaflet
 //= require leaflet.draw/dist/leaflet.draw
 //= require leaflet.markercluster/dist/leaflet.markercluster
