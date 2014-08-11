@@ -1,0 +1,35 @@
+{
+  "name": "imiq-map",
+  "version": "1.0.0",
+  "homepage": "https://github.com/gina-alaska/imiq-map",
+  "authors": [
+    "Will Fisher <will@teknofire.net>"
+  ],
+  "description": "Imiq web map",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor/assets/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "Highcharts-4.0.1": "http://code.highcharts.com/zips/Highcharts-4.0.1.zip",
+    "Highcharts": "http://code.highcharts.com/zips/Highcharts-4.0.3.zip",
+    "Leaflet.Coordinates": "git://github.com/MrMufflon/Leaflet.Coordinates",
+    "bootstrap": "3.2.0",
+    "eonasdan-bootstrap-datetimepicker": "*",
+    "fontawesome": "*",
+    "gina-map-layers": "git://github.com/gina-alaska/gina-map-layers#1.0.4",
+    "jQuery-ajaxTransport-XDomainRequest": "git://github.com/MoonScript/jQuery-ajaxTransport-XDomainRequest#1.0.2",
+    "leaflet.draw": "*",
+    "leaflet.markercluster": "*",
+    "leaflet": "http://leaflet-cdn.s3.amazonaws.com/build/leaflet-0.7.zip",
+    "mapbox.js": "git://github.com/gina-alaska/mapbox-dist#1.6.4",
+    "markerclusters": "https://github.com/Leaflet/Leaflet.markercluster.git",
+    "wicket": "git://github.com/arthur-e/Wicket"
+  }
+}

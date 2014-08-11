@@ -399,7 +399,7 @@
 .map-tooltip .close,
 .mapbox-icon {
   opacity: .75;
-  background-image:url(./images/icons-000000@2x.png);
+  background-image:url(<%= asset_path 'mapbox.js/images/icons-000000@2x.png' %>);
   background-repeat:no-repeat;
   background-size:26px 260px;
   }
@@ -409,7 +409,7 @@
   .leaflet-container.dark .leaflet-control-layers-toggle,
   .leaflet-container.dark .mapbox-icon {
     opacity: 1;
-    background-image:url(./images/icons-ffffff@2x.png);
+    background-image:url(<%= asset_path 'mapbox.js/images/icons-ffffff@2x.png' %>);
     background-size:26px 260px;
     }
   .leaflet-bar .leaflet-control-zoom-in                 { background-position:0 0; }
@@ -764,7 +764,7 @@
 ------------------------------------------------------- */
 /* VML support for IE8 */
 .leaflet-vml-shape { width:1px; height:1px; }
-.lvml { behavior:url(#default#VML); display:inline-block; position:absolute; }
+.lvml { behavior:url(<%= asset_path 'mapbox.js/#default#VML' %>); display:inline-block; position:absolute; }
 /* Map is broken in FF if you have max-width: 100% on tiles */
 .leaflet-container img.leaflet-tile { max-width:none !important; }
 /* Markers are broken in FF/IE if you have max-width: 100% on marker images */
