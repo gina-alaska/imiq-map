@@ -1,0 +1,17 @@
+# A sample Bowerfile
+# Check out https://github.com/42dev/bower-rails#ruby-dsl-configuration for more options
+
+# asset 'bootstrap'
+asset 'bootstrap', '3.2.0'
+asset 'eonasdan-bootstrap-datetimepicker'
+asset 'fontawesome'
+asset 'gina-map-layers', '1.0.4', github: 'gina-alaska/gina-map-layers'
+asset 'jQuery-ajaxTransport-XDomainRequest', '1.0.2', github: 'MoonScript/jQuery-ajaxTransport-XDomainRequest'
+asset 'mapbox.js', '1.6.4'
+asset 'leaflet.draw'
+asset 'leaflet.markercluster'
+#asset 'markerclusters'
+asset 'wicket', github: 'arthur-e/Wicket'
+asset 'Leaflet.Coordinates', github: 'MrMufflon/Leaflet.Coordinates'
+asset 'Highcharts', 'http://code.highcharts.com/zips/Highcharts-4.0.3.zip'
+

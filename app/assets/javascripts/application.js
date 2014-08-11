@@ -23,7 +23,8 @@
 //= require wicket/wicket
 //= require wicket/wicket-leaflet
 //= require bootstrap/dist/js/bootstrap
-//= require bootstrap3-datepicker/js/bootstrap-datepicker
+//= require moment/min/moment.min
+//= require eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min
 //= require Highcharts-4.0.1/js/highcharts
 //= require chartkick
 //= require jQuery-ajaxTransport-XDomainRequest/jQuery.XDomainRequest

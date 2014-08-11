@@ -1,3 +1,24 @@
+## v1.6.4
+
+* Fix grid math for negative longitudes (#737)
+* Hard-force request protocol in certain situations (#795)
+* Use XMLHttpRequest rather than XDomainRequest on IE10
+* Replace JSON3 with native JSON.parse (#345)
+* Use retina tiles when available by default (#766)
+* Update to [Leaflet 0.7.3](https://github.com/Leaflet/Leaflet/blob/master/CHANGELOG.md#073-may-23-2014)
+
+## v1.6.3
+
+* Adds support for bulk geocoding in the L.mapbox.geocoder API
+* Adds IE8 vector layer support with VML
+* No longer uses `._createPane` internally
+* CSS improvements
+* Exposes non-magic constructors like `L.mapbox.TileLayer`
+* No longer requires `embed` property from TileJSON
+* Fix Geocoder results position when controls are positioned to the right or bottom of a map.
+* AttributionControl is now default on the map. infoControl may be added as an option.
+* Improve this map link now updates it's coordinates on the AttributionControl.
+
 ## v1.6.2
 
 * Removes `editLink` option for `L.mapbox.infoControl`

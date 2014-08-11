@@ -61,16 +61,36 @@ var TileLayer = L.TileLayer.extend({
         L.extend(this.options, {
             tiles: json.tiles,
             attribution: json.attribution,
-            minZoom: json.minzoom,
-            maxZoom: json.maxzoom,
+            minZoom: json.minzoom || 0,
+            maxZoom: json.maxzoom || 18,
             autoscale: json.autoscale || false,
             tms: json.scheme === 'tms',
             bounds: json.bounds && util.lbounds(json.bounds)
         });
 
+        if (this.options &&
+            this.options.detectRetina === undefined &&
+            this.options.autoscale === true &&
+            L.Browser.retina) {
+            this.options.detectRetina = true;
+            this._resetRetina();
+        }
+
         this._tilejson = json;
         this.redraw();
         return this;
+    },
+
+    _resetRetina: function() {
+        // detecting retina displays, adjusting tileSize and zoom levels
+        if (this.options.detectRetina && L.Browser.retina && this.options.maxZoom > 0) {
+
+            this.options.tileSize = Math.floor(this.options.tileSize / 2);
+            this.options.zoomOffset++;
+
+            this.options.minZoom = Math.max(0, this.options.minZoom);
+            this.options.maxZoom--;
+        }
     },
 
     getTileJSON: function() {
@@ -102,6 +122,8 @@ var TileLayer = L.TileLayer.extend({
     }
 });
 
-module.exports = function(_, options) {
+module.exports.TileLayer = TileLayer;
+
+module.exports.tileLayer = function(_, options) {
     return new TileLayer(_, options);
 };

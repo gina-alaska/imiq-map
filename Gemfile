@@ -6,7 +6,7 @@ gem 'rails', '4.1.0'
 # Use sqlite3 as the database for Active Record
 gem 'pg'
 gem 'haml'
-gem 'bower-tools', github: 'gina-alaska/bower-tools'
+gem "bower-rails", "~> 0.8.3"
 gem 'httparty'
 gem 'quiet_assets'
 gem 'sidekiq'

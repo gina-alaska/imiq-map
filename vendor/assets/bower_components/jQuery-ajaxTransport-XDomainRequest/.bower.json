@@ -8,8 +8,7 @@
     "tag": "v1.0.2",
     "commit": "1c1f58d11207f117a5cedf471d7cbc989950363c"
   },
-  "_source": "https://github.com/MoonScript/jQuery-ajaxTransport-XDomainRequest.git",
-  "_target": "~1.0.2",
-  "_originalSource": "https://github.com/MoonScript/jQuery-ajaxTransport-XDomainRequest.git",
-  "_direct": true
+  "_source": "git://github.com/MoonScript/jQuery-ajaxTransport-XDomainRequest.git",
+  "_target": "1.0.2",
+  "_originalSource": "git://github.com/MoonScript/jQuery-ajaxTransport-XDomainRequest"
 }
