@@ -8,13 +8,13 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require mapbox.js/dist/mapbox.css
+ *= require mapbox.js/mapbox.css
  *= require leaflet.draw/dist/leaflet.draw
  *= require leaflet.markercluster/dist/MarkerCluster.css
  *= require leaflet.markercluster/dist/MarkerCluster.Default.css
  *= require Leaflet.Coordinates/dist/Leaflet.Coordinates-0.1.3
  *= require bootstrap/dist/css/bootstrap
- *= require bootstrap3-datepicker/css/datepicker
+ *= require eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker
  *= require fontawesome/css/font-awesome
  *= require_self
  *= require_tree .

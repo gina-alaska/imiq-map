@@ -1,11 +1,16 @@
 # Wicket #
 
-Updated **May 11, 2013**. Wicket is a lightweight library for translating between [Well-Known Text (WKT)](http://en.wikipedia.org/wiki/Well-known_text) and various client-side mapping frameworks:
-* [Leaflet](http://arthur-e.github.com/Wicket/)
-* [Google Maps API](http://arthur-e.github.com/Wicket/sandbox-gmaps3.html)
-* [ESRI ArcGIS JavaScript API](http://arthur-e.github.com/Wicket/sandbox-arcgis.html)
+![Build Stats](https://travis-ci.org/arthur-e/Wicket.svg?branch=master)
 
-Check out a [live demo](http://arthur-e.github.com/Wicket/sandbox-gmaps3.html). 
+Wicket is a lightweight library for translating between [Well-Known Text (WKT)](http://en.wikipedia.org/wiki/Well-known_text) and various client-side mapping frameworks:
+* Leaflet [(demo)](http://arthur-e.github.com/Wicket/)
+* Google Maps API [(demo)](http://arthur-e.github.com/Wicket/sandbox-gmaps3.html)
+* ESRI ArcGIS JavaScript API [(demo)](http://arthur-e.github.com/Wicket/sandbox-arcgis.html)
+* Potentially any other web mapping framework through serialization and de-serialization of GeoJSON (with `JSON.parse`)
+
+The core Wicket library and the Leaflet extension are both compatible with Node.js; the Google Maps and ArcGIS API extensions will not work in Node.js because they require a browser.
+
+If you are looking for [Apache Wicket](http://wicket.apache.org/), the web-app development framework for Java, [you'll find it here](http://wicket.apache.org/).
 
 ## License ##
 
@@ -17,9 +22,71 @@ Accordingly:
 > the Free Software Foundation, either version 3 of the License, or
 > (at your option) any later version.
 
+## Example ##
+
+The following examples work in any of the mapping environments, as Wicket has a uniform API regardless of the client-side mapping library you're using.
+
+    // Create a new Wicket instance
+    var wkt = new Wkt.Wkt();
+    
+    // Read in any kind of WKT string
+    wkt.read("POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))");
+
+    // Or a GeoJSON string
+    wkt.read('{"coordinates": [[[30, 10], [10, 20], [20, 40], [40, 40], [30, 10]]], "type": "Polygon"}');
+    
+    // Access and modify the underlying geometry
+    console.log(wkt.components);
+    // "[ [ {x: 30, y: 10}, {x: 10, y: 30}, ...] ]"
+    wkt.components[0][1].x = 15;
+
+    wkt.merge(new Wkt.Wkt('POLYGON((35 15,15 25,25 45,45 45,35 15))'));
+    wkt.write();
+    // MULTIPOLYGON(((30 10,10 20,20 40,40 40,30 10)),((35 15,15 25,25 45,45 45,35 15)))
+    
+    // Create a geometry object, ready to be mapped!
+    wkt.toObject();
+    
+Wicket will read from the geometry objects of any mapping client it understands.
+**Note:** Don't use the `deconstruct()` method! This is used internally by `Wkt.Wkt()` instances.
+Use `fromObject()` instead, as in the following example.
+
+    var wkt = new Wkt.Wkt();
+    
+    // Deconstruct an existing point feature e.g. google.maps.Marker instance
+    wkt.fromObject(somePointObject);
+    
+    console.log(wkt.components);
+    // "[ {x: 10, y: 30} ]"
+    
+    // Serialize a WKT string from that geometry
+    wkt.write();
+    // "POINT(10 30)"
+    
+## See Also ##
+
+* [wellknown](https://github.com/mapbox/wellknown)
+* [OpenLayers WKT](https://github.com/openlayers/openlayers/blob/master/lib/OpenLayers/Format/WKT.js)
+* [wkt-parser](http://terraformer.io/wkt-parser/)
+
+## Dependencies and Build Information ##
+
+**Wicket has zero dependencies**, however, JSON parsing (from strings) is not provided.
+Wicket looks for the function `JSON.parse`, which is provided in most modern browsers (get it with [this library](https://github.com/douglascrockford/JSON-js/blob/master/json2.js), if you need to support older browsers).
+
+Minified versions can be generated via:
+
+    npm run build
+
+### Testing ###
+
+    npm test
+
+The Google Maps API extension cannot be tested by Node.js at the command line; it requires a browser. The Google Maps API tests are run by Jasmine; navigate to the file `tests/wicket-gmap3.html` in a web browser.
+
 ## Documentation ##
 
-Read the documentation [here](http://arthur-e.github.io/Wicket/doc/out/). Documentation can be generated with [JSDoc 3](https://github.com/jsdoc3/jsdoc). I'm not a JSDoc 3 expert; feel free to revise the tags.
+Read the documentation [here](http://arthur-e.github.io/Wicket/doc/out/). Documentation can be generated with [JSDoc 3](https://github.com/jsdoc3/jsdoc).
 
     git clone git://github.com/jsdoc3/jsdoc.git
     ./jsdoc /var/www/static/wicket/wicket.src.js
@@ -29,59 +96,7 @@ Or, with Node installed:
     sudo npm install -g git://github.com/jsdoc3/jsdoc.git
     jsdoc /var/www/static/wicket/wicket.src.js
 
-Either way, make sure you invoke `jsdoc` from a directory you can write to; it will output documentation to your current working directory.
-
-## Build Information ##
-
-**Minified versions** of JavaScript files were generated using Google's [Closure compiler](https://developers.google.com/closure/compiler/docs/gettingstarted_app).
-Once installed, minification can be invoked at the command line, as in the following example:
-
-    java -jar /usr/local/closure/compiler.jar --compilation_level WHITESPACE_ONLY --js wicket-leaflet.src.js --js_output_file wicket-leaflet.js 
-
-There is now a script included that will do this automatically for all of Wicket's source code:
-
-    . refactor.sh
-
-**Testing** Wicket is easy if you already have [Jasmine](https://github.com/pivotal/jasmine) installed. Here's a quick script to (describe how to) install it if you don't:
-
-    sudo mkdir -p /var/www/static/
-    cd /var/www/static/
-    sudo git clone git://github.com/pivotal/jasmine.git
-    cd jasmine/dist
-    sudo unzip ./*.zip
-
-Once you have Jasmine installed and the paths match those expected in `tests/SpecRunner.html` (or you changed them to match your Jasmine installation) then just point your browser to `localhost/static/wicket/tests/SpecRunner.html`.
-
-## Example ##
-The following examples work in any of the mapping environments, as Wicket has a uniform API regardless of the client-side mapping library you're using.
-
-    // Create a new Wicket instance
-    var wkt = new Wkt.Wkt();
-    
-    // Read in any kind of WKT string
-    wkt.read("POLYGON ((30 10, 10 20, 20 40, 40 40, 30 10))");
-    
-    // Access and modify the underlying geometry
-    console.log(wkt.components);
-    // "[ [ {x: 30, y: 10}, {x: 10, y: 30}, ...] ]"
-    wkt.components[0][1].x = 15;
-    
-    // Create a geometry object, ready to be mapped!
-    wkt.toObject();
-    
-Wicket will read from the geometry objects of any mapping client it understands.
-
-    var wkt = new Wkt.Wkt();
-    
-    // Deconstruct an existing point (or "marker") feature
-    wkt.fromObject(somePointObject);
-    
-    console.log(wkt.components);
-    // "[ {x: 10, y: 30} ]"
-    
-    // Serialize a WKT string from that geometry
-    wkt.write();
-    // "POINT(10 30)"
+Either way, make sure you invoke `jsdoc` from a directory in which you have write access; it will output documentation to your current working directory.
 
 ## Colophon ##
 
@@ -107,8 +122,6 @@ Wicket borrows heavily from the experiences of others who came before us:
 * The OpenLayers 2.7 WKT module (OpenLayers.Format.WKT)
 * Chris Pietshmann's [article on converting Bing Maps shapes (VEShape) to WKT](http://pietschsoft.com/post/2009/04/04/Virtual-Earth-Shapes-%28VEShape%29-to-WKT-%28Well-Known-Text%29-and-Back-using-JavaScript.aspx)
 * Charles R. Schmidt's and the Python Spatial Analysis Laboratory's (PySAL) WKT writer
-
-Contributors: [cuyahoga](https://github.com/cuyahoga), [Tom Nightingale (thegreat)](https://github.com/thegreat), [Aaron Ogle](https://github.com/atogle), [James Seppi](https://github.com/jseppi)
 
 ### Conventions ###
 

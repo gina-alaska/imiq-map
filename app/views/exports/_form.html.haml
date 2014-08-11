@@ -87,11 +87,12 @@
           %i.fa.fa-arrow-right
     = render 'exports/notification_pane', f: f
 :javascript
-  $('.datepicker').datepicker({
+  $('.datepicker').datetimepicker({
     startDate: "#{mindate}",
     endDate: "#{maxdate}",
     autoclose: true,
     todayHighlight: true,
     forceParse: false,
-    format: 'yyyy/mm/dd'
+    format: 'YYYY/MM/DD',
+    pickTime: false
   });
