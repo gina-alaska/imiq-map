@@ -35,8 +35,10 @@ class Export < ActiveRecord::Base
     @urls
   end
   
-  def site_list_url
-    ImiqAPI.site_list_uri(self.sites)
+  def site_list_urls
+    [
+      ImiqAPI.site_list_uri(self.sites, {}, 'pdf')
+    ] 
   end
   
   def async_build_download

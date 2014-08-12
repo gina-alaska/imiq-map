@@ -9,7 +9,7 @@ class DownloadWorker
     now = Time.zone.now
 
     # number of urls + 2 extra steps
-    fetch_api_uris = [export.site_list_url] + export.urls
+    fetch_api_uris = export.site_list_urls + export.urls
     total = (fetch_api_uris.count + 3).to_f
     prog = 0
     
