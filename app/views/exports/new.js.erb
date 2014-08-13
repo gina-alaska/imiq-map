@@ -1,4 +1,5 @@
 var modal = $("<%= escape_javascript render('/exports/export_modal.html') %>").modal()
 modal.on('hidden.bs.modal', function() {
   $(this).remove();
+  $('.datepicker').remove()
 });

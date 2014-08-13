@@ -52,11 +52,11 @@
             .col-lg-2.col-md-2.col-sm-12
               .form-group
                 = f.label :starts_at, class: 'control-label'
-                = f.text_field :starts_at, value: mindate.gsub('-', '/'), class: 'form-control datepicker', placeholder: 'YYYY/MM/DD'
+                = f.text_field :starts_at, value: mindate.gsub('-', '/'), class: 'form-control date-editor', placeholder: 'YYYY/MM/DD', data: { "date-minDate" => mindate, "date-maxDate" => maxdate }
             .col-lg-2.col-md-2.col-sm-12
               .form-group
                 = f.label :ends_at, class: 'control-label'
-                = f.text_field :ends_at, value: maxdate.gsub('-', '/'), class: 'form-control datepicker', placeholder: 'YYYY/MM/DD'
+                = f.text_field :ends_at, value: maxdate.gsub('-', '/'), class: 'form-control date-editor', placeholder: 'YYYY/MM/DD', data: { "date-minDate" => mindate, "date-maxDate" => maxdate }
         .form-group
           %label Data
           %ul.nav.nav-tabs
@@ -87,12 +87,8 @@
           %i.fa.fa-arrow-right
     = render 'exports/notification_pane', f: f
 :javascript
-  $('.datepicker').datetimepicker({
-    startDate: "#{mindate}",
-    endDate: "#{maxdate}",
-    autoclose: true,
-    todayHighlight: true,
-    forceParse: false,
+  $('.date-editor').datetimepicker({
+    showToday: true,
     format: 'YYYY/MM/DD',
     pickTime: false
   });
