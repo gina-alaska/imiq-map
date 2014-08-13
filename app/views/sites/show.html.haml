@@ -1,0 +1,57 @@
+%h3= @site.sitename
+%ul.nav.nav-tabs
+  %li.active
+    %a{ href: '#site-content', data: { toggle: 'tab' } } Site
+  - @site.derived_variables['daily'][0..1].each do |variable|
+    %li
+      %a{ href:"#graph_#{variable[1]}", data: { toggle:"tab", behavior:"load-content",  url: "/graphs/#{@site.siteid}?variable=#{variable[1]}" } }
+        #{variable[0]}
+  %li.dropdown.navbar-right
+    %a.dropdown-toggle{ href: '#', data: { toggle: 'dropdown' } }
+      More
+      %b.caret
+    %ul.dropdown-menu
+      - @site.derived_variables['daily'][2..-1].each do |variable|
+        %li
+          %a{ href:"#graph_#{variable[1]}", data: { toggle:"tab", behavior:"load-content",  url: "/graphs/#{@site.siteid}?variable=#{variable[1]}" } }
+            #{variable[0]}
+        
+.tab-content.site-popup
+  #site-content.tab-pane.active{ style: 'overflow-y: auto; overflow-x: hidden; padding: 0 10px 0 10px;' }
+    %dl.dl-horizontal
+      %dt Site ID (Site Code):
+      %dd
+        #{@site.siteid} (#{@site.sitecode})
+      %dt Lat/Lon/Elev:
+      %dd 
+        (#{@site.lat}, #{@site.lng}, #{@site.elevation})
+      %dt Networks:
+      %dd 
+        #{@site.networks.join(', ')}
+      %dt Organizations:
+      %dd 
+        #{@site.source.try(:[], 'organization')}
+      %dt Contact Name:
+      %dd 
+        #{@site.source.try(:[], 'contactname')}
+      %dt Contact Link:
+      %dd
+        #{@site.source.try(:[], 'sourcelink')}
+      %dt Start Date (UTC):
+      %dd
+        #{@site.begin_date}
+      %dt End Date (UTC):
+      %dd
+        #{@site.end_date}
+      %dt Summary Products:
+      %dd
+        #{@site.derived_variables.collect { |k,v| v.collect { |i| i[0].chomp } unless v.empty? or k.downcase == 'source' }.flatten.compact.uniq.sort.join('; ')}
+      %dt Source Data:
+      %dd
+        #{@site.variables.uniq.sort.join('; ')}
+  - @site.derived_variables['daily'].each do |variable|
+    .tab-pane{ id: "graph_#{variable[1]}" }
+      
+%a.btn.btn-block.btn-primary{ href: "/exports/new?siteid=#{@site.siteid}", data: { remote: "true" } }
+  Export
+      

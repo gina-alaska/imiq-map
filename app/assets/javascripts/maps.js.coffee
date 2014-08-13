@@ -100,14 +100,6 @@ class @Map
     @map.on('draw:created', @handleDrawCreated)
     @map.on('draw:edited', @handleDrawEdited)
     @map.on('draw:deleted', @handleDrawDeleted)
-    
-    $(document).on 'shown.bs.tab', '.site-marker-popup a[data-behavior="load-content"]', (e) ->
-      item = $(this)
-      pane = $(item.attr('href'))
-      url = item.data('url')
-      if pane.data('loaded') != true
-        pane.load(url)
-        pane.data('loaded', true)
       
 
   handleDrawDeleted: (e) =>
@@ -188,7 +180,13 @@ class @Map
         pointToLayer: (feature, latlng) =>
           L.circleMarker(latlng, @geojsonMarkerOptions);
         onEachFeature: (feature, layer) =>
-          layer.bindPopup(@description(feature), { maxWidth: 500 });
+          layer.once 'click', (e) ->
+            $.get("/sites/#{this.feature.properties.id}").done (content) =>
+              this.bindPopup(content, { maxWidth: 500, minWidth: 400 })
+              this.openPopup(e.latlng)
+            # this.bindPopup(this.feature.properties.url)
+            # this.openPopup(e.latlng)
+          # layer.bindPopup(@description(feature), { maxWidth: 500 });
       })
     )
 

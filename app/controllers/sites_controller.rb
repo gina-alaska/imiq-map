@@ -1,8 +1,10 @@
 class SitesController < ApplicationController
   def show
-    @download_urls = imiq_api.site_downloads(params[:id])
+    @site = OpenStruct.new(imiq_api.site(params[:id]))
+    @content = imiq_api.site(params[:id], 'html')
     
     respond_to do |format|
+      format.html { render layout: false }
       format.js
     end
   end

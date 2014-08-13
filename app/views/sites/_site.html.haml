@@ -1,0 +1,41 @@
+%fieldset
+  %legend= site.sitename
+  %dl.dl-horizontal
+    %dt SiteID:
+    %dd= site.siteid
+    %dt Site Name (Site Code):
+    %dd #{site.sitename} (#{site.sitecode})
+    %dt Latitude:
+    %dd= number_with_precision(site.lat, precision: 3)
+    %dt Longitude:
+    %dd= number_with_precision(site.lng, precision: 3)
+    %dt Elevation (m):
+    %dd= number_with_precision(site.z, precision: 3)
+    %dt
+      County, State:
+    %dd
+      = site.county || "Unknown"
+      ,
+      = site.state || "Unknown"
+
+    %dt Networks:
+    %dd= render(site.networks) || "None"
+    %dt Organizations:
+    %dd= render(partial: site.organizations, spacer_template: "org_spacer" ) || "Unknown"
+
+    %dt Source Contact
+    %dd
+      %address{ style: 'margin-bottom: 0;' }
+        %strong= site.source.contactname || "Unknown"
+        %br/
+        = site.source.email || "Unknown"
+        %br/
+        = site.source.address
+        %br/
+        = "#{site.source.city}, #{site.source.state} #{site.source.zipcode}"
+    %dt Web Address:
+    %dd= site.source.sourcelink || "Unknown"
+    %dt Description:
+    %dd= site.source.sourcedescription || "Unknown"
+    %dt Site Citation:
+    %dd= site.source.citation || "Unknown"

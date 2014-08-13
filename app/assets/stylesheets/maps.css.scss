@@ -59,6 +59,10 @@
   }
 }
 
+.site-popup {
+  .tab-pane { height: 400px; overflow-y: auto; overflow-x: hidden; }
+}
+
 .map-container {
   height: 100%;
 }
