@@ -3,7 +3,6 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).on 'shown.bs.tab', '[data-behavior="load-content"]', (e) ->
-  console.log 'test'
   item = $(this)
   pane = $(item.attr('href'))
   url = item.data('url')
