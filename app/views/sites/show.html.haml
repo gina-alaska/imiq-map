@@ -2,19 +2,22 @@
 %ul.nav.nav-tabs
   %li.active
     %a{ href: '#site-content', data: { toggle: 'tab' } } Site
-  - @site.derived_variables['daily'][0..1].each do |variable|
+  - graphs = @site.derived_variables['daily'].dup.sort
+  - [2, graphs.count].min.times do |i|
+    - variable = graphs.shift
     %li
       %a{ href:"#graph_#{variable[1]}", data: { toggle:"tab", behavior:"load-content",  url: "/graphs/#{@site.siteid}?variable=#{variable[1]}" } }
         #{variable[0]}
-  %li.dropdown.navbar-right
-    %a.dropdown-toggle{ href: '#', data: { toggle: 'dropdown' } }
-      More
-      %b.caret
-    %ul.dropdown-menu
-      - @site.derived_variables['daily'][2..-1].each do |variable|
-        %li
-          %a{ href:"#graph_#{variable[1]}", data: { toggle:"tab", behavior:"load-content",  url: "/graphs/#{@site.siteid}?variable=#{variable[1]}" } }
-            #{variable[0]}
+  - if graphs.count > 0
+    %li.dropdown.navbar-right
+      %a.dropdown-toggle{ href: '#', data: { toggle: 'dropdown' } }
+        More
+        %b.caret
+      %ul.dropdown-menu
+        - graphs.each do |variable|
+          %li
+            %a{ href:"#graph_#{variable[1]}", data: { toggle:"tab", behavior:"load-content",  url: "/graphs/#{@site.siteid}?variable=#{variable[1]}" } }
+              #{variable[0]}
         
 .tab-content.site-popup
   #site-content.tab-pane.active{ style: 'overflow-y: auto; overflow-x: hidden; padding: 0 10px 0 10px;' }
