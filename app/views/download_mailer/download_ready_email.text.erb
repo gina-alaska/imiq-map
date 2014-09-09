@@ -1,0 +1,15 @@
+The data you requested is now available for download
+====================================================
+
+Click the following url to download it 
+<%= @url %>
+
+Summary of download
+-------------------
+  Sites: <%= @export.sites.try(:join, ', ') %>
+  Time range: <%= @export.starts_at %> - <%= @export.ends_at %>
+  Variables: <%= @export.variables.map(&:humanize).try(:join, ', ') %>
+
+If you encounter any problems trying to access your data please email us at support@gina.alaska.edu with the url above and a short description of the problem
+
+Thanks for using IMIQ and have a great day!

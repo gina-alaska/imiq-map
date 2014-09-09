@@ -1,0 +1,24 @@
+%h1 
+  The data you requested is now available for download
+  
+%h2.text-center
+  Click the following url to download it
+  = link_to @url, @url
+
+%h3{ style: 'padding-bottom: 0px; margin-bottom: 0px; border-bottom: 1px solid #000;' } Summary of download
+
+%p{ style: 'margin-left: 10px;' }
+  %b Sites:
+  #{@export.sites.try(:join, ', ')}
+  %br/
+  %b Time range:
+  #{@export.starts_at} - #{@export.ends_at}
+  %br/
+  %b Variables: 
+  #{@export.variables.map(&:humanize).try(:join, ', ')}
+
+%p 
+  If you encounter any problems trying to access your data please email us at 
+  #{mail_to 'support@gina.alaska.edu', 'support@gina.alaska.edu', subject: "[IMIQ] Error downloading #{@export.id}", body: "Help with my download:\n\tExport ID: #{@export.id}\n\tPlease add any additional information about the problem below:\n"}
+
+%p Thanks for using IMIQ and have a great day!

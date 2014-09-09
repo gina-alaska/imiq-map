@@ -58,6 +58,10 @@ class DownloadWorker
       export.download.update_attribute(:file, File.join(save_directory, zip_filename))
     end
     
+    unless export.email.blank?
+      DownloadMailer.download_ready_email(export).deliver
+    end
+    
     status(export, 'Complete', 100)
   rescue => e
     export.update_attributes({ status: 'Error', message: e.message, progress: 0 })    
