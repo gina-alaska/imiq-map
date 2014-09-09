@@ -26,7 +26,6 @@ html, body {
   padding:0;
   margin:0;
   position: relative;
-  overflow: hidden;
 }
 
 #footer {
@@ -41,7 +40,8 @@ html, body {
   color: #fff;
 }
 
-#content {
+#map_content {
+  overflow: hidden;
   position: absolute;
   top: 0px;
   bottom: 50px;
