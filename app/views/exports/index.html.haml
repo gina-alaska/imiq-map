@@ -1,0 +1,22 @@
+%h1 Previous exports
+
+%table.table.table-bordered.table-striped
+  %thead
+    %tr
+      %th Date
+      %th Sites
+      %th Status
+      %th Email
+      %th Actions
+  %tbody
+    - @exports.each do |export|
+      %tr
+        %td= export.created_at
+        %td= export.sites.try(:join, ', ')
+        %td= export.status
+        %td= export.email
+        %td
+          - unless export.download.nil?
+            = link_to download_export_path(export), class: 'btn btn-primary', target: :_blank do
+              %i.fa.fa-download
+              Download

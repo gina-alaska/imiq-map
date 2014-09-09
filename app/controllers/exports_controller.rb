@@ -1,5 +1,14 @@
 class ExportsController < ApplicationController
   respond_to :html, :js, :json
+  
+  def index
+    if session[:exports].present?
+      @exports = Export.where(id: session[:exports]).order(created_at: :asc)
+    else
+      @exports = Export.order(created_at: :asc)
+    end
+  end
+  
   def new
     @export = Export.new
     @sites = [imiq_api.site(params[:siteid], 'json', { verbose: true })]
@@ -10,10 +19,12 @@ class ExportsController < ApplicationController
     @export = Export.new(export_params)
     respond_to do |format|
       if @export.save
+        session[:exports] ||= []
+        session[:exports] << @export.id
+        
         @export.async_build_download()
         format.any { redirect_to @export }
       else
-        Rails.logger.info @export.errors.full_messages
         flash[:danger] = "Unable to create export.\n"
         flash[:danger] += @export.errors.full_messages.join("\n")
         format.html {
