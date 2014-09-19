@@ -8,7 +8,8 @@ class @LineGraph
     @options = {
       chart: {
         type: 'line',
-        zoomType: 'x'
+        zoomType: 'x',
+        height: 350
       },
       xAxis: {
         type: 'datetime',
