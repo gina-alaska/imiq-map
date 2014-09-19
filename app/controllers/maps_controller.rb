@@ -17,12 +17,15 @@ class MapsController < ApplicationController
 
     respond_to do |format|
       format.js {
-        if params[:commit] == 'export'
+        case params[:commit]
+        when 'export'
           p = search_params.merge({ verbose: true })
           @sites = imiq_api.sites(p, 1, 1500)
           @export = Export.new
 
           render '/exports/new'
+        when 'export-sites'
+           redirect_via_turbolinks_to imiq_api.sites_uri(search_params, 1, 1500, :point, :pdf)
         else
           @imiq_api_url = imiq_api.sites_uri(search_params).to_s
         end

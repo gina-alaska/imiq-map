@@ -15,13 +15,18 @@
       .btn-group
         = link_to '/', class: 'btn btn-danger navbar-btn' do
           %i.fa.fa-refresh
-          Reset All
+          Reset all
           
       = hidden_field_tag :commit, 'submit', id: 'commit_value'
       .btn-group
+        %button.btn.btn-primary.navbar-btn{ data: { behavior: 'export-sites', toggle: 'tooltip', placement: 'top', container: 'body' }, title: 'Click here to export data for visible sites' }
+          %i.fa.fa-cloud-download
+          Export site list
+                
+      .btn-group
         %button.btn.btn-primary.navbar-btn{ data: { behavior: 'export', toggle: 'tooltip', placement: 'top', container: 'body' }, title: 'Click here to export data for visible sites' }
           %i.fa.fa-cloud-download
-          Export
+          Export data
       .btn-group
         %button.btn.btn-primary.navbar-btn{ type: 'submit', data: { toggle: 'tooltip', placement: 'top', container: 'body' }, title: 'Click here to search for sites with available data' }
           %i.fa.fa-search 
