@@ -40,21 +40,30 @@
       %dt Contact Link:
       %dd
         #{@site.source.try(:[], 'sourcelink')}
-      %dt Start Date (UTC):
-      %dd
-        #{@site.begin_date}
-      %dt End Date (UTC):
-      %dd
-        #{@site.end_date}
+      - if @site.begin_date.present?
+        %dt Start Date (UTC):
+        %dd
+          #{@site.begin_date}
+      - if @site.end_date.present?
+        %dt End Date (UTC):
+        %dd
+          #{@site.end_date}
       %dt Summary Products:
       %dd
-        #{@site.derived_variables.collect { |k,v| v.collect { |i| i[0].chomp } unless v.empty? or k.downcase == 'source' }.flatten.compact.uniq.sort.join('; ')}
+        - if @site.derived_variables.values.flatten.compact.empty?
+          No summary products available yet
+        - else
+          = @site.derived_variables.collect { |k,v| v.collect { |i| i[0].chomp } unless v.empty? or k.downcase == 'source' }.flatten.compact.uniq.sort.join('; ')
       %dt Source Data:
       %dd
-        #{@site.variables.uniq.sort.join('; ')}
+        - if @site.variables.empty?
+          No source data available yet
+        - else
+          = @site.variables.uniq.sort.join('; ')
   - @site.derived_variables['daily'].each do |variable|
     .tab-pane{ id: "graph_#{variable[1]}" }
-      
-%a.btn.btn-block.btn-primary{ href: "/exports/new?siteid=#{@site.siteid}", data: { remote: "true" } }
-  Export
+
+- unless @site.derived_variables.values.flatten.compact.empty?
+  %a.btn.btn-block.btn-primary{ href: "/exports/new?siteid=#{@site.siteid}", data: { remote: "true" } }
+    Export
       
