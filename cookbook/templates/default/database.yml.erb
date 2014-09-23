@@ -1,0 +1,10 @@
+<% @databases[:environments].each do |environment| %>
+<% dbinfo = @databases[environment] %>
+<%=environment%>:
+  adapter: <%= dbinfo['adapter'] %>
+  database: <%= dbinfo['database'] %>
+  username: <%= dbinfo['username'] %>
+  password: <%= dbinfo['password'] %>
+  schema_search_path: <%= dbinfo['search_path'] %>
+  host: <%= dbinfo['hostname'] %>
+<% end %>
