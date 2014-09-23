@@ -2,6 +2,8 @@
 
 %div.graph{ id: "graphs_#{params[:id]}_#{params[:variable]}" }
   .loading Loading Graph...
+.text-muted.text-center{ style: 'margin-top: 15px;' }
+  Zoom in on the graph by clicking and dragging the mouse over the desired area
 
 :javascript
   var graph = new LineGraph('#graphs_#{params[:id]}_#{params[:variable]}')

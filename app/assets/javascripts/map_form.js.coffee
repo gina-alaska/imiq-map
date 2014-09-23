@@ -41,6 +41,12 @@ class @MapForm
       else
         @map_container.draw_tool.enable()
         target.addClass('btn-success')
+
+    $(document).on 'click', '[data-behavior="export-sites"]', (e) =>
+      e.preventDefault()
+      $('#commit_value').val('export-sites')
+      @submit()
+      $('#commit_value').val('submit')             
       
     $(document).on 'click', '[data-behavior="export"]', (e) =>
       e.preventDefault()
