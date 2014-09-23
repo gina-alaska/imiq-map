@@ -51,9 +51,13 @@ Vagrant.configure("2") do |config|
             hostname: DEVVM_IP
           }
         },
+        'redis' => {
+          'url' => "redis://#{DEVVM_IP}:6379/12"
+        },
         paths: {
           shared: "/www/imiq_map/current",
           config: "/www/imiq_map/current/config",
+          initializers: "/www/imiq_map/current/config/initializers",
           log:    '/www/imiq_map/current/log',
           tmp:    '/www/imiq_map/current/tmp',
           pids:   '/www/imiq_map/current/tmp/pids',

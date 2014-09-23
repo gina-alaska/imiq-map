@@ -15,4 +15,5 @@ depends "nginx", '~> 2.6.0'
 depends "sudo", '~> 2.5.2'
 depends "postgresql"
 depends 'database'
+depends 'redisio', '~> 1.7.1'
 depends 'postfix', '~> 3.6.0'

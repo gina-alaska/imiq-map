@@ -11,6 +11,7 @@ cookbook "nginx", '~> 2.6.0'
 cookbook "sudo", '~> 2.5.2'
 cookbook 'postgresql'
 cookbook 'database'
+cookbook 'redisio', '~> 1.7.1'
 cookbook 'postfix', '~> 3.6.0'
 
 metadata

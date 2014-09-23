@@ -1,7 +1,6 @@
 #  Assuming webapp might use this variable at some point.
 app_name = default['app_name'] = "imiq_map"
 default['unicorn_config_path'] = '/etc/unicorn'
-
 default['postfix']["mail_type"] = "master"
 default['postfix']['main'] = {
   "mynetworks" => [ "127.0.0.0/8" ],
@@ -11,6 +10,8 @@ default['postfix']['main'] = {
 }
 
 default[app_name]['account'] = "webdev"
+default[app_name]['environment'] = "production"
+
 default[app_name]['application_path'] = "/www/#{app_name}"
 default[app_name]['shared_path'] = "#{default[app_name]['application_path']}/shared"
 default[app_name]['config_path'] = "#{default[app_name]['shared_path']}/config"
@@ -22,12 +23,15 @@ default['imiq_map']['paths'] = {
   deploy:             '/www/imiq_map/current',
   shared:             '/www/imiq_map/shared',
   config:             '/www/imiq_map/shared/config',
+  initializers:       '/www/imiq_map/shared/config/initializers',
   public:             '/www/imiq_map/shared/public',
   log:                '/www/imiq_map/shared/log',
   tmp:                '/www/imiq_map/shared/tmp',
   pids:               '/www/imiq_map/shared/tmp/pids',
   sockets:            '/www/imiq_map/shared/tmp/sockets'
 }
+
+default['imiq_map']['ruby_version'] = '2.1'
 
 default['imiq_map']['database'] = {
   setup: false,
@@ -73,6 +77,24 @@ default[app_name]['rails']['secrets']['google_key'] = ""
 default[app_name]['rails']['secrets']['google_secret'] = ""
 default[app_name]['rails']['secrets']['github_key'] = ""
 default[app_name]['rails']['secrets']['github_secret'] = ""
+
+default[app_name]['redis']['url'] = "redis://localhost:6379/12"
+default[app_name]['redis']['environment'] = "production"
+
+
+#Sidekiq Configuration
+default[app_name]['sidekiq']['action'] = [:enable]
+default[app_name]['sidekiq']['pidfile'] = 'tmp/pids/sidekiq.pid'
+default[app_name]['sidekiq']['concurrency'] = 1
+default[app_name]['sidekiq']['environments'] = {
+  'development' => {
+    'concurrency' => 1
+  },
+  'production' => {
+    'concurrency' => 2
+  }
+}
+
 
 default[app_name]['package_deps'] = %w{libicu-devel curl-devel libxml2-devel libxslt-devel nfs-utils ImageMagick-devel nodejs}
 
