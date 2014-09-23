@@ -1,4 +1,4 @@
-- dvars = { 'daily' => [], 'hourly' => [], 'source' => [] }
+- dvars = { 'daily' => [], 'hourly' => [], 'monthly' => [], 'source' => [] }
 - mindate = @sites.first.try(:[], 'begin_date')
 - maxdate = @sites.first.try(:[], 'end_date')
 - active_tab = "daily"
@@ -25,6 +25,7 @@
             - @sites.each do |site|
               - dvars['daily'] += site['derived_variables']['daily']
               - dvars['hourly'] += site['derived_variables']['hourly']
+              - dvars['monthly'] += site['derived_variables']['monthly']
               - mindate = site['begin_date'] if mindate > site['begin_date']
               - maxdate = site['end_date'] if maxdate < site['end_date']
               

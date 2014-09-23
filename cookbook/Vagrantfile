@@ -1,0 +1,82 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+DEVVM_IP = '192.168.222.227'
+
+Vagrant.configure("2") do |config|
+  config.vm.hostname = "imiq-map-development"
+
+  config.vm.box = "opscode_centos-6.4_provisionerless"
+  config.vm.box_url = "https://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-6.4_provisionerless.box"
+
+  config.vm.network :private_network, ip: DEVVM_IP
+
+  config.vm.synced_folder "../", "/www/imiq_map/current"
+    # type: "rsync", rsync__exclude: [".git/", "cookbook/", '.kitchen/', '.gems/'], 
+    # rsync__args: ["--verbose", "--archive", "-z"],
+    # rsync__auto: true
+  
+  config.vm.provider :virtualbox do |vb|
+    vb.customize ["modifyvm", :id, "--memory", "4096"]
+    vb.customize ["modifyvm", :id, "--cpus", "2"]
+    vb.customize ["modifyvm", :id, "--natdnsproxy1", "off"]
+    vb.customize ["modifyvm", :id, "--natdnshostresolver1", "off"]
+  end
+
+  config.berkshelf.enabled = true
+  config.omnibus.chef_version = "11.16"
+
+  #Force ip4/6 requests to be made seperatly 
+  config.vm.provision :shell, inline: "if [ ! $(grep single-request-reopen /etc/sysconfig/network) ]; then echo RES_OPTIONS=single-request-reopen >> /etc/sysconfig/network && service network restart; fi"
+
+  config.vm.provision :chef_solo do |chef|
+    chef.json = {
+      chruby: {
+        default: 'embedded'
+      },        
+      imiq_map: {
+        account: "vagrant",
+        environment: "development",
+        sunspot: {
+          solr: {
+            hostname: DEVVM_IP,
+            path: "/solr/development",
+            log_level: 'INFO'
+          }
+        },
+        database: {
+          development: {
+            hostname: DEVVM_IP
+          },
+          test: {
+            hostname: DEVVM_IP
+          }
+        },
+        'redis' => {
+          'url' => "redis://#{DEVVM_IP}:6379/12"
+        },
+        paths: {
+          shared: "/www/imiq_map/current",
+          config: "/www/imiq_map/current/config",
+          initializers: "/www/imiq_map/current/config/initializers",
+          log:    '/www/imiq_map/current/log',
+          tmp:    '/www/imiq_map/current/tmp',
+          pids:   '/www/imiq_map/current/tmp/pids',
+          sockets:'/tmp/sockets'
+        }
+      },
+      'postgresql' => {
+        'password' => {
+          'postgres' => "fasdfasdfasdfasdf"
+        },
+        'config' => {
+          'listen_addresses' => '*'
+        }
+      }
+    }
+
+    chef.run_list = [
+      "recipe[imiq-map::default]",
+      "recipe[imiq-map::database_server]"
+    ]
+  end
+end

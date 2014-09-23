@@ -1,0 +1,81 @@
+#!/bin/sh
+#
+# Startup script for sidekiq
+#
+# chkconfig: - 86 14
+# processname: Sidekiq
+# description: Sidekiq background processing
+#
+### BEGIN INIT INFO
+# Provides: sidekiq_<%=@name%>
+# Required-Start: $local_fs $remote_fs $network
+# Required-Stop: $local_fs $remote_fs $network
+# Default-Start: 3
+# Default-Stop: 0 1 2 4 5 6
+# Short-Description: start and stop unicorn
+### END INIT INFO
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+prog=sidekiq
+RAILS_ROOT="<%= @install_path %>"
+lockfile=${LOCKFILE-/var/lock/subsys/sidekiq}
+pidfile=$RAILS_ROOT/<%=@pidfile%>
+logfile=$RAILS_ROOT/log/sidekiq.log
+SLEEPMSEC=100000
+RETVAL=0
+ENV=<%=@environment%>
+
+start() {
+    echo -n $"Starting $prog: "
+    su - <%=@user %> -c "cd $RAILS_ROOT && chruby-exec <%=@ruby_version %> -- bundle exec sidekiq -d -e $ENV -l $logfile -P $pidfile"
+    RETVAL=$?
+    echo
+    [ $RETVAL = 0 ] && touch ${lockfile}
+    return $RETVAL
+}
+
+stop() {
+    echo -n $"Stopping $prog: "
+    # killproc -p ${pidfile} ${prog} -QUIT
+    su - <%=@user %> -c "cd $RAILS_ROOT && chruby-exec <%=@ruby_version %> -- bundle exec sidekiqctl stop ${pidfile} 60"
+    
+    RETVAL=$?
+    echo
+    [ $RETVAL = 0 ] && rm -f ${lockfile} ${pidfile}
+}
+
+restart() {
+    stop
+    start
+    RETVAL=$?
+    echo
+}
+
+rh_status() {
+    status -p ${pidfile} ${prog}
+}
+
+# See how we were called.
+case "$1" in
+    start)
+        rh_status >/dev/null 2>&1 && exit 0
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        rh_status
+        RETVAL=$?
+        ;;
+    restart)
+        restart
+        ;;
+    *)
+        echo $"Usage: $prog {start|stop|restart|condrestart|try-restart|force-reload|upgrade|reload|status|help|configtest}"
+        RETVAL=2
+esac
+
+exit $RETVAL
