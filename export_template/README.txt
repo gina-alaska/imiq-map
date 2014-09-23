@@ -4,26 +4,31 @@ September 2014
 Contact: imiq@arcticlcc.org
 Website: http://www.arcticlcc.org/imiq
 
-BACKGROUND
+WHAT IS IMIQ?
 
-The Imiq Hydroclimate Database houses hydrologic, climatologic, and soils 
-data collected in Alaska and Western Canada from the early 1900s to the present. 
+The Imiq Hydroclimate database houses hydrologic, climatologic, and soils
+data collected in Alaska and Western Canada from the early 1900s to the present.
+This database unifies and preserves numerous data collections that have, 
+until now, been stored in field notebooks, on desktop computers, as well as
+in disparate databases.  Synthesizing and analyzing the large-scale hydroclimate
+characteristics of this important climatic region have been made easier with this
+searchable database.
 
-The Imiq Data Portal provides public access to the Imiq Hydroclimate 
-Database through a simple web interface with search and visualization options. 
-Data and metadata are easily downloaded in a common file format and have been 
-normalized into common units.
+The Imiq Data Portal provides public access to portions of the Imiq 
+Hydroclimate Database through a simple web interface with search and 
+visualization options. Data and metadata are easily downloaded in a common 
+file format and have been normalized into common units.  The Imiq Data 
+Portal has been designed to meet the needs of land stewards, resource 
+managers, and scientific researchers.
 
-The word Imiq means ‘freshwater’ in the Inupiat language of Northern Alaska.
+The word Imiq means 'freshwater' in the Inupiat language of Northern Alaska.
 
 HOW TO CITE THE DATA
 
 Please cite both the data originator and the Imiq Data Portal.  In many cases,
 data may be changed from their original units or averaged across time periods.
-
-* The originator (source) of the data is provided in the Imiq_Site_List.PDF.   
-
-* The Imiq Data Portal should be cited as:
+The metadata pertaining to the originator will be downloaded with the data.  The 
+Imiq Data Portal should be cited as:
 
 Cherry, Jessica, Amy Jacobs, Tom Heinrichs, Will Fisher, Jennifer Delamere, 
 Cheryl Haase, Philip Martin, Josh Bradley, Jennifer Jenkins, Jess Grunblatt, 
@@ -39,6 +44,3 @@ was funded by the Arctic LCC and the North Slope Science Initiative and
 implemented by the Geographic Information Network of Alaska (GINA). Data 
 were contributed from many agencies and investigator-driven research 
 projects.
-
-
-
