@@ -25,7 +25,7 @@ module MapsHelper
   end
 
   def timesteps
-    [['Hourly','hourly'],['Daily', 'daily']]
+    [['Hourly','hourly'],['Daily', 'daily'],['Monthly', 'monthly']]
   end
 
   def geophysical_params(type = 'any')
@@ -36,6 +36,8 @@ module MapsHelper
       ],
       'hourly'=> [
       ],
+      'monthly'=> [
+      ],    
       'any'=> [
         ['Discharge', 'discharge'],
         ['Water Temperature', 'watertemp']
@@ -44,15 +46,15 @@ module MapsHelper
 
     { 
       'Exportable Summary Products' => [
-        [ 'Air Temperature'                 , 'airtemp'             ],
-        [ 'Relative Humidity'               , 'rh'                  ],
-        [ 'Wind Speed'                      , 'windspeed'           ],
-        [ 'Wind Direction'                  , 'winddirection'       ],
-        [ 'Precipitation'                   , 'precip'              ],
-        [ 'Snow Depth'                      , 'snowdepth'           ],
-        [ 'Snow Water Equivalent'           , 'swe'                 ],
-        [ 'Discharge (only daily)'          , 'discharge'           ],
-        [ 'Water Temperature (only daily)'  , 'watertemp'           ]
+        [ 'Air Temperature'                     , 'airtemp'             ],
+        [ 'Relative Humidity'                   , 'rh'                  ],
+        [ 'Wind Speed (only hourly,daily)'      , 'windspeed'           ],
+        [ 'Wind Direction (only hourly,daily)'  , 'winddirection'       ],
+        [ 'Precipitation'                       , 'precip'              ],
+        [ 'Snow Depth'                          , 'snowdepth'           ],
+        [ 'Snow Water Equivalent'               , 'swe'                 ],
+        [ 'Discharge (only daily,monthly)'      , 'discharge'           ],
+        [ 'Water Temperature (only daily)'      ,    'watertemp'           ]
       ],
 
       'Air' => [
