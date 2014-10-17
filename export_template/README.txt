@@ -23,6 +23,10 @@ managers, and scientific researchers.
 
 The word Imiq means 'freshwater' in the Inupiat language of Northern Alaska.
 
+DATA QUALITY ASSURANCE/QUALITY CONTROL
+
+Data have not been subjected to QA/QC after receipt from the source, except for broad, variable-specific thresholds. Data may have been altered from their original form as part of normalization into the database and any data flagged by their source as questionable were omitted. Please examine the documentation automatically downloaded with the data and use data at your own risk.
+
 HOW TO CITE THE DATA
 
 Please cite both the data originator and the Imiq Data Portal.  In many cases,
