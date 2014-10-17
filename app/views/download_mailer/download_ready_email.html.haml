@@ -16,9 +16,19 @@
   %br/
   %b Variables: 
   #{@export.variables.map(&:humanize).try(:join, ', ')}
-
-%p 
-  If you encounter any problems trying to access your data please email us at 
-  #{mail_to 'support@gina.alaska.edu', 'support@gina.alaska.edu', subject: "[IMIQ] Error downloading #{@export.id}", body: "Help with my download:\n\tExport ID: #{@export.id}\n\tPlease add any additional information about the problem below:\n"}
-
+  
+%ul
+  %li
+    Data will be available for one month after initial download request.
+  %li
+    Data have not been subjected to QA/QC after receipt from the source, except for broad, variable-specific thresholds. Data may have been altered from their original form as part of normalization into the database and any data flagged by their source as questionable were omitted. Please examine the documentation automatically downloaded with the data and use data at your own risk.
+  %li
+    Please cite both the data originator and the Imiq Data Portal.  The metadata pertaining to the originator will be downloaded with the data.  The Imiq Data Portal should be cited as: 
+    %p{style: "padding-left: 30px; margin-top: 0; margin-bottom: 0;"}
+      %i
+        Cherry, Jessica, Amy Jacobs, Tom Heinrichs, Will Fisher, Jennifer Delamere, Cheryl Haase, Philip Martin, Josh Bradley, Jennifer Jenkins, Jess Grunblatt, Greg Balogh, Imiq Hydroclimate Database at the University of Alaska Fairbanks, http://arcticlcc.org/projects/imiq/, accessed on [Date accessed].
+  %li 
+    If you encounter any problems trying to access your data please email us at 
+    #{mail_to 'support@gina.alaska.edu', 'support@gina.alaska.edu', subject: "[IMIQ] Error downloading #{@export.id}", body: "Help with my download:\n\tExport ID: #{@export.id}\n\tPlease add any additional information about the problem below:\n"}
+  
 %p Thanks for using IMIQ and have a great day!
