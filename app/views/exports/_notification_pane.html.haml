@@ -2,15 +2,18 @@
   .form-content{ style: 'padding:10px;' }
     .form-group
       %label Export Instructions
-      %p
-        Data are provisional and subject to revision.  Data downloads will begin when you click the Export button in the bottom, right corner of this dialog box.
-      %p
-        Imiq hydroclimate database questions?
-        Please contact
-        = mail_to 'imiq@arcticlcc.org', 'imiq@arcticlcc.org'
+      %ul
+        %li
+          Enter email address into box below.  You will receive an email when your download is ready.  Click the Export button in the bottom, right corner of this dialog box to begin download process.
+        %li
+          Data have not been subjected to QA/QC after receipt from the source, except for broad, variable-specific thresholds. Data may have been altered from their original form as part of normalization into the database and any data flagged by their source as questionable were omitted. Please examine the documentation automatically downloaded with the data and use data at your own risk.
+        %li
+          Imiq hydroclimate database questions?
+          Please contact
+          = mail_to 'imiq@arcticlcc.org', 'imiq@arcticlcc.org'
     .form-group
       = f.label :email, class: 'control-label'
-      = f.text_field :email, class: 'form-control', placeholder: 'Email address (not yet required)'
+      = f.text_field :email, class: 'form-control', placeholder: 'Email address'
   .text-left{ style: 'padding:10px; border-top: 1px solid #efefef;' }
     %a.btn.btn-primary{ href: '#export-options', data: { toggle: "tab" } }
       %i.fa.fa-arrow-left
