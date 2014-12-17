@@ -62,4 +62,4 @@ gem 'capistrano-bower'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-ruby '2.1.1'
+#ruby '2.1.1'
