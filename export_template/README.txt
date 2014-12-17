@@ -1,5 +1,5 @@
 THE IMIQ HYDROCLIMATE DATABASE & THE IMIQ DATA PORTAL
-September 2014
+December 2014
 
 Contact: imiq@arcticlcc.org
 Website: http://www.arcticlcc.org/imiq
