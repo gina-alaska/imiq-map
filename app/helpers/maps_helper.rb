@@ -25,7 +25,7 @@ module MapsHelper
   end
 
   def timesteps
-    [['Hourly','hourly'],['Daily', 'daily'],['Monthly', 'monthly']]
+    [['Hourly','hourly'],['Daily', 'daily'],['Monthly', 'monthly'], ['Annual', 'annual']]
   end
 
   def geophysical_params(type = 'any')
@@ -37,14 +37,16 @@ module MapsHelper
       'hourly'=> [
       ],
       'monthly'=> [
-      ],    
+      ],
+      'annual'=> [
+      ],
       'any'=> [
         ['Discharge', 'discharge'],
         ['Water Temperature', 'watertemp']
       ]
     }
 
-    { 
+    {
       'Exportable Summary Products' => [
         [ 'Air Temperature'                     , 'airtemp'             ],
         [ 'Relative Humidity'                   , 'rh'                  ],
@@ -53,7 +55,7 @@ module MapsHelper
         [ 'Precipitation'                       , 'precip'              ],
         [ 'Snow Depth'                          , 'snowdepth'           ],
         [ 'Snow Water Equivalent'               , 'swe'                 ],
-        [ 'Discharge (only daily,monthly)'      , 'discharge'           ],
+        [ 'Discharge (only daily,monthly,annual)'      , 'discharge'           ],
         [ 'Water Temperature (only daily)'      ,    'watertemp'           ]
       ],
 
@@ -67,20 +69,20 @@ module MapsHelper
         ["Visibility"                       , "visibility"             ],
         ["Wind, Direction/Speed"            , "air_wind"                ]
       ],
-          
+
       'Precipitation' => [
         ["Pan Evaporation"                  , "precipitation_pan_evaporation" ],
         ["Precipitation"                    , "precipitation_precipitation"   ],
         ["Snowfall"                         , "precipitation_snowfall"        ]
-      ],  
-         
+      ],
+
       'Snow' => [
         ["Ablation"                         , "snow_ablation"   ],
         ["Snow Depth"                       , "snow_depth"      ],
         ["Snow Water Equivalent"            , "snow_swe"        ],
         ["Snow Temperature"                 , "snow_temperature"]
-      ], 
-      
+      ],
+
       'Soil' => [
         ["Soil Albedo"                      , "soil_albedo"         ],
         ["Frost Free Days"                  , "soil_frost_free_days"],
@@ -99,7 +101,7 @@ module MapsHelper
         ["Radiation, PAR"                   , "air_radiation_par"   ],
         ["Surface Water Temperature"        , "sw_temperature"      ]
       ]
-           
+
     }
   end
 end
