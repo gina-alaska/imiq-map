@@ -24,4 +24,12 @@ module ExportsHelper
 
     list.sort.uniq.try(:join, ', ')
   end
+
+  def timestep_display(timestep)
+    if timestep == 'fifteenmin'
+      'Fifteen Min'
+    else
+      timestep.humanize
+    end
+  end
 end
