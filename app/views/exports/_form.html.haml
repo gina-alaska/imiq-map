@@ -1,4 +1,4 @@
-- dvars = { 'daily' => [], 'hourly' => [], 'monthly' => [], 'annual' => [], 'source' => [] }
+- dvars = { 'daily' => [], 'fifteenmin' => [], 'hourly' => [], 'monthly' => [], 'annual' => [], 'source' => [] }
 - mindate = @sites.first.try(:[], 'begin_date')
 - maxdate = @sites.first.try(:[], 'end_date')
 - active_tab = "daily"
@@ -24,6 +24,7 @@
           %tbody
             - @sites.each do |site|
               - dvars['daily'] += site['derived_variables']['daily']
+              - dvars['fifteenmin'] += site['derived_variables']['fifteenmin']
               - dvars['hourly'] += site['derived_variables']['hourly']
               - dvars['monthly'] += site['derived_variables']['monthly']
               - dvars['annual'] += site['derived_variables']['annual']
