@@ -72,5 +72,6 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-leaflet-draw'
   gem 'rails-assets-leaflet.markercluster', '0.4.0.hotfix.1'
   gem 'rails-assets-Leaflet.Coordinates'
+  gem 'rails-assets-highcharts'
 end
 gem "font-awesome-rails"
