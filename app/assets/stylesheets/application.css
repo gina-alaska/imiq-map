@@ -11,7 +11,7 @@
  *= require mapbox.js/mapbox.css
  *= require leaflet-draw
  *= require leaflet.markercluster
- *= require Leaflet.Coordinates/dist/Leaflet.Coordinates-0.1.3
+ *= require Leaflet.Coordinates
  *= require bootstrap
  *= require eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker
  *= require font-awesome

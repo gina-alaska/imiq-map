@@ -19,7 +19,7 @@
 //= require gina-map-layers/adapters/leaflet
 //= require leaflet-draw
 //= require leaflet.markercluster
-//= require Leaflet.Coordinates/dist/Leaflet.Coordinates-0.1.3.min.js
+//= require Leaflet.Coordinates
 //= require wicket/wicket
 //= require wicket/wicket-leaflet
 //= require bootstrap
