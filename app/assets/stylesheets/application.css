@@ -13,9 +13,9 @@
  *= require leaflet.markercluster/dist/MarkerCluster.css
  *= require leaflet.markercluster/dist/MarkerCluster.Default.css
  *= require Leaflet.Coordinates/dist/Leaflet.Coordinates-0.1.3
- *= require bootstrap/dist/css/bootstrap
+ *= require bootstrap
  *= require eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker
- *= require fontawesome/css/font-awesome
+ *= require font-awesome
  *= require_self
  *= require_tree .
  */

@@ -42,6 +42,14 @@
     .col-lg-5.col-md-5
       = text_field_tag 'bounds[ne_lng]', params[:bounds].try(:[], :ne_lng), class: 'form-control bounds'
 
+  .text-center
+    .btn-group
+      = link_to '#', class: 'btn btn-default navbar-btn', data: { behavior: 'draw-aoi' }, title: 'Select bounds' do
+        %i.fa.fa-pencil
+        Select bounds
+      = link_to '#', data: { behavior: 'clear-aoi' }, title: 'Remove Bounds', class: 'btn btn-danger navbar-btn' do
+        %i.fa.fa-trash-o
+        Clear selection
   / %br/
   = render 'layouts/navbar'
   / .text-right

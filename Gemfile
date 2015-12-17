@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.5'
+gem 'bundler', '>= 1.8.4'
 
 # Use sqlite3 as the database for Active Record
 gem 'pg'
@@ -15,6 +16,7 @@ gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'spring', group: :development
 gem "chartkick"
+gem 'kaminari'
 
 #heroku gems
 #gem 'rails_12factor', group: :production
@@ -63,3 +65,9 @@ gem 'capistrano-bower'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 #ruby '2.1.1'
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-bootstrap', '3.2.0'
+  gem 'rails-assets-mapbox.js'
+end
+gem "font-awesome-rails"

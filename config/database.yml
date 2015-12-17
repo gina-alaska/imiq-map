@@ -1,14 +1,8 @@
 development:
   adapter: postgresql
   database: imiq_map_development
-  username: imiq
-  password: fj188fj1lmff14r
   schema_search_path: public
-  host: 192.168.222.227
 test:
   adapter: postgresql
   database: imiq_map_test
-  username: imiq
-  password: fj329rghDDw02jf
   schema_search_path: public
-  host: 192.168.222.227

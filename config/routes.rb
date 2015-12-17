@@ -6,8 +6,10 @@ ImiqMap::Application.routes.draw do
   end
   resources :maps
   resources :graphs
-  resources :sites, only: [:show]
-  
+  resources :sites, only: [:index, :show] do
+    get :export, on: :collection
+  end
+
   if Rails.env.development?
     require 'sidekiq/web'
     mount Sidekiq::Web, at: '/sidekiq'

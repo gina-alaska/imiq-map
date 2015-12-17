@@ -15,14 +15,14 @@
 //= require jquery_ujs
 //= require turbolinks
 
-//= require mapbox.js/mapbox.js
+//= require mapbox.js
 //= require gina-map-layers/adapters/leaflet
 //= require leaflet.draw/dist/leaflet.draw
 //= require leaflet.markercluster/dist/leaflet.markercluster
 //= require Leaflet.Coordinates/dist/Leaflet.Coordinates-0.1.3.min.js
 //= require wicket/wicket
 //= require wicket/wicket-leaflet
-//= require bootstrap/dist/js/bootstrap
+//= require bootstrap
 //= require moment/min/moment.min
 //= require eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min
 //= require Highcharts-4.0.1/js/highcharts

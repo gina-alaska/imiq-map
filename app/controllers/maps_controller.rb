@@ -25,7 +25,9 @@ class MapsController < ApplicationController
 
           render '/exports/new'
         when 'export-sites'
-           redirect_via_turbolinks_to imiq_api.sites_uri(search_params, 1, 1500, :point, :pdf)
+          #  redirect_via_turbolinks_to export_sites_path(search_params)
+           #imiq_api.sites_uri(search_params, 1, 1500, :point, :pdf)
+           render '/sites/export'
         else
           @imiq_api_url = imiq_api.sites_uri(search_params).to_s
         end
@@ -33,12 +35,4 @@ class MapsController < ApplicationController
     end
   end
 
-  protected
-
-  def search_params    
-    @search ||= params.permit(:q, :datatype, :samplemedium, :generalcategory,
-      :valuetype, :variablename, :networkcode, :organizationcode, :derived_values,
-      :time_step, bounds: [:sw_lat, :sw_lng, :ne_lat, :ne_lng])      
-  end
-  helper_method :search_params
 end

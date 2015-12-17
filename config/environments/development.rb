@@ -11,7 +11,7 @@ ImiqMap::Application.configure do
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
-  config.action_controller.perform_caching = false
+  config.action_controller.perform_caching = true
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = true
@@ -27,7 +27,7 @@ ImiqMap::Application.configure do
   # number of complex assets.
   config.assets.debug = true
   # config.assets.digest = true
-  
+
   config.action_mailer.default_url_options = { host: 'imiq-map.dev' }
   config.action_mailer.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {

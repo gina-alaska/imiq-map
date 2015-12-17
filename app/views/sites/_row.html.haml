@@ -1,0 +1,7 @@
+- cache site do
+  %tr
+    %td= site.siteid
+    %td #{site.sitename} (#{site.sitecode})
+    %td #{number_with_precision(site.lng, precision: 3)}, #{number_with_precision(site.lat, precision: 3)}
+    %td= site.networks.try(:join, ', ')
+    %td= site.organizations.try(:join, ', ')
