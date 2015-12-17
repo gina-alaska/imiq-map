@@ -17,7 +17,7 @@
 
 //= require mapbox.js
 //= require gina-map-layers/adapters/leaflet
-//= require leaflet.draw/dist/leaflet.draw
+//= require leaflet-draw
 //= require leaflet.markercluster/dist/leaflet.markercluster
 //= require Leaflet.Coordinates/dist/Leaflet.Coordinates-0.1.3.min.js
 //= require wicket/wicket
@@ -46,7 +46,7 @@ var load_map_results = function(url) {
     url = url + '&limit=100000';
     showSpinner();
   }
-  
+
   var map = $('#map').data('map');
   map.startSearch();
   map.clearMarkers();
@@ -64,7 +64,7 @@ hideSpinner = function() {
 // $(document).on('ready', initialize_map);
 $(document).ready(function() {
   initialize_map();
-  
+
   $(document).on('ajax:before', function() {
     showSpinner();
   });
@@ -83,5 +83,5 @@ $(document).ready(function() {
   });
   $(document).on('page:load', function() {
     hideSpinner();
-  });  
+  });
 })

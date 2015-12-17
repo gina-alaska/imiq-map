@@ -69,5 +69,6 @@ gem 'capistrano-bower'
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap', '3.2.0'
   gem 'rails-assets-mapbox.js'
+  gem 'rails-assets-leaflet-draw'
 end
 gem "font-awesome-rails"

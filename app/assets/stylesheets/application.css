@@ -9,7 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require mapbox.js/mapbox.css
- *= require leaflet.draw/dist/leaflet.draw
+ *= require leaflet-draw
  *= require leaflet.markercluster/dist/MarkerCluster.css
  *= require leaflet.markercluster/dist/MarkerCluster.Default.css
  *= require Leaflet.Coordinates/dist/Leaflet.Coordinates-0.1.3

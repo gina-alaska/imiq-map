@@ -34,13 +34,13 @@ class @MapForm
       unless @map_container.draw_tool?
         @map_container.draw_tool = new L.Draw.Rectangle(@map_container.map)
         @map_container.draw_tool.on 'disabled', =>
-          target.removeClass('btn-success')
+          $('[data-behavior="draw-aoi"]').removeClass('btn-success')
 
       if @map_container.draw_tool.enabled()
         @map_container.draw_tool.disable()
       else
         @map_container.draw_tool.enable()
-        target.addClass('btn-success')
+        $('[data-behavior="draw-aoi"]').addClass('btn-success')
 
     $(document).on 'click', '[data-behavior="export-sites"]', (e) =>
       e.preventDefault()
