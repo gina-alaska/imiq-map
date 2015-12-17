@@ -70,5 +70,6 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap', '3.2.0'
   gem 'rails-assets-mapbox.js'
   gem 'rails-assets-leaflet-draw'
+  gem 'rails-assets-leaflet.markercluster', '0.4.0.hotfix.1'
 end
 gem "font-awesome-rails"

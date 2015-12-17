@@ -5,8 +5,6 @@
 asset 'eonasdan-bootstrap-datetimepicker'
 asset 'gina-map-layers', '1.0.4', github: 'gina-alaska/gina-map-layers'
 asset 'jQuery-ajaxTransport-XDomainRequest', '1.0.2', github: 'MoonScript/jQuery-ajaxTransport-XDomainRequest'
-asset 'leaflet.draw'
-asset 'leaflet.markercluster'
 #asset 'markerclusters'
 asset 'wicket', github: 'arthur-e/Wicket'
 asset 'Leaflet.Coordinates', github: 'MrMufflon/Leaflet.Coordinates'

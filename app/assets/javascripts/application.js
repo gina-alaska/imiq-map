@@ -18,7 +18,7 @@
 //= require mapbox.js
 //= require gina-map-layers/adapters/leaflet
 //= require leaflet-draw
-//= require leaflet.markercluster/dist/leaflet.markercluster
+//= require leaflet.markercluster
 //= require Leaflet.Coordinates/dist/Leaflet.Coordinates-0.1.3.min.js
 //= require wicket/wicket
 //= require wicket/wicket-leaflet

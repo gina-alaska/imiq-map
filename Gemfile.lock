@@ -123,9 +123,12 @@ GEM
     rails-assets-bootstrap (3.2.0)
       rails-assets-jquery (>= 1.9.0)
     rails-assets-jquery (2.1.4)
+    rails-assets-leaflet (0.7.7)
     rails-assets-leaflet-dist (0.7.2)
     rails-assets-leaflet-draw (0.2.4)
       rails-assets-leaflet-dist (~> 0.7.0)
+    rails-assets-leaflet.markercluster (0.4.0.hotfix.1)
+      rails-assets-leaflet (>= 0.7.0)
     rails-assets-mapbox.js (2.2.3)
     railties (4.1.5)
       actionpack (= 4.1.5)
@@ -210,6 +213,7 @@ DEPENDENCIES
   rails (= 4.1.5)
   rails-assets-bootstrap (= 3.2.0)!
   rails-assets-leaflet-draw!
+  rails-assets-leaflet.markercluster (= 0.4.0.hotfix.1)!
   rails-assets-mapbox.js!
   sass-rails (~> 4.0.0)
   sdoc
