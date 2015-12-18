@@ -73,5 +73,6 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-leaflet.markercluster', '0.4.0.hotfix.1'
   gem 'rails-assets-Leaflet.Coordinates'
   gem 'rails-assets-highcharts'
+  gem 'rails-assets-eonasdan-bootstrap-datetimepicker'
 end
 gem "font-awesome-rails"

@@ -13,7 +13,7 @@
  *= require leaflet.markercluster
  *= require Leaflet.Coordinates
  *= require bootstrap
- *= require eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker
+ *= require eonasdan-bootstrap-datetimepicker
  *= require font-awesome
  *= require_self
  *= require_tree .

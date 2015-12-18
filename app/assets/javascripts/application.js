@@ -24,7 +24,7 @@
 //= require wicket/wicket-leaflet
 //= require bootstrap
 //= require moment/min/moment.min
-//= require eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min
+//= require eonasdan-bootstrap-datetimepicker
 //= require highcharts
 //= require chartkick
 //= require jQuery-ajaxTransport-XDomainRequest/jQuery.XDomainRequest
