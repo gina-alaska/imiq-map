@@ -6,12 +6,6 @@ GIT
       capistrano (~> 3.0)
       sshkit (~> 1.3)
 
-GIT
-  remote: https://github.com/gina-alaska/bower-tools
-  revision: b39212280435e54863a510b5804120bfc1f00dc2
-  specs:
-    bower-tools (0.2.1)
-
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -130,6 +124,8 @@ GEM
       rails-assets-moment-timezone (>= 0.4.0)
     rails-assets-highcharts (4.1.8)
     rails-assets-jquery (2.1.4)
+    rails-assets-jquery.xdomainrequest (1.0.4)
+      rails-assets-jquery (>= 1.5)
     rails-assets-leaflet (0.7.7)
     rails-assets-leaflet-dist (0.7.2)
     rails-assets-leaflet-draw (0.2.4)
@@ -202,7 +198,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bower-tools!
   bundler (>= 1.8.4)
   capistrano
   capistrano-bower
@@ -225,6 +220,7 @@ DEPENDENCIES
   rails-assets-bootstrap (= 3.2.0)!
   rails-assets-eonasdan-bootstrap-datetimepicker!
   rails-assets-highcharts!
+  rails-assets-jquery.xdomainrequest!
   rails-assets-leaflet-draw!
   rails-assets-leaflet.markercluster (= 0.4.0.hotfix.1)!
   rails-assets-mapbox.js!

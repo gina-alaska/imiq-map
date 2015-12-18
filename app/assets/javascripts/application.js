@@ -16,7 +16,6 @@
 //= require turbolinks
 
 //= require mapbox.js
-//= require gina-map-layers/adapters/leaflet
 //= require leaflet-draw
 //= require leaflet.markercluster
 //= require Leaflet.Coordinates
@@ -27,7 +26,7 @@
 //= require eonasdan-bootstrap-datetimepicker
 //= require highcharts
 //= require chartkick
-//= require jQuery-ajaxTransport-XDomainRequest/jQuery.XDomainRequest
+//= require jquery.xdomainrequest
 //= stub ie
 //= require_tree .
 

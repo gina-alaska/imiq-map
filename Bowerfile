@@ -2,6 +2,5 @@
 # Check out https://github.com/42dev/bower-rails#ruby-dsl-configuration for more options
 
 # asset 'bootstrap'
-asset 'gina-map-layers', '1.0.4', github: 'gina-alaska/gina-map-layers'
-asset 'jQuery-ajaxTransport-XDomainRequest', '1.0.2', github: 'MoonScript/jQuery-ajaxTransport-XDomainRequest'
-asset 'wicket', github: 'arthur-e/Wicket'
+# asset 'gina-map-layers', '1.0.4', github: 'gina-alaska/gina-map-layers'
+#asset 'wicket', github: 'arthur-e/Wicket'

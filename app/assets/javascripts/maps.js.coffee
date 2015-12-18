@@ -18,7 +18,7 @@ class @Map
       "drawControlTooltips": true,
       "tiles": ["http://a.tiles.mapbox.com/v3/gina-alaska.heb1gpfg/{z}/{x}/{y}.png", "http://b.tiles.mapbox.com/v3/gina-alaska.heb1gpfg/{z}/{x}/{y}.png", "http://c.tiles.mapbox.com/v3/gina-alaska.heb1gpfg/{z}/{x}/{y}.png", "http://d.tiles.mapbox.com/v3/gina-alaska.heb1gpfg/{z}/{x}/{y}.png"],
     })
-    
+
     @map.options.drawControlTooltips = true
     @defaultZoom()
 
@@ -26,16 +26,19 @@ class @Map
 
     baseLayers = {
       'Terrain': L.mapbox.tileLayer('gina-alaska.heb1gpfg')
+      'GINA BestDataLayer': L.tileLayer('http://tiles.gina.alaska.edu/tilesrv/bdl/tile/{x}/{y}/{z}', {
+        maxZoom: 15
+      })
     }
-
-    for slug in ['TILE.EPSG:3857.BDL', 'TILE.EPSG:3857.TOPO', 'TILE.EPSG:3857.SHADED_RELIEF', 'TILE.EPSG:3857.LANDSAT_PAN']
-      l = Gina.Layers.get(slug, true)
-      baseLayers[l.name] = l.instance if l?
+    #
+    # for slug in ['TILE.EPSG:3857.BDL', 'TILE.EPSG:3857.TOPO', 'TILE.EPSG:3857.SHADED_RELIEF', 'TILE.EPSG:3857.LANDSAT_PAN']
+    #   l = Gina.Layers.get(slug, true)
+    #   baseLayers[l.name] = l.instance if l?
+    #
+    #
     @map.addLayer(baseLayers['Terrain'])
 
-    # L.tileLayer('http://tiles.gina.alaska.edu/tilesrv/bdl/tile/{x}/{y}/{z}', {
-    #   maxZoom: 15
-    # }).addTo(@map);
+
     @layers_control = L.control.layers(baseLayers, [], {
       autoZIndex: true
     }).addTo(@map)
@@ -96,12 +99,12 @@ class @Map
       edit: false
       remove: false
     })
-    @map.addControl(@drawControl)    
+    @map.addControl(@drawControl)
 
     @map.on('draw:created', @handleDrawCreated)
     @map.on('draw:edited', @handleDrawEdited)
     @map.on('draw:deleted', @handleDrawDeleted)
-      
+
 
   handleDrawDeleted: (e) =>
     type = e.layerType
@@ -163,7 +166,7 @@ class @Map
       opacity: 1,
       fillOpacity: 0.8
   }
-  
+
   clusterConfig: () =>
     if IMIQ? and IMIQ.IE
       { disableClusteringAtZoom: 8 }
@@ -214,23 +217,23 @@ class @Map
       output += '
           <li class="dropdown navbar-right"><a href="#" class="dropdown-toggle" data-toggle="dropdown">More <b class="caret"></b></a>
             <ul class="dropdown-menu">'
-              
+
       output += tab_content[2..tab_content.length].join(' ')
-              
+
       output += '
             </ul>
           </li>'
     else
       output = tab_content.join(' ')
-      
+
     output
-  
+
   description: (feature) ->
     derived_variables = []
     variable_output = ""
     graph_tab_panes = ""
     graph_tabs = []
-    
+
     for index,item of feature.properties.derived_variables
       for variable in item
         if index != 'source'
@@ -241,7 +244,7 @@ class @Map
           <div class=\"tab-pane\" id=\"graph_#{variable[1]}\">
           </div>
           "
-      
+
     variable_output = derived_variables.sort().join(', ')
 
     output = """
@@ -274,7 +277,7 @@ class @Map
         </div>
       </div>
     <a href="/exports/new?siteid=#{feature.properties.siteid}" data-remote="true" class="btn btn-block btn-primary" >Export</a>
-    """        
+    """
 
 
     output

@@ -7,9 +7,7 @@ gem 'bundler', '>= 1.8.4'
 # Use sqlite3 as the database for Active Record
 gem 'pg'
 gem 'haml'
-#gem "bower-rails", "~> 0.8.3"
-# gem 'bowerify'
-gem 'bower-tools', git: 'https://github.com/gina-alaska/bower-tools'
+
 gem 'httparty'
 gem 'quiet_assets'
 gem 'sidekiq'
@@ -74,5 +72,6 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-Leaflet.Coordinates'
   gem 'rails-assets-highcharts'
   gem 'rails-assets-eonasdan-bootstrap-datetimepicker'
+  gem 'rails-assets-jquery.xdomainrequest'
 end
 gem "font-awesome-rails"
