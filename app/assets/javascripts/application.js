@@ -16,18 +16,17 @@
 //= require turbolinks
 
 //= require mapbox.js
-//= require gina-map-layers/adapters/leaflet
-//= require leaflet.draw/dist/leaflet.draw
-//= require leaflet.markercluster/dist/leaflet.markercluster
-//= require Leaflet.Coordinates/dist/Leaflet.Coordinates-0.1.3.min.js
+//= require leaflet-draw
+//= require leaflet.markercluster
+//= require Leaflet.Coordinates
 //= require wicket/wicket
 //= require wicket/wicket-leaflet
 //= require bootstrap
 //= require moment/min/moment.min
-//= require eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min
-//= require Highcharts-4.0.1/js/highcharts
+//= require eonasdan-bootstrap-datetimepicker
+//= require highcharts
 //= require chartkick
-//= require jQuery-ajaxTransport-XDomainRequest/jQuery.XDomainRequest
+//= require jquery.xdomainrequest
 //= stub ie
 //= require_tree .
 
@@ -46,7 +45,7 @@ var load_map_results = function(url) {
     url = url + '&limit=100000';
     showSpinner();
   }
-  
+
   var map = $('#map').data('map');
   map.startSearch();
   map.clearMarkers();
@@ -64,7 +63,7 @@ hideSpinner = function() {
 // $(document).on('ready', initialize_map);
 $(document).ready(function() {
   initialize_map();
-  
+
   $(document).on('ajax:before', function() {
     showSpinner();
   });
@@ -83,5 +82,5 @@ $(document).ready(function() {
   });
   $(document).on('page:load', function() {
     hideSpinner();
-  });  
+  });
 })

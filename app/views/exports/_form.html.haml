@@ -28,7 +28,7 @@
               - dvars['monthly'] += site['derived_variables']['monthly']
               - mindate = site['begin_date'] if mindate > site['begin_date']
               - maxdate = site['end_date'] if maxdate < site['end_date']
-              
+
               %tr
                 %td
                   = check_box_tag "export[sites][]", site['siteid'], true, class: 'site_ids'
@@ -71,7 +71,7 @@
                   - if "#{timestep}"  == "source"
                     %p
                       Calibrated, instantaneous source data from Imiq Database available by request.  Contact imiq@arcticlcc.org to check availability.
-                  - else 
+                  - else
                     %p
                       Time-averaged, summary products using one or more measurements from Imiq database.
                     - items.uniq.sort.each do |variable|
@@ -89,7 +89,5 @@
     = render 'exports/notification_pane', f: f
 :javascript
   $('.date-editor').datetimepicker({
-    showToday: true,
-    format: 'YYYY/MM/DD',
-    pickTime: false
+    format: 'YYYY/MM/DD'
   });
