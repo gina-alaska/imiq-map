@@ -18,6 +18,14 @@ class Site
     FIELDS.include?(name.to_s) || @attributes.has_key?(name.to_s)
   end
 
+  def organizations
+    @attributes['source']['organization']
+  end
+
+  def networks
+    super.join(', ')
+  end
+
   def cache_key
     [siteid, updated_at.to_i].join('-')
   end

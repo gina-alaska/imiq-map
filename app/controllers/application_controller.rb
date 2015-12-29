@@ -23,4 +23,17 @@ class ApplicationController < ActionController::Base
       :time_step, bounds: [:sw_lat, :sw_lng, :ne_lat, :ne_lng])
   end
   helper_method :search_params
+
+  def current_search
+    @current_search ||= Search.find(session[:current_search_id]) || Search.new
+  end
+  helper_method :current_search
+
+  def current_search=(search)
+    @current_search = Search.where(params: Search.params_dump(search)).first || Search.create(params:search.to_hash)
+    
+    session[:current_search_id] = @current_search.id
+
+    @current_search
+  end
 end

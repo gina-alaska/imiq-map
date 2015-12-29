@@ -24,10 +24,13 @@ class MapsController < ApplicationController
           @export = Export.new
 
           render '/exports/new'
-        when 'export-sites'
+        when 'show-sites'
           #  redirect_via_turbolinks_to export_sites_path(search_params)
            #imiq_api.sites_uri(search_params, 1, 1500, :point, :pdf)
+           self.current_search = search_params
            render '/sites/export'
+        when 'export-sites'
+
         else
           @imiq_api_url = imiq_api.sites_uri(search_params).to_s
         end

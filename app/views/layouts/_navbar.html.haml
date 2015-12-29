@@ -19,11 +19,10 @@
 
       = hidden_field_tag :commit, 'submit', id: 'commit_value'
 
-      -#NOTE: Restore this functionality at a later date.
       .btn-group
-        %button.btn.btn-primary.navbar-btn{ name: 'commit', value: 'export-sites' }
-          %i.fa.fa-cloud-download
-          Site list
+        = link_to sites_path, class: 'btn btn-primary navbar-btn', remote: true do
+          %i.fa.fa-eye
+          View sites
 
       .btn-group
         %button.btn.btn-primary.navbar-btn{ data: { behavior: 'export', toggle: 'tooltip', placement: 'top', container: 'body' }, title: 'Click here to export data for visible sites' }

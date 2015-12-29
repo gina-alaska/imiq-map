@@ -14,6 +14,17 @@ class SitesPager
     end
   end
 
+  def to_csv
+    attributes = %w{ siteid sitecode sitename organizations networks state county geolocation begin_date end_date comments }
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+      each do |site|
+        csv << attributes.map{ |attr| site.send(attr) }
+      end
+    end
+  end
+
   def entry_name
     'site'
   end

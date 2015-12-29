@@ -1,15 +1,11 @@
 class SitesController < ApplicationController
   def index
-    @sites = SitesPager.new(imiq_api.sites(search_params, params[:page] || 1, 50))
+    @sites = fetch_sites(params[:page])
 
     respond_to do |format|
       format.html
-    end
-  end
-
-  def export
-    respond_to do |format|
       format.js
+      format.csv
     end
   end
 
@@ -21,5 +17,12 @@ class SitesController < ApplicationController
       format.js
     end
   end
+
+  protected
+
+  def fetch_sites(page = 1)
+    SitesPager.new(imiq_api.sites(current_search.params, page || 1, 50))
+  end
+  helper_method :fetch_sites
 
 end

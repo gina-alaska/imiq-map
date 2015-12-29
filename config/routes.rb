@@ -1,4 +1,8 @@
 ImiqMap::Application.routes.draw do
+  resource :search, only: [:create, :show] do
+    get :sites
+  end
+  
   resources :pages
   resources :exports do
     patch :retry, on: :member
