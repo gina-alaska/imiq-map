@@ -4,6 +4,7 @@
 * NodeJS
 * Bower (npm install -g bower)
 * PostgreSQL
+* Otto (https://ottoproject.io/downloads.html)
 
 ## Installation
 
