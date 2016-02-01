@@ -10,6 +10,10 @@
       %iframe{ src: sites_path, style: 'width: 100%; height: 500px; border: none;' }
 
       .modal-footer
-        = link_to 'Export', sites_path(format: :csv), class: 'btn btn-primary'
+        = link_to sites_path(format: :csv), class: 'btn btn-primary' do
+          Export
+          - if @sites.total_count > 200
+            %b (Only the first 200 sites will be exported)
+
         %button.btn.btn-default.pull-left{ type: "button", data: { dismiss: "modal" } }
           Close

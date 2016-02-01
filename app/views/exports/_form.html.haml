@@ -1,60 +1,37 @@
 - dvars = { 'daily' => [], 'hourly' => [], 'monthly' => [], 'source' => [] }
-- mindate = @sites.first.try(:[], 'begin_date')
-- maxdate = @sites.first.try(:[], 'end_date')
+- mindate = @sites.first.try(:begin_date)
+- maxdate = @sites.first.try(:end_date)
 - active_tab = "daily"
 - if params['time_step'].present?
   - active_tab = "#{params['time_step']}"
 - if params['variablename'].present? and params['time_step'].present?
   - select_parameter = "#{params['time_step']}_#{params['variablename']}"
+- @sites.each do |site|
+  - dvars['daily'] += site.derived_variables['daily']
+  - dvars['hourly'] += site.derived_variables['hourly']
+  - dvars['monthly'] += site.derived_variables['monthly']
+  - mindate = site.begin_date if mindate.nil? || (!site.begin_date.nil? && site.begin_date < mindate)
+  - maxdate = site.end_date if maxdate.nil? || (!site.end_date.nil? && site.end_date > maxdate)
 
 = form_for @export, remote: true do |f|
   .tab-content
-    #site-list.tab-pane.active
-      .list{ style: 'max-height: 500px; overflow: auto;' }
-        %table.table
-          %thead
-            %tr
-              %th
-                = check_box_tag :select_all, 1, true, data: { toggle: 'checkboxes', target: '.site_ids' }
-              %th Site name
-              %th Location
-              %th Start Date
-              %th End Date
-              %th Summary Data Products
-          %tbody
-            - @sites.each do |site|
-              - dvars['daily'] += site['derived_variables']['daily']
-              - dvars['hourly'] += site['derived_variables']['hourly']
-              - dvars['monthly'] += site['derived_variables']['monthly']
-              - mindate = site['begin_date'] if mindate > site['begin_date']
-              - maxdate = site['end_date'] if maxdate < site['end_date']
-
-              %tr
-                %td
-                  = check_box_tag "export[sites][]", site['siteid'], true, class: 'site_ids'
-                %td
-                  %abbr{ title: site['sitename'] }
-                    = truncate(site['sitename'], length: 25, omission: '...')
-                %td
-                  %nobr= format_geolocation(site['geolocation'])
-                %td
-                  %nobr= site['begin_date'] if site['begin_date'].present?
-                %td
-                  %nobr= site['end_date'] if site['end_date'].present?
-                %td= "#{params_list(site) }"
-      .text-right{ style: 'padding:10px; border-top: 1px solid #efefef;' }
-        %a.btn.btn-primary{ href: '#export-options', data: { toggle: 'tab' } }
-          Next
-          %i.fa.fa-arrow-right
-    #export-options.tab-pane
+    #export-options.tab-pane.active
       .form-content{ style: 'padding:10px;' }
+        %p.form-control-static
+          %b Exporting:
+
+          - if @sites.count > 1
+            #{@sites.count} of #{@sites.total_count} sites
+          - else
+            - site = @sites.first
+            #{site.sitename} (#{site.siteid} - #{site.sitecode})
         .form-group
           .row
-            .col-lg-2.col-md-2.col-sm-12
+            .col-md-2.col-sm-12
               .form-group
                 = f.label :starts_at, class: 'control-label'
                 = f.text_field :starts_at, value: mindate.gsub('-', '/'), class: 'form-control date-editor', placeholder: 'YYYY/MM/DD', data: { "date-minDate" => mindate, "date-maxDate" => maxdate }
-            .col-lg-2.col-md-2.col-sm-12
+            .col-md-2.col-sm-12
               .form-group
                 = f.label :ends_at, class: 'control-label'
                 = f.text_field :ends_at, value: maxdate.gsub('-', '/'), class: 'form-control date-editor', placeholder: 'YYYY/MM/DD', data: { "date-minDate" => mindate, "date-maxDate" => maxdate }
@@ -62,13 +39,14 @@
           %label Data
           %ul.nav.nav-tabs
             - dvars.each do |timestep, items|
+              - next if timestep != 'source' && items.empty?
               %li{ class: timestep == "#{active_tab}" ? 'active' : '' }
                 %a{ href: "##{timestep}_fields", data: { toggle: 'tab' } }= timestep.capitalize
           #export_fields.tab-content
             - dvars.each do |timestep, items|
               .tab-pane{ id: "#{timestep}_fields", class: timestep == "#{active_tab}" ? 'active' : '' }
                 .form-group
-                  - if "#{timestep}"  == "source"
+                  - if timestep == "source"
                     %p
                       Calibrated, instantaneous source data from Imiq Database available by request.  Contact imiq@arcticlcc.org to check availability.
                   - else
@@ -79,11 +57,8 @@
                         %label
                           = check_box :export, :variables, { multiple: true, class: 'export_variable', checked: (variable.last == select_parameter ? 'checked' : '') }, variable.last, nil
                           = variable.first
-      .text-left{ style: 'padding:10px; border-top: 1px solid #efefef;' }
-        %a.btn.btn-primary{ href: '#site-list', data: { toggle: "tab" } }
-          %i.fa.fa-arrow-left
-          Back
-        %a.btn.btn-primary.pull-right{ href: '#notification-options', data: { toggle: 'tab' } }
+      .text-right{ style: 'padding:10px; border-top: 1px solid #efefef;' }
+        %a.btn.btn-primary{ href: '#notification-options', data: { toggle: 'tab' } }
           Next
           %i.fa.fa-arrow-right
     = render 'exports/notification_pane', f: f

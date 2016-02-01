@@ -2,7 +2,12 @@ class SearchesController < ApplicationController
   def create
     self.current_search = search_params
 
-    redirect_to search_path
+    case params[:commit]
+    when 'export'
+      redirect_to new_export_path
+    else
+      redirect_to search_path
+    end
   end
 
   def show

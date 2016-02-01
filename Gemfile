@@ -1,8 +1,10 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.5'
+gem 'rails', '4.2.5'
 gem 'bundler', '>= 1.8.4'
+
+gem 'dotenv-rails', :groups => [:development, :test], :require => 'dotenv/rails-now'
 
 # Use sqlite3 as the database for Active Record
 gem 'pg'
@@ -11,10 +13,12 @@ gem 'haml'
 gem 'httparty'
 gem 'quiet_assets'
 gem 'sidekiq'
+gem 'redis-namespace'
 gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'spring', group: :development
 gem "chartkick"
 gem 'kaminari'
+gem 'foreman'
 
 #heroku gems
 #gem 'rails_12factor', group: :production
@@ -50,7 +54,8 @@ end
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
 # Use unicorn as the app server
-gem 'unicorn', group: :production
+# gem 'unicorn', group: :production
+gem 'puma'
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
@@ -75,3 +80,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-jquery.xdomainrequest'
 end
 gem "font-awesome-rails"
+
+group :development do
+  gem 'web-console', '~> 2.0'
+end

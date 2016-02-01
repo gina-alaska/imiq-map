@@ -16,21 +16,21 @@ ActiveRecord::Schema.define(version: 20151229211040) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "app_statuses", force: true do |t|
+  create_table "app_statuses", force: :cascade do |t|
     t.boolean  "active"
     t.text     "message"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "downloads", force: true do |t|
+  create_table "downloads", force: :cascade do |t|
     t.integer  "export_id"
     t.string   "file"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "exports", force: true do |t|
+  create_table "exports", force: :cascade do |t|
     t.text     "sites"
     t.string   "uuid"
     t.date     "starts_at"
@@ -46,13 +46,13 @@ ActiveRecord::Schema.define(version: 20151229211040) do
     t.text     "message"
   end
 
-  create_table "maps", force: true do |t|
+  create_table "maps", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "searches", force: true do |t|
+  create_table "searches", force: :cascade do |t|
     t.text     "params"
     t.datetime "created_at"
     t.datetime "updated_at"

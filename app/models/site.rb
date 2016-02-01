@@ -30,6 +30,10 @@ class Site
     [siteid, updated_at.to_i].join('-')
   end
 
+  def [](field)
+    @attributes[field]
+  end
+
   def method_missing(field)
     if has_field?(field)
       read_attribute(field)

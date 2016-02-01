@@ -1,4 +1,6 @@
 class SitesPager
+  attr_accessor :sites
+
   def initialize(sites)
     @sites = sites
   end
@@ -7,11 +9,25 @@ class SitesPager
     @sites.headers
   end
 
+  def self.site(params)
+    Site.new(params)
+  end
+
   def each(&block)
     @sites.each do |params|
-      site = Site.new(params)
+      site = SitesPager.site(params)
       yield site
     end
+  end
+
+  def collect(field)
+    @sites.collect do |params|
+      params[field.to_s]
+    end
+  end
+
+  def count
+    @sites.count
   end
 
   def to_csv
@@ -23,6 +39,14 @@ class SitesPager
         csv << attributes.map{ |attr| site.send(attr) }
       end
     end
+  end
+
+  def first
+    SitesPager.site(@sites.first)
+  end
+
+  def last
+    SitesPager.site(@sites.last)
   end
 
   def entry_name

@@ -30,10 +30,13 @@ class ApplicationController < ActionController::Base
   helper_method :current_search
 
   def current_search=(search)
-    @current_search = Search.where(params: Search.params_dump(search)).first || Search.create(params:search.to_hash)
-    
+    @current_search = find_or_create_search(search)
     session[:current_search_id] = @current_search.id
-
+    
     @current_search
+  end
+
+  def find_or_create_search(search)
+    Search.where(params: Search.params_dump(search)).first || Search.create(params:search.to_hash)
   end
 end

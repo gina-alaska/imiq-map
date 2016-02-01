@@ -2,7 +2,16 @@ development:
   adapter: postgresql
   database: imiq_map_development
   schema_search_path: public
+  pool: 5
 test:
   adapter: postgresql
   database: imiq_map_test
   schema_search_path: public
+  pool: 5
+  url: <%= ENV['DATABASE_URL'] %>
+production:
+  adapter: postgresql
+  database: imiq_map_production
+  schema_search_path: public
+  pool: 5
+  url: <%= ENV['DATABASE_URL'] %>
