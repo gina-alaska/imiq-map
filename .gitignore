@@ -15,8 +15,5 @@
 /tmp
 /exports
 
-config/secrets.yml
 .kitchen/logs/kitchen.log
-
-config/secrets.yml
 .otto
