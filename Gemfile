@@ -84,3 +84,9 @@ gem "font-awesome-rails"
 group :development do
   gem 'web-console', '~> 2.0'
 end
+
+gem 'omniauth'
+gem 'omniauth-github'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-openid'
+gem 'google-api-client'
