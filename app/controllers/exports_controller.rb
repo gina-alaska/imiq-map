@@ -32,7 +32,7 @@ class ExportsController < ApplicationController
     @export.sites = search.to_global_id.to_s
 
     respond_to do |format|
-      if @export.save
+      if @export.save and signed_in?
         session[:exports] ||= []
         session[:exports] << @export.id
 
