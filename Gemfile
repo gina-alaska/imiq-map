@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.5'
 gem 'bundler', '>= 1.8.4'
 
-gem 'dotenv-rails', :groups => [:development, :test], :require => 'dotenv/rails-now'
+gem 'dotenv-rails', :require => 'dotenv/rails-now'
 
 # Use sqlite3 as the database for Active Record
 gem 'pg'
@@ -54,8 +54,8 @@ end
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
 # Use unicorn as the app server
-# gem 'unicorn', group: :production
-gem 'puma'
+gem 'unicorn', group: :production
+gem 'puma', group: :development
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development

@@ -17,3 +17,5 @@
 
 .kitchen/logs/kitchen.log
 .otto
+.env
+.powenv
