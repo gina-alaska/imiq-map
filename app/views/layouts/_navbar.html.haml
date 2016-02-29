@@ -34,10 +34,9 @@
           View sites
 
       .btn-group
-        - if signed_in?
-          %button.btn.btn-primary.navbar-btn{ data: { behavior: 'export', toggle: 'tooltip', placement: 'top', container: 'body' }, title: 'Click here to export data for visible sites' }
-            %i.fa.fa-cloud-download
-            Export data
+        %button.btn.btn-primary.navbar-btn{ data: { behavior: 'export', toggle: 'tooltip', placement: 'top', container: 'body' }, title: 'Click here to export data for visible sites' }
+          %i.fa.fa-cloud-download
+          Export data
       .btn-group
         %button.btn.btn-primary.navbar-btn{ type: 'submit', data: { toggle: 'tooltip', placement: 'top', container: 'body' }, title: 'Click here to search for sites with available data' }
           %i.fa.fa-search
