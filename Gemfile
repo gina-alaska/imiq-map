@@ -86,6 +86,6 @@ group :development do
 end
 
 gem 'omniauth'
-gem 'omniauth-github'
+gem 'omniauth-google-oauth2'
 gem 'omniauth-openid'
 gem 'google-api-client'
