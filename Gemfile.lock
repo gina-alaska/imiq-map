@@ -126,6 +126,8 @@ GEM
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     kgio (2.10.0)
+    launchy (2.4.3)
+      addressable (~> 2.3)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -152,9 +154,6 @@ GEM
       rack (~> 1.0)
     omniauth-github (1.1.2)
       omniauth (~> 1.0)
-      omniauth-oauth2 (~> 1.1)
-    omniauth-google-oauth2 (0.2.6)
-      omniauth (> 1.0)
       omniauth-oauth2 (~> 1.1)
     omniauth-oauth2 (1.2.0)
       faraday (>= 0.8, < 0.10)
@@ -312,7 +311,6 @@ DEPENDENCIES
   kaminari
   omniauth
   omniauth-github
-  omniauth-google-oauth2
   omniauth-openid
   pg
   puma
