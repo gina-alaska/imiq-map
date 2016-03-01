@@ -81,6 +81,8 @@ source 'https://rails-assets.org' do
 end
 gem "font-awesome-rails"
 
-group :development do
+group :development, :test do
   gem 'web-console', '~> 2.0'
+  gem 'minitest-rails-capybara'
+  gem 'minitest-reporters'
 end
