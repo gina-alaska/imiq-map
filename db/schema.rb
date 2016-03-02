@@ -33,29 +33,29 @@ ActiveRecord::Schema.define(version: 20160202234001) do
 
   create_table "downloads", force: :cascade do |t|
     t.integer  "export_id"
-    t.string   "file"
+    t.string   "file",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "exports", force: :cascade do |t|
     t.text     "sites"
-    t.string   "uuid"
+    t.string   "uuid",       limit: 255
     t.date     "starts_at"
     t.date     "ends_at"
-    t.string   "email"
+    t.string   "email",      limit: 255
     t.integer  "user_id"
-    t.string   "timestep"
+    t.string   "timestep",   limit: 255
     t.text     "variables"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "status",     default: "queued"
-    t.integer  "progress",   default: 0
+    t.string   "status",     limit: 255, default: "queued"
+    t.integer  "progress",               default: 0
     t.text     "message"
   end
 
   create_table "maps", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end

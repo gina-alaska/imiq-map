@@ -13,7 +13,6 @@ Rails.application.routes.draw do
     get :sites
   end
 
-  resources :pages
   resources :exports do
     patch :retry, on: :member
     get :download, on: :member
