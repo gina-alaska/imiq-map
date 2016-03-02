@@ -1,6 +1,15 @@
 %nav.navbar.navbar-default.navbar-fixed-bottom{ 'data-no-turbolink' => true }
   .container-fluid
     .btn-group
+      - if signed_in?
+        = link_to logout_path, class: 'btn btn-primary navbar-btn' do
+          %i.fa.fa-sign-out
+          Logout
+      - else
+        = link_to login_path, class: 'btn btn-primary navbar-btn' do
+          %i.fa.fa-sign-in
+          Login
+    .btn-group
       = link_to 'https://github.com/gina-alaska/imiq-map/issues/new', target: :_blank, class: 'btn btn-default navbar-btn', data: { toggle: 'tooltip', placement: 'top', container: 'body' }, title: 'Send feedback to the IMIQ team via Github' do
         %i.fa.fa-mail-reply
         Send Feedback
