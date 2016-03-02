@@ -19,6 +19,7 @@ gem 'spring', group: :development
 gem "chartkick"
 gem 'kaminari'
 gem 'foreman'
+gem 'cancancan', '~> 1.10'
 
 #heroku gems
 #gem 'rails_12factor', group: :production
