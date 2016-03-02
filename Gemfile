@@ -86,3 +86,8 @@ group :development, :test do
   gem 'minitest-rails-capybara'
   gem 'minitest-reporters'
 end
+
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-openid'
+gem 'google-api-client'
