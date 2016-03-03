@@ -42,7 +42,7 @@ html, body {
 #map_content {
   overflow: hidden;
   position: absolute;
-  top: 0px;
+  top: 60px;
   bottom: 50px;
   width: 100%;
 }
