@@ -54,6 +54,7 @@ GEM
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     builder (3.2.2)
+    cancancan (1.13.1)
     capistrano (3.4.0)
       i18n
       rake (>= 10.0.0)
@@ -292,6 +293,7 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (>= 1.8.4)
+  cancancan (~> 1.10)
   capistrano
   capistrano-bower
   capistrano-bundler
