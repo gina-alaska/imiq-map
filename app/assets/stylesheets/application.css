@@ -47,10 +47,6 @@ html, body {
   width: 100%;
 }
 
-#header .navbar {
-  margin-bottom: 0;
-}
-
 #flash_messages {
   position: fixed;
   top: 10px;
@@ -58,4 +54,25 @@ html, body {
   margin-left: -300px;
   width: 350px;
   z-index: 10000;
+}
+
+.header-navbar {
+  min-height: 60px;
+  background-color: white;
+}
+
+.header-title {
+  height: 50px;
+  vertical-align: middle;
+  font-size: 2.5em;
+  color: #0083C8;
+  margin-bottom: 0px;
+  margin-top: 2px;
+}
+
+.header-link {
+  color: #0083C8;
+  font-size: 1.5em;
+  text-decoration: none;
+  padding-top: 12px;
 }
