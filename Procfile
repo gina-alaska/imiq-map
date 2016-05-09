@@ -1,1 +1,2 @@
-web: bundle exec puma 
+web: bundle exec puma
+worker: bundle exec sidekiq
