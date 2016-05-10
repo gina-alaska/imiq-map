@@ -6,6 +6,15 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   after_action :allow_iframe!
 
+  rescue_from CanCan::AccessDenied do |_exception|
+    if signed_in?
+      redirect_to permission_denied_path
+    else
+      session[:redirect_back_to] = request.original_url
+      redirect_to login_path
+    end
+  end
+
   protected
 
   def allow_iframe!
@@ -16,8 +25,6 @@ class ApplicationController < ActionController::Base
     @api ||= ImiqAPI.new
   end
   helper_method :imiq_api
-
-  protected
 
   def search_params
     @search ||= params.permit(:q, :datatype, :samplemedium, :generalcategory,
