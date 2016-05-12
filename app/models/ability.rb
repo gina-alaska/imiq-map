@@ -32,7 +32,7 @@ class Ability
     user ||= User.new
 
     unless user.new_record?
-      can :manage, Export
+      can :manage, Export, user_id: user.id
     end
   end
 end
