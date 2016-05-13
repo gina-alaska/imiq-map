@@ -8,17 +8,17 @@ class SiteExportWorker < ActiveJob::Base
 
     output = CSV.generate(headers: true) do |csv|
       csv << attributes
-      pager = SitesPager.new(imiq_api.sites(search.params, 1, 50))
-      add_sites(csv, pager)
+      pager = search.fetch(1, 50)
+      add_sites(csv, pager, attributes)
 
       (2..pager.total_pages).each do |page|
-        pager = SitesPager.new(imiq_api.sites(search.params, page, 50))
-        add_sites(csv, pager)
+        pager = search.fetch(page, 50)
+        add_sites(csv, pager, attributes)
       end
     end
   end
 
-  def add_sites(csv, pager)
+  def add_sites(csv, pager, attributes)
     pager.each do |site|
       csv << attributes.map{ |attr| site.send(attr) }
     end
