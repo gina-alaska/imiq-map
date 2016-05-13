@@ -1,7 +1,7 @@
 class Export < ActiveRecord::Base
   serialize :variables, JSON
 
-  belongs_to :users
+  belongs_to :user
   has_one :download
 
   validate :end_date_after_start_date, :at_least_one_variable
