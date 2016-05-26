@@ -26,7 +26,7 @@ class ExportsController < ApplicationController
   end
 
   def create
-    @export = Export.new(export_params)
+    @export = current_user.exports.build(export_params)
 
     search = GlobalID::Locator.locate session[:export_search_gid]
     @export.sites = search.to_global_id.to_s
