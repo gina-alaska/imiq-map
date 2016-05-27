@@ -12,14 +12,12 @@ class ExportsController < ApplicationController
   def new
     @export = Export.new
     if params[:siteid].present?
-      search = find_or_create_search({ siteids: params[:siteid] })
+      self.export_search = find_or_create_search({ siteids: params[:siteid] })
     else
-      search = current_search
+      self.export_search = current_search
     end
 
-    session[:export_search_gid] = search.to_global_id.to_s
-
-    @sites = search.fetch(1, 200)
+    @sites = export_search.fetch(1, 200)
 
     respond_to do |format|
       format.html
@@ -29,8 +27,7 @@ class ExportsController < ApplicationController
   def create
     @export = current_user.exports.build(export_params)
 
-    search = GlobalID::Locator.locate session[:export_search_gid]
-    @export.sites = search.to_global_id.to_s
+    @export.sites = export_search.to_global_id.to_s
 
     respond_to do |format|
       if @export.save
@@ -73,6 +70,16 @@ class ExportsController < ApplicationController
   end
 
   protected
+
+  def export_search
+    @export_search ||= GlobalID::Locator.locate session[:export_search_gid]
+  end
+
+  def export_search=(search)
+    session[:export_search_gid] = search.to_global_id.to_s
+
+    search
+  end
 
   def export_params
     eparms = params.require(:export).permit({ variables: [] },
