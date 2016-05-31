@@ -1,0 +1,20 @@
+%table.table.table-condensed.panel-footer
+  %tbody
+    %tr
+      %td
+        = link_to sites_path, class: 'btn btn-default btn-block', remote: true do
+          %i.fa.fa-eye
+          View sites
+      %td
+        = link_to new_export_path, class: 'btn btn-primary btn-block', data: { toggle: 'tooltip', placement: 'top', container: 'body' }, title: 'Click here to export data for visible sites' do
+          %i.fa.fa-cloud-download
+          Export data
+    %tr
+      %td
+        = link_to '/', class: 'btn btn-danger btn-block' do
+          %i.fa.fa-refresh
+          Reset all
+      %td
+        %button.btn.btn-primary.btn-block{ type: 'submit', data: { toggle: 'tooltip', placement: 'top', container: 'body' }, title: 'Click here to search for sites with available data' }
+          %i.fa.fa-search
+          Search
