@@ -22,13 +22,6 @@
 
       .panel.panel-default.bounds
         .panel-heading
-          .btn-group.bound-buttons
-            = link_to '#', data: { behavior: 'clear-aoi' }, title: 'Remove Bounds', class: 'btn btn-danger btn-sm' do
-              %i.fa.fa-times
-              Clear bounds
-            = link_to '#', class: 'btn btn-default btn-sm', data: { behavior: 'draw-aoi' }, title: 'Select bounds' do
-              %i.fa.fa-pencil
-              Select bounds
           %h1.panel-title Bounds
         %table.table.table-condensed
           %tbody
@@ -54,6 +47,14 @@
                 = text_field_tag 'bounds[ne_lat]', params[:bounds].try(:[], :ne_lat), class: 'form-control bounds'
               %td
                 = text_field_tag 'bounds[ne_lng]', params[:bounds].try(:[], :ne_lng), class: 'form-control bounds'
+        .panel-footer.text-center
+          .btn-group
+            = link_to '#', data: { behavior: 'clear-aoi' }, title: 'Remove Bounds', class: 'btn btn-danger btn-sm' do
+              %i.fa.fa-times
+              Clear bounds
+            = link_to '#', class: 'btn btn-default btn-sm', data: { behavior: 'draw-aoi' }, title: 'Select bounds' do
+              %i.fa.fa-pencil
+              Select bounds
 
       = hidden_field_tag :commit, 'submit', id: 'commit_value'
     = render 'form_buttons'
