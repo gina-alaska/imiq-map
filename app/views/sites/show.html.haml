@@ -18,7 +18,7 @@
           %li
             %a{ href:"#graph_#{variable[1]}", data: { toggle:"tab", behavior:"load-content",  url: "/graphs/#{@site.siteid}?variable=#{variable[1]}" } }
               #{variable[0]}
-        
+
 .tab-content.site-popup
   #site-content.tab-pane.active{ style: 'overflow-y: auto; overflow-x: hidden; padding: 0 10px 0 10px;' }
     %dl.dl-horizontal
@@ -26,16 +26,16 @@
       %dd
         #{@site.siteid} (#{@site.sitecode})
       %dt Lat/Lon/Elev:
-      %dd 
+      %dd
         (#{@site.lat}, #{@site.lng}, #{@site.elevation})
       %dt Networks:
-      %dd 
+      %dd
         #{@site.networks.join(', ')}
       %dt Organizations:
-      %dd 
+      %dd
         #{@site.source.try(:[], 'organization')}
       %dt Contact Name:
-      %dd 
+      %dd
         #{@site.source.try(:[], 'contactname')}
       %dt Contact Link:
       %dd
@@ -64,6 +64,5 @@
     .tab-pane{ id: "graph_#{variable[1]}" }
 
 - unless @site.derived_variables.values.flatten.compact.empty?
-  %a.btn.btn-block.btn-primary{ href: "/exports/new?siteid=#{@site.siteid}", data: { remote: "true" } }
+  = link_to new_export_path(siteid: @site.siteid), class: 'btn btn-block btn-primary' do
     Export
-      
