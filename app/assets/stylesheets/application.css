@@ -39,14 +39,6 @@ html, body {
   color: #fff;
 }
 
-#map_content {
-  overflow: hidden;
-  position: absolute;
-  top: 60px;
-  bottom: 50px;
-  width: 100%;
-}
-
 #flash_messages {
   position: fixed;
   top: 10px;

@@ -1,4 +1,6 @@
 class ExportsController < ApplicationController
+  authorize_resource
+
   def index
     if session[:exports].present?
       @exports = Export.where(id: session[:exports]).order(created_at: :asc)
@@ -21,7 +23,6 @@ class ExportsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.js
     end
   end
 

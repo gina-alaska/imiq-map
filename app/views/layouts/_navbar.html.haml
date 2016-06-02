@@ -1,29 +1,22 @@
-%nav.navbar.navbar-default.navbar-fixed-bottom{ 'data-no-turbolink' => true }
-  .container-fluid
-    .navbar-right
-      .btn-group
-        = link_to '#', class: 'btn btn-default navbar-btn', data: { behavior: 'draw-aoi', toggle: 'tooltip', action: 'show-tooltip', placement: 'top', container: 'body' }, title: 'Select bounds' do
-          %i.fa.fa-pencil
-        = link_to '#', data: { behavior: 'clear-aoi', toggle: 'tooltip', placement: 'top', container: 'body' }, title: 'Remove Bounds', class: 'btn btn-danger navbar-btn' do
-          %i.fa.fa-trash-o
+= link_to '#', class: 'btn btn-default navbar-btn', data: { behavior: 'draw-aoi', toggle: 'tooltip', action: 'show-tooltip', placement: 'top', container: 'body' }, title: 'Select bounds' do
+  %i.fa.fa-pencil
+= link_to '#', data: { behavior: 'clear-aoi', toggle: 'tooltip', placement: 'top', container: 'body' }, title: 'Remove Bounds', class: 'btn btn-danger navbar-btn' do
+  %i.fa.fa-trash-o
 
-      .btn-group
-        = link_to '/', class: 'btn btn-danger navbar-btn' do
-          %i.fa.fa-refresh
-          Reset all
+= link_to '/', class: 'btn btn-danger navbar-btn' do
+  %i.fa.fa-refresh
+  Reset all
 
-      = hidden_field_tag :commit, 'submit', id: 'commit_value'
+= hidden_field_tag :commit, 'submit', id: 'commit_value'
 
-      .btn-group
-        = link_to sites_path, class: 'btn btn-default navbar-btn', remote: true do
-          %i.fa.fa-eye
-          View sites
+= link_to sites_path, class: 'btn btn-default navbar-btn', remote: true do
+  %i.fa.fa-eye
+  View sites
 
-      .btn-group
-        %button.btn.btn-primary.navbar-btn{ data: { behavior: 'export', toggle: 'tooltip', placement: 'top', container: 'body' }, title: 'Click here to export data for visible sites' }
-          %i.fa.fa-cloud-download
-          Export data
-      .btn-group
-        %button.btn.btn-primary.navbar-btn{ type: 'submit', data: { toggle: 'tooltip', placement: 'top', container: 'body' }, title: 'Click here to search for sites with available data' }
-          %i.fa.fa-search
-          Search
+= link_to new_export_path, class: 'btn btn-primary navbar-btn', data: { toggle: 'tooltip', placement: 'top', container: 'body' }, title: 'Click here to export data for visible sites' do
+  %i.fa.fa-cloud-download
+  Export data
+
+%button.btn.btn-primary.navbar-btn{ type: 'submit', data: { toggle: 'tooltip', placement: 'top', container: 'body' }, title: 'Click here to search for sites with available data' }
+  %i.fa.fa-search
+  Search

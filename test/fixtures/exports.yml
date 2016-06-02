@@ -6,7 +6,7 @@ one:
   starts_at: 2014-03-05
   ends_at: 2014-03-05
   email: MyString
-  user_id: 1
+  user: one
   timestep: MyString
   variables: MyText
 
@@ -16,6 +16,6 @@ two:
   starts_at: 2014-03-05
   ends_at: 2014-03-05
   email: MyString
-  user_id: 1
+  user: two
   timestep: MyString
   variables: MyText
