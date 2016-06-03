@@ -2,7 +2,9 @@
   .container-fluid
     %ul.nav.navbar-nav.navbar-right
       %li.navbar-link
-        = link_to 'Project Home', 'http://arcticlcc.org/projects/imiq/'
+        = link_to 'Home', root_url
+      %li.navbar-link
+        = link_to 'About IMIQ', 'http://arcticlcc.org/projects/imiq/'
       %li.navbar-link
         = link_to 'https://github.com/gina-alaska/imiq-map/issues/new', target: :_blank, data: { toggle: 'tooltip', placement: 'top', container: 'body' }, title: 'Send feedback to the IMIQ team via Github' do
           %i.fa.fa-mail-reply
@@ -21,3 +23,5 @@
       = link_to root_url do
         = image_tag 'SetHeight50-imiqlogonotext.png'
         Imiq Data Portal
+
+= content_for :header if content_for?(:header)

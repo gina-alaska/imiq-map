@@ -1,10 +1,13 @@
-%nav.navbar.navbar-default.navbar-fixed-top
-  .container-fluid
-    = paginate @sites
-    .navbar-right
-      .navbar-text= page_entries_info @sites
+- content_for :header do
+  %nav.navbar.navbar-default.navbar-static-top
+    .container-fluid
+      = paginate @sites
+      .navbar-right
+        .navbar-text= page_entries_info @sites
+        = link_to '#', class: 'btn btn-default navbar-btn' do
+          Export
 
-%table.table.table-striped{ style: 'margin-top: 50px;' }
+%table.table.table-striped
   %thead
     %tr
       %th SiteID
