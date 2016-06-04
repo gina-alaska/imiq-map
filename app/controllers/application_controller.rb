@@ -28,14 +28,14 @@ class ApplicationController < ActionController::Base
   helper_method :imiq_api
 
   def search_params
-    @search ||= params.permit(:q, :datatype, :samplemedium, :generalcategory,
+    params.permit(:q, :datatype, :samplemedium, :generalcategory,
       :valuetype, :variablename, :networkcode, :organizationcode, :derived_values,
       :time_step, bounds: [:sw_lat, :sw_lng, :ne_lat, :ne_lng])
   end
   helper_method :search_params
 
   def current_search
-    @current_search ||= Search.find(session[:current_search_id]) || Search.new
+    @current_search ||= Search.where(id: session[:current_search_id]).first
   end
   helper_method :current_search
 

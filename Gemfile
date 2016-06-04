@@ -66,6 +66,8 @@ gem 'capistrano-bundler'
 gem 'capistrano-rails'
 gem 'capistrano-bower'
 
+gem 'simplecov', :require => false, :group => :test
+
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 #ruby '2.1.1'

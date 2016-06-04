@@ -1,4 +1,6 @@
 class ExportsController < ApplicationController
+  before_action :fetch_export
+
   authorize_resource
 
   def index
@@ -26,7 +28,6 @@ class ExportsController < ApplicationController
 
   def create
     @export = current_user.exports.build(export_params)
-
     @export.sites = export_search.to_global_id.to_s
 
     respond_to do |format|
@@ -48,21 +49,16 @@ class ExportsController < ApplicationController
   end
 
   def retry
-    @export = Export.find(params[:id])
     @export.async_build_download()
 
     render 'show'
   end
 
   def download
-    @export = Export.find(params[:id])
-
     send_file @export.download.file
   end
 
   def show
-    @export = Export.find(params[:id])
-
     respond_to do |format|
       format.html
       format.js
@@ -70,6 +66,10 @@ class ExportsController < ApplicationController
   end
 
   protected
+
+  def fetch_export
+    @export = Export.find(params[:id]) if params[:id].present?
+  end
 
   def export_search
     @export_search ||= GlobalID::Locator.locate session[:export_search_gid]
@@ -84,7 +84,6 @@ class ExportsController < ApplicationController
   def export_params
     eparms = params.require(:export).permit({ variables: [] },
       :starts_at, :ends_at, :timestep, :email)
-
 
     eparms
   end

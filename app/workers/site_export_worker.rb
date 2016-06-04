@@ -1,6 +1,6 @@
 class SiteExportWorker < ActiveJob::Base
-  def perform(search)
+  def perform(site_export)
     @progress = 0
-    search.create_site_export
+    site_export.search.create_site_export
   end
 end

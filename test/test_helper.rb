@@ -1,3 +1,6 @@
+require 'simplecov'
+SimpleCov.start
+
 ENV["RAILS_ENV"] ||= "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
@@ -12,7 +15,6 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
 
   def login_user(user_id)
-    user = users(user_id)
-    session[:user_id] = user.id
+    session[:user_gid] = users(user_id).to_global_id.to_s
   end
 end

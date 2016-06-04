@@ -15,7 +15,6 @@ class SearchesController < ApplicationController
     @imiq_api_url = imiq_api.sites_uri(@search.params).to_s
 
     respond_to do |format|
-      format.html
       format.js
     end
   end
