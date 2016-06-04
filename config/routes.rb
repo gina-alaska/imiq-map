@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  resources :site_exports
+  resources :site_exports do
+    patch :retry, on: :member
+  end
+
   get '/logout', to: 'sessions#destroy'
   get '/login', to: 'sessions#new'
   get '/auth/:provider/disable', to: 'users#disable_provider'

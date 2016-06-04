@@ -4,5 +4,18 @@
     .panel-heading
       %h1.panel-title Export status
     .panel-body
-      = @site_export.status
-      = @site_export.progress
+      - if @site_export.completed? && !@site_export.download_available?
+        .alert.alert-danger
+          The download has expired and is no longer available
+
+      %dl.dl-horizontal
+        %dt Status
+        %dd= @site_export.status.humanize
+        %dt Progress
+        %dd #{@site_export.progress}%
+    .panel-footer.text-right
+      - if @site_export.can_retry?
+        = link_to 'Redo', retry_site_export_path(@site_export), method: :patch, class: 'btn btn-danger'
+
+      - if @site_export.download_available?
+        = link_to 'Download', site_export_path(@site_export, :csv), class: 'btn btn-primary'

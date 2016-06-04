@@ -1,5 +1,5 @@
 class SiteExportsController < ApplicationController
-  before_action :fetch_site_export, only: [:show]
+  before_action :fetch_site_export, only: [:show, :retry]
 
   authorize_resource
 
@@ -8,6 +8,7 @@ class SiteExportsController < ApplicationController
 
     respond_to do |format|
       if @site_export.save
+        @site_export.queue_export
         flash[:notice] = 'Site export queued'
         format.html { redirect_to @site_export }
       else
@@ -18,6 +19,15 @@ class SiteExportsController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.html
+      format.csv { send_file @site_export.search.export_filename }
+    end
+  end
+
+  def retry
+    @site_export.queue_export
+    redirect_to @site_export
   end
 
   protected

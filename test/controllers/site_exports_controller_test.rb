@@ -27,4 +27,11 @@ class SiteExportsControllerTest < ActionController::TestCase
     get :show, id: @site_export
     assert_response :success
   end
+
+  test 'should retry site export' do
+    get :retry, id: @site_export
+
+    assert_equal 'queued', assigns(:site_export).status
+    assert_redirected_to @site_export
+  end
 end
