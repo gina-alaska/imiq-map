@@ -14,6 +14,7 @@
 /log/*.log
 /tmp
 /exports
+/coverage
 
 .kitchen/logs/kitchen.log
 .otto

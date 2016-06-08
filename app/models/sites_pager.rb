@@ -41,6 +41,10 @@ class SitesPager
     end
   end
 
+  def empty?
+    count == 0
+  end
+
   def first
     SitesPager.site(@sites.first)
   end

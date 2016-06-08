@@ -33,6 +33,7 @@ class Ability
 
     unless user.new_record?
       can :manage, Export, user_id: user.id
+      can :manage, SiteExport, user_id: user.id
     end
   end
 end

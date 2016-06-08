@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160202234001) do
+ActiveRecord::Schema.define(version: 20160604001622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,18 @@ ActiveRecord::Schema.define(version: 20160202234001) do
     t.datetime "updated_at"
   end
 
+  create_table "site_exports", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "search_id"
+    t.string   "status"
+    t.string   "progress"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "site_exports", ["search_id"], name: "index_site_exports_on_search_id", using: :btree
+  add_index "site_exports", ["user_id"], name: "index_site_exports_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
@@ -81,4 +93,6 @@ ActiveRecord::Schema.define(version: 20160202234001) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "site_exports", "searches"
+  add_foreign_key "site_exports", "users"
 end
