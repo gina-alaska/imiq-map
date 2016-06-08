@@ -10,17 +10,28 @@ class SiteExport < ActiveRecord::Base
     update_attributes(status: 'queued', progress: 0)
   end
 
-  def started
-    update_progress! 'started', 0
-    search.create_site_export
+  def create_export!
+    start
+
+    search.create_site_export do |items, total|
+      self.update_progress! 'exporting', items/total*100.to_i
+    end
+
+    complete
+  rescue
+    site_export.export_error('Error!')
   end
 
-  def completed
-    update_progress! 'complete', 100
+  def start
+    update_progress! 'started', 0
+  end
+
+  def complete
+    update_progress! 'completed', 100
   end
 
   def completed?
-    status == 'complete'
+    status == 'completed'
   end
 
   def running?

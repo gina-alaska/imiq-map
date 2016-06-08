@@ -9,15 +9,16 @@ class Search < ActiveRecord::Base
     ::File.exists?(export_filename)
   end
 
-  def create_site_export
+  def create_site_export(&block)
     imiq_api = ImiqAPI.new
 
     export_attributes = %w{ siteid sitecode sitename organizations networks state county geolocation begin_date end_date comments }
 
     output = CSV.generate(headers: true) do |csv|
       csv << export_attributes
-      each_page(500) do |page|
-        add_sites(csv, page, export_attributes)
+      each_page(500) do |data, page|
+        yield data.offset_value, total_sites if block_given?
+        add_sites(csv, data, export_attributes)
       end
     end
 
@@ -50,9 +51,8 @@ class Search < ActiveRecord::Base
 
     while results = fetch(page, limit)
       break if results.empty?
-      yield results
+      yield results, page
       page +=1
-      puts page
     end if block_given?
   end
 end
