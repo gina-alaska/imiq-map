@@ -8,6 +8,12 @@ class SiteExportTest < ActiveSupport::TestCase
     @site_export = site_exports(:one)
   end
 
+  test "should set progress" do
+    @site_export.update_progress!('testing', 53)
+
+    assert_equal '53', site_exports(:one).progress
+  end
+
   test "should set error status" do
     @site_export.export_error('testing')
 
@@ -32,5 +38,11 @@ class SiteExportTest < ActiveSupport::TestCase
     @site_export.start
 
     assert @site_export.running?, 'Was not set as running'
+  end
+
+  test "should be completed" do
+    @site_export.complete
+
+    assert @site_export.completed?, 'Was not set as completed'
   end
 end

@@ -14,7 +14,7 @@ class SiteExport < ActiveRecord::Base
     start
 
     search.create_site_export do |items, total|
-      self.update_progress! 'exporting', items/total*100.to_i
+      update_progress! 'exporting', (items/total.to_f*100).to_i
     end
 
     complete
@@ -53,7 +53,7 @@ class SiteExport < ActiveRecord::Base
   def update_progress!(state, progress = nil)
     self.status = state
     self.progress = progress unless progress.nil?
-    update_attributes(status: state)
+    self.save!
   end
 
   def export_error(msg)
