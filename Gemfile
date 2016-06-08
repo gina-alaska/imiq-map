@@ -70,7 +70,6 @@ gem 'simplecov', :require => false, :group => :test
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-#ruby '2.1.1'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap', '3.2.0'
