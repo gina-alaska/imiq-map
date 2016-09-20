@@ -28,10 +28,10 @@ namespace :deploy do
       #   execute :rake, 'sunspot:solr:stop'
       #   execute :rake, 'sunspot:solr:start'
       # end
-      execute 'TERM=dubm sudo service sidekiq_imiq_map stop'
-      execute 'TERM=dumb sudo service unicorn_imiq_map stop'
-      execute 'TERM=dumb sudo service unicorn_imiq_map start'
-      execute 'TERM=dumb sudo service sidekiq_imiq_map start'
+      execute 'TERM=dubm sudo service sidekiq stop'
+      execute 'TERM=dumb sudo service unicorn stop'
+      execute 'TERM=dumb sudo service unicorn start'
+      execute 'TERM=dumb sudo service sidekiq start'
     end
   end
   task :start do
