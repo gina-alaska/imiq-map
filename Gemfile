@@ -66,8 +66,6 @@ gem 'capistrano-bundler'
 gem 'capistrano-rails'
 gem 'capistrano-bower'
 
-gem 'simplecov', :require => false, :group => :test
-
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
@@ -85,6 +83,7 @@ gem "font-awesome-rails"
 
 group :development, :test do
   gem 'web-console', '~> 2.0'
+  gem 'simplecov', :require => false
 end
 
 gem 'omniauth'
