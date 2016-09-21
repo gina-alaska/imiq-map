@@ -3,7 +3,8 @@ module MapsHelper
     options_for_select(
       imiq_api.network_list.collect{ |org|
         [org['networkcode']]
-      }
+      },
+      current_search.params['networkcode']
     )
   end
 
@@ -11,7 +12,8 @@ module MapsHelper
     options_for_select(
       imiq_api.organization_list.collect{ |org|
         [org['description_with_code'], org['organizationcode']]
-      }
+      },
+      current_search.params['organizationcode']
     )
   end
 
@@ -37,14 +39,14 @@ module MapsHelper
       'hourly'=> [
       ],
       'monthly'=> [
-      ],    
+      ],
       'any'=> [
         ['Discharge', 'discharge'],
         ['Water Temperature', 'watertemp']
       ]
     }
 
-    { 
+    {
       'Exportable Summary Products' => [
         [ 'Air Temperature'                     , 'airtemp'             ],
         [ 'Relative Humidity'                   , 'rh'                  ],
@@ -67,20 +69,20 @@ module MapsHelper
         ["Visibility"                       , "visibility"             ],
         ["Wind, Direction/Speed"            , "air_wind"                ]
       ],
-          
+
       'Precipitation' => [
         ["Pan Evaporation"                  , "precipitation_pan_evaporation" ],
         ["Precipitation"                    , "precipitation_precipitation"   ],
         ["Snowfall"                         , "precipitation_snowfall"        ]
-      ],  
-         
+      ],
+
       'Snow' => [
         ["Ablation"                         , "snow_ablation"   ],
         ["Snow Depth"                       , "snow_depth"      ],
         ["Snow Water Equivalent"            , "snow_swe"        ],
         ["Snow Temperature"                 , "snow_temperature"]
-      ], 
-      
+      ],
+
       'Soil' => [
         ["Soil Albedo"                      , "soil_albedo"         ],
         ["Frost Free Days"                  , "soil_frost_free_days"],
@@ -99,7 +101,7 @@ module MapsHelper
         ["Radiation, PAR"                   , "air_radiation_par"   ],
         ["Surface Water Temperature"        , "sw_temperature"      ]
       ]
-           
+
     }
   end
 end

@@ -1,4 +1,6 @@
 require 'fileutils'
+require 'uri'
+require 'net/http'
 
 class DownloadWorker < ActiveJob::Base
 
@@ -33,14 +35,30 @@ class DownloadWorker < ActiveJob::Base
       run_cmd("cp -r #{Rails.root.join('export_template/*')} .")
 
       variable_urls.each do |url|
-        status(export, 'Exporting variables')
-        run_cmd("wget --content-disposition  \"#{url}\"")
+        page = 1
+        header = true
+
+        default_csv_filename = File.basename(URI(url).path)
+        status(export, "Exporting #{default_csv_filename}")
+
+        response = fetch_content(url, header, page)
+        while response.body.length > 0
+          File.open(get_filename(response['Content-Disposition']) || default_csv_filename, 'a') do |fp|
+            fp << response.body
+          end
+
+          header = false
+          page += 1
+          response = fetch_content(url, header, page)
+        end
       end
 
       status(export, 'Building zip file')
+    end
 
-      if run_cmd("zip -r #{zip_filename} #{identity}")
-        run_cmd("rm #{identity}/* && rmdir #{identity}")
+    Dir.chdir(save_directory) do
+      if run_cmd("zip -r #{::File.join(save_directory, zip_filename)} #{identity}")
+        run_cmd("rm #{workspace}/* && rmdir #{workspace}")
       end
     end
 
@@ -67,6 +85,32 @@ class DownloadWorker < ActiveJob::Base
   end
 
   protected
+
+  def get_filename(disposition)
+    disposition.match(/filename=(\"?)(.+)\1/)[2]
+  end
+
+  def update_params(url, header, page)
+    uri = URI(url)
+
+    params = URI.decode_www_form(uri.query).to_h
+    params['header'] = header
+    params['page'] = page
+
+    uri.query = URI.encode_www_form(params)
+
+    uri
+  end
+
+  def fetch_content(url, header, page)
+    uri = URI(url)
+    params = URI.decode_www_form(uri.query).to_h
+    params['header'] = header
+    params['page'] = page
+    uri.query = URI.encode_www_form(params)
+    Rails.logger.info "Fetching: #{uri.to_s}"
+    Net::HTTP.get_response(uri)
+  end
 
   def run_cmd(cmd, opts = {})
     Rails.logger.info(cmd)
