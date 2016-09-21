@@ -25,6 +25,12 @@
           - else
             - site = @sites.first
             #{site.sitename} (#{site.siteid} - #{site.sitecode})
+        - if @sites.count > 200
+          .alert.alert-danger
+            Exports are limited to 200 sites per export, please narrow down the search 
+            Exporting daily or hourly variables with a large number of sites can take several hours to complete
+
+
         .form-group
           .row
             .col-md-2.col-sm-12

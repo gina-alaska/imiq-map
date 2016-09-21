@@ -4,6 +4,8 @@
 L.mapbox.accessToken = 'pk.eyJ1IjoiZ2luYS1hbGFza2EiLCJhIjoiN0lJVnk5QSJ9.CsQYpUUXtdCpnUdwurAYcQ'
 class @Map
   constructor: (@selector, when_ready_func = null) ->
+    @form = new MapForm(@)
+
     L.Icon.Default.imagePath = '/images';
     @map = L.mapbox.map(@selector, {
       "attribution": "<a href='https://www.mapbox.com/about/maps/' target='_blank'>&copy; Mapbox &copy; OpenStreetMap</a> <a class='mapbox-improve-map' href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a>",
@@ -18,11 +20,13 @@ class @Map
       "drawControlTooltips": true,
       "tiles": ["http://a.tiles.mapbox.com/v3/gina-alaska.heb1gpfg/{z}/{x}/{y}.png", "http://b.tiles.mapbox.com/v3/gina-alaska.heb1gpfg/{z}/{x}/{y}.png", "http://c.tiles.mapbox.com/v3/gina-alaska.heb1gpfg/{z}/{x}/{y}.png", "http://d.tiles.mapbox.com/v3/gina-alaska.heb1gpfg/{z}/{x}/{y}.png"],
     })
+    @initializeDrawControls()
+
+    @map.on 'load', () =>
+      $(document).trigger('map:load', [@])
 
     @map.options.drawControlTooltips = true
     @defaultZoom()
-
-    @form = new MapForm(@)
 
     baseLayers = {
       'Terrain': L.mapbox.tileLayer('gina-alaska.heb1gpfg')
@@ -38,7 +42,6 @@ class @Map
     #
     @map.addLayer(baseLayers['Terrain'])
 
-
     @layers_control = L.control.layers(baseLayers, [], {
       autoZIndex: true
     }).addTo(@map)
@@ -48,10 +51,9 @@ class @Map
       useLatLngOrder: true
     }).addTo(@map)
 
-    @initializeDrawControls()
-
   defaultZoom: =>
     @map.setView([64.20637724320852, -152.841796875], 5)
+
   clearMarkers: =>
     if @request?
       @request.abort();
@@ -105,19 +107,8 @@ class @Map
     @map.on('draw:edited', @handleDrawEdited)
     @map.on('draw:deleted', @handleDrawDeleted)
 
-
   handleDrawDeleted: (e) =>
-    type = e.layerType
-    layer = e.layer
-
-    $(document).trigger('aoi::removed')
-    @defaultZoom()
-    setTimeout(=>
-      # @form.update_bounds_fields(@map.getBounds())
-      @form.clear_bounds_fields()
-    , 500)
-
-    delete @filterBounds
+    clearBounds()
 
   handleDrawEdited: (e) =>
     e.layers.eachLayer (l) =>
@@ -130,29 +121,26 @@ class @Map
   drawBounds: (layer) =>
     @drawnItems.clearLayers()
     @drawnItems.addLayer(layer)
+    @zoomToBounds(layer)
 
   clearBounds: () =>
     @drawnItems.clearLayers()
+    @defaultZoom()
+    $(document).trigger('aoi::removed')
+
+  zoomToBounds: (layer) =>
+    @map.fitBounds(layer)
 
   filterByLayer: (layer) =>
-    @filterBounds = layer.getBounds()
+    bounds = layer.getBounds()
     @drawBounds(layer)
 
     $(document).trigger('aoi::drawn', [layer])
 
-    @form.update_bounds_fields(@filterBounds)
-    @map.fitBounds(@filterBounds)
+    @form.update_bounds_fields(bounds)
 
   finishRequest: =>
     @progress.done()
-
-  # we will use this method to control features being shown in the marker layers
-  filterMarkers: (feature, layer) =>
-    if @filterBounds?
-      c = feature.geometry.coordinates
-      return @filterBounds.contains([c[1], c[0]])
-    else
-      return true
 
   fromAPI: (url) =>
     $.getJSON url, @fromGeoJSON
@@ -180,7 +168,6 @@ class @Map
 
     @markers.addLayer(
       L.geoJson(geojson, {
-        # filter: @filterMarkers,
         pointToLayer: (feature, latlng) =>
           L.circleMarker(latlng, @geojsonMarkerOptions);
         onEachFeature: (feature, layer) =>
