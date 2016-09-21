@@ -7,7 +7,7 @@ class DownloadWorker < ActiveJob::Base
 
     now = Time.zone.now
 
-    sites = export.sites.fetch(1, 200)
+    sites = export.search.fetch(1, 200)
 
     site_ids = sites.collect(:siteid).uniq.compact
     raise "No sites found" if site_ids.empty?
@@ -25,18 +25,16 @@ class DownloadWorker < ActiveJob::Base
     save_directory = Rails.root.join("exports/#{now.year}/#{now.month}/#{now.day}/#{now.to_i}#{export.id}").to_s
     zip_filename = "#{identity}_#{export.id}.zip"
 
-    FileUtils.mkdir_p(save_directory)
+    workspace = ::File.join(save_directory, identity)
 
-    Dir.chdir(save_directory) do
-      FileUtils.mkdir_p(identity)
-      Dir.chdir(identity) do
-        status(export, 'Copying template')
-        run_cmd("cp -r #{Rails.root.join('export_template/*')} .")
+    FileUtils.mkdir_p(workspace)
+    Dir.chdir(workspace) do
+      status(export, 'Copying template')
+      run_cmd("cp -r #{Rails.root.join('export_template/*')} .")
 
-        variable_urls.each do |url|
-          status(export, 'Exporting variables')
-          run_cmd("wget --content-disposition  \"#{url}\"")
-        end
+      variable_urls.each do |url|
+        status(export, 'Exporting variables')
+        run_cmd("wget --content-disposition  \"#{url}\"")
       end
 
       status(export, 'Building zip file')

@@ -1,21 +1,21 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  sites: MyText
-  uuid: MyString
+  uuid: ABCDEFGG
   starts_at: 2014-03-05
   ends_at: 2014-03-05
-  email: MyString
+  email: test@test.com
   user: one
   timestep: MyString
-  variables: MyText
+  variables: "[\"testing\"]"
+  search: one
 
 two:
-  sites: MyText
-  uuid: MyString
+  uuid: ABCDEFG
   starts_at: 2014-03-05
   ends_at: 2014-03-05
-  email: MyString
+  email: test@test.com
   user: two
   timestep: MyString
-  variables: MyText
+  variables: "[\"testing\"]"
+  search: two

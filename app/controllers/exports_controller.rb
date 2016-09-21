@@ -4,22 +4,18 @@ class ExportsController < ApplicationController
   authorize_resource
 
   def index
-    if session[:exports].present?
-      @exports = Export.where(id: session[:exports]).order(created_at: :asc)
-    else
-      @exports = Export.order(created_at: :asc)
-    end
+    @exports = current_user.exports.order(created_at: :asc)
   end
 
   def new
-    @export = Export.new
+    @export = build_new_export
     if params[:siteid].present?
-      self.export_search = find_or_create_search({ siteids: params[:siteid] })
+      @export.search = find_or_create_search({ siteids: params[:siteid] })
     else
-      self.export_search = current_search
+      @export.search = current_search
     end
 
-    @sites = export_search.fetch(1, 200)
+    @sites = @export.search.fetch(1, 200)
 
     respond_to do |format|
       format.html
@@ -27,8 +23,12 @@ class ExportsController < ApplicationController
   end
 
   def create
-    @export = current_user.exports.build(export_params)
-    @export.sites = export_search.to_global_id.to_s
+    @export = build_new_export(export_params)
+    if params[:siteid].present?
+      @export.search = find_or_create_search({ siteids: params[:siteid] })
+    else
+      @export.search = current_search
+    end
 
     respond_to do |format|
       if @export.save
@@ -66,6 +66,17 @@ class ExportsController < ApplicationController
   end
 
   protected
+
+  def build_new_export(export_params = {})
+    export = current_user.exports.build(export_params)
+    if params[:siteid].present?
+      export.search = find_or_create_search({ siteids: params[:siteid] })
+    else
+      export.search = current_search
+    end
+
+    export
+  end
 
   def fetch_export
     @export = Export.find(params[:id]) if params[:id].present?
