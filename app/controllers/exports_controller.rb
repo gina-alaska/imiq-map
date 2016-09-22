@@ -15,7 +15,7 @@ class ExportsController < ApplicationController
       @export.search = current_search
     end
 
-    @sites = @export.search.fetch(1, 200)
+    @sites = @export.search.fetch(1, Export::DEFAULT_SITE_LIMIT)
 
     respond_to do |format|
       format.html

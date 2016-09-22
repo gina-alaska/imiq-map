@@ -9,7 +9,7 @@ class DownloadWorker < ActiveJob::Base
 
     now = Time.zone.now
 
-    sites = export.search.fetch(1, 200)
+    sites = export.search.fetch(1, Export::DEFAULT_SITE_LIMIT)
 
     site_ids = sites.collect(:siteid).uniq.compact
     raise "No sites found" if site_ids.empty?

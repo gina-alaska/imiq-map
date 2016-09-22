@@ -25,11 +25,11 @@
           - else
             - site = @sites.first
             #{site.sitename} (#{site.siteid} - #{site.sitecode})
-        - if @sites.count > 200
+        - if @sites.count > Export::DEFAULT_SITE_LIMIT
           .alert.alert-danger
-            Exports are limited to 200 sites per export, please narrow down the search 
-            Exporting daily or hourly variables with a large number of sites can take several hours to complete
-
+            Due to limited resources exports are limited to #{Export::DEFAULT_SITE_LIMIT}
+            sites, please contact us at imiq@articlcc.org if you need to be
+            authorized to export a more sites.
 
         .form-group
           .row

@@ -1,4 +1,6 @@
 class Export < ActiveRecord::Base
+  DEFAULT_SITE_LIMIT = 100
+  
   serialize :variables, JSON
 
   belongs_to :user
