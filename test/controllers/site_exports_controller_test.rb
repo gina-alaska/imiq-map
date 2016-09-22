@@ -16,6 +16,7 @@ class SiteExportsControllerTest < ActionController::TestCase
   end
 
   test "should fail to create site export" do
+    session[:current_search_id] = searches(:noresults).id
     post :create
 
     assert_not_nil assigns(:site_export)

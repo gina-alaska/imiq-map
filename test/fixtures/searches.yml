@@ -5,3 +5,6 @@ one:
 
 two:
   params: "{\"q\":\"two\",\"variablename\":\"\",\"networkcode\":\"\",\"organizationcode\":\"\",\"time_step\":\"\",\"bounds\":{\"sw_lat\":\"\",\"sw_lng\":\"\",\"ne_lat\":\"\",\"ne_lng\":\"\"}}"
+
+noresults:
+  params: "{\"q\":\"asdfasdfasdfanot_gonna_happenasdfadf\",\"variablename\":\"\",\"networkcode\":\"\",\"organizationcode\":\"\",\"time_step\":\"\",\"bounds\":{\"sw_lat\":\"\",\"sw_lng\":\"\",\"ne_lat\":\"\",\"ne_lng\":\"\"}}"
