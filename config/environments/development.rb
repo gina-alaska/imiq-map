@@ -44,6 +44,4 @@ Rails.application.configure do
    :port => 1025,
    :domain => "gina.alaska.edu"
   }
-
-  config.logger = ActiveSupport::Logger.new('/home/vagrant/development.log')
 end

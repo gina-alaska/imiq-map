@@ -1,7 +1,10 @@
-# Sidekiq.configure_server do |config|
-#   config.redis = { url: "redis://192.168.222.227:6379/12", namespace: "development" }
-# end
-#
-# Sidekiq.configure_client do |config|
-#   config.redis = { url: "redis://192.168.222.227:6379/12", namespace: "development" }
-# end
+uri = ENV["REDIS_PROVIDER"] || "redis://localhost:6379/0"
+app_name = File.basename(Rails.root.to_s)
+
+Sidekiq.configure_server do |config|
+ config.redis = { url: uri, namespace: "#{app_name}_#{Rails.env}" }
+end
+
+Sidekiq.configure_client do |config|
+ config.redis = { url: uri, namespace: "#{app_name}_#{Rails.env}" }
+end

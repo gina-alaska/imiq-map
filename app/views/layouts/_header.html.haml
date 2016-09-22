@@ -3,6 +3,9 @@
     %ul.nav.navbar-nav.navbar-right
       %li.navbar-link
         = link_to 'Map', root_url
+      - if can? :read, Export
+        %li.navbar-link
+          = link_to 'Exports', exports_path
       %li.navbar-link
         = link_to 'About IMIQ', 'http://arcticlcc.org/projects/imiq/'
       %li.navbar-link
