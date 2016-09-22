@@ -4,6 +4,11 @@ class SiteExport < ActiveRecord::Base
 
   validates :search, presence: true
   validates :user, presence: true
+  validate :at_least_one_site_found
+
+  def at_least_one_site_found
+    errors.add(:search_id, "did not include any sites") unless search.total_sites > 0
+  end
 
   def queue_export
     SiteExportWorker.perform_later self

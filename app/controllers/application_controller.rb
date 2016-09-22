@@ -36,6 +36,7 @@ class ApplicationController < ActionController::Base
 
   def current_search
     @current_search ||= Search.where(id: session[:current_search_id]).first
+    @current_search ||= find_or_create_search({})
   end
   helper_method :current_search
 
