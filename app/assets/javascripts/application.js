@@ -34,9 +34,8 @@ var initialize_map = function() {
   el = $('#map');
   if (el[0]) {
     var map = new Map('map');
+    document.map = map
     $('#map').data('map', map);
-    $('document').trigger('map:load', [map]);
-    $('#search-form').submit();
   }
 }
 
@@ -46,10 +45,9 @@ var load_map_results = function(url) {
     showSpinner();
   }
 
-  var map = $('#map').data('map');
-  map.startSearch();
-  map.clearMarkers();
-  map.fromPagedAPI(url);
+  document.map.startSearch();
+  document.map.clearMarkers();
+  document.map.fromPagedAPI(url);
 }
 
 showSpinner = function() {

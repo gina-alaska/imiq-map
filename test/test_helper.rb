@@ -1,10 +1,11 @@
+ENV["RAILS_ENV"] ||= "test"
+
 require 'simplecov'
-SimpleCov.start
+SimpleCov.start 'rails'
 
 require 'sidekiq/testing'
 Sidekiq::Testing.fake! # fake is the default mode
 
-ENV["RAILS_ENV"] ||= "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 

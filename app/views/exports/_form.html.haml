@@ -25,6 +25,12 @@
           - else
             - site = @sites.first
             #{site.sitename} (#{site.siteid} - #{site.sitecode})
+        - if @sites.count > Export::DEFAULT_SITE_LIMIT
+          .alert.alert-danger
+            Due to limited resources exports are limited to #{Export::DEFAULT_SITE_LIMIT}
+            sites, please contact us at imiq@articlcc.org if you need to be
+            authorized to export a more sites.
+
         .form-group
           .row
             .col-md-2.col-sm-12
