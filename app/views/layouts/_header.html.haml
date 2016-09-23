@@ -13,6 +13,10 @@
           %i.fa.fa-mail-reply
           Send Feedback
       %li.navbar-link
+        = link_to page_path('news') do
+          %i.fa.fa-newspaper-o
+          News
+      %li.navbar-link
         - if signed_in?
           = link_to logout_path do
             %i.fa.fa-sign-out
