@@ -1,3 +1,6 @@
 %h4 Create new export
+.pull-right
+  = link_to root_path(params: current_search.params), class: 'btn btn-default', title: 'Return to map' do
+    Cancel
 
 = render '/exports/form'

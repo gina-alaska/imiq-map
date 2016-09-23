@@ -19,3 +19,5 @@
       %i.fa.fa-arrow-left
       Back
     = f.submit 'Export', class: 'btn btn-primary pull-right'
+    = link_to root_path(params: current_search.params), class: 'btn btn-default pull-right', style: 'margin-right: 10px;' do
+      Back to Map
