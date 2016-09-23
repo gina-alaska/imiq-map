@@ -13,9 +13,12 @@
     %dd= export.message
 
 .text-right
-  .btn-group
-    - if Rails.env.development?
-      = link_to 'Refresh', export_path(export), remote: true, class: 'btn btn-default'  
-      = link_to 'Retry', retry_export_path(export), method: :patch, remote: true, class: 'btn btn-danger'  
-    - unless export.download.nil?
-      = link_to 'Download', download_export_path(export), class: 'btn btn-primary', target: :_blank
+  = link_to 'Return to Map', root_path, class: 'btn btn-default', data: { behavior: 'export.stop' }
+
+  - if Rails.env.development?
+    .btn-group
+      = link_to 'Refresh', export_path(export), remote: true, class: 'btn btn-default'
+      = link_to 'Retry', retry_export_path(export), method: :patch, remote: true, class: 'btn btn-danger'
+
+  - unless export.download.nil?
+    = link_to 'Download', download_export_path(export), class: 'btn btn-primary', target: :_blank

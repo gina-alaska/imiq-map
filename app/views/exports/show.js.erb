@@ -1,19 +1,20 @@
 if($('#download_status').length > 0) {
   $('#download_status .modal-body').html($("<%= escape_javascript render(@export) %>"))
+  $('#download_status').trigger('export.update', { 'status': '<%= @export.status %>' });
 } else {
   $('.modal').modal('hide');
-  var modal = $("<%= escape_javascript render('/exports/download_modal.html') %>").modal({ backdrop: 'static' })  
+  var modal = $("<%= escape_javascript render('/exports/download_modal.html') %>").modal({ backdrop: 'static' })
   modal.on('hidden.bs.modal', function() {
-    clearTimeout($(this).data('timer'));
-    $(this).remove();
+    $(this).trigger('export.stop')
+    $(this).remove()
+  });
+  modal.on('shown.bs.modal', function() {
+    $(this).trigger('export.start', {
+      "el": '#download_status',
+      "status": '<%= @export.status %>',
+      "url": '<%= export_path(@export, :js) %>'
+    });
   });
 }
-
-<% if @export.status != 'Complete' %>
-var timer = setTimeout(function() {
-  $.get('<%= export_path(@export, :js) %>');
-}, 2000)
-$(modal).data('timer', timer);
-<% end %>
 
 $('.spinner').addClass('hidden');
