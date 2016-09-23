@@ -1,14 +1,17 @@
 development:
   adapter: postgresql
   database: imiq_map_development
-  username: imiq
-  password: fj188fj1lmff14r
   schema_search_path: public
-  host: 192.168.222.227
+  pool: 5
 test:
   adapter: postgresql
   database: imiq_map_test
-  username: imiq
-  password: fj329rghDDw02jf
   schema_search_path: public
-  host: 192.168.222.227
+  pool: 5
+  url: <%= ENV['DATABASE_URL'] %>
+production:
+  adapter: postgresql
+  database: imiq_map_production
+  schema_search_path: public
+  pool: 5
+  url: <%= ENV['DATABASE_URL'] %>

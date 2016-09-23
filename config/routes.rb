@@ -1,13 +1,33 @@
-ImiqMap::Application.routes.draw do
-  resources :pages
+Rails.application.routes.draw do
+  resources :site_exports do
+    patch :retry, on: :member
+  end
+
+  get '/logout', to: 'sessions#destroy'
+  get '/login', to: 'sessions#new'
+  get '/auth/:provider/disable', to: 'users#disable_provider'
+  post '/auth/:provider/callback', to: 'sessions#create'
+  get '/auth/:provider/callback', to: 'sessions#create'
+  get '/auth/failure', to: 'sessions#failure'
+
+  resources :sessions
+  resources :memberships
+  resources :users
+  resource :search, only: [:create, :show] do
+    get :sites
+    post :export
+  end
+
   resources :exports do
     patch :retry, on: :member
     get :download, on: :member
   end
   resources :maps
   resources :graphs
-  resources :sites, only: [:show]
-  
+  resources :sites, only: [:index, :show] do
+    get :export, on: :collection
+  end
+
   if Rails.env.development?
     require 'sidekiq/web'
     mount Sidekiq::Web, at: '/sidekiq'

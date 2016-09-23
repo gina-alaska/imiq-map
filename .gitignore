@@ -14,8 +14,9 @@
 /log/*.log
 /tmp
 /exports
+/coverage
 
-config/secrets.yml
 .kitchen/logs/kitchen.log
-
-config/secrets.yml
+.otto
+.env
+.powenv

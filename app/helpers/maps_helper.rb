@@ -3,7 +3,8 @@ module MapsHelper
     options_for_select(
       imiq_api.network_list.collect{ |org|
         [org['networkcode']]
-      }
+      },
+      current_search.params['networkcode']
     )
   end
 
@@ -11,7 +12,8 @@ module MapsHelper
     options_for_select(
       imiq_api.organization_list.collect{ |org|
         [org['description_with_code'], org['organizationcode']]
-      }
+      },
+      current_search.params['organizationcode']
     )
   end
 

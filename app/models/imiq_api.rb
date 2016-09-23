@@ -1,7 +1,7 @@
 class ImiqAPI
   include HTTParty
 
-  base_uri (Rails.env == 'development' ? "http://imiq-api.192.168.222.226.xip.io" : 'http://imiq-api.gina.alaska.edu')
+  base_uri Rails.application.secrets.imiq_api_url
 
   def initialize
   end

@@ -11,26 +11,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140519215925) do
+ActiveRecord::Schema.define(version: 20160608190735) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "app_statuses", force: true do |t|
+  create_table "app_statuses", force: :cascade do |t|
     t.boolean  "active"
     t.text     "message"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "downloads", force: true do |t|
+  create_table "authorizations", force: :cascade do |t|
+    t.string   "provider"
+    t.string   "uid"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "downloads", force: :cascade do |t|
     t.integer  "export_id"
     t.string   "file"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "exports", force: true do |t|
+  create_table "exports", force: :cascade do |t|
     t.text     "sites"
     t.string   "uuid"
     t.date     "starts_at"
@@ -44,12 +52,51 @@ ActiveRecord::Schema.define(version: 20140519215925) do
     t.string   "status",     default: "queued"
     t.integer  "progress",   default: 0
     t.text     "message"
+    t.integer  "search_id"
   end
 
-  create_table "maps", force: true do |t|
+  add_index "exports", ["search_id"], name: "index_exports_on_search_id", using: :btree
+
+  create_table "maps", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  create_table "memberships", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "searches", force: :cascade do |t|
+    t.text     "params"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "site_exports", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "search_id"
+    t.string   "status"
+    t.string   "progress"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "site_exports", ["search_id"], name: "index_site_exports_on_search_id", using: :btree
+  add_index "site_exports", ["user_id"], name: "index_site_exports_on_user_id", using: :btree
+
+  create_table "users", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "avatar"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "exports", "searches"
+  add_foreign_key "site_exports", "searches"
+  add_foreign_key "site_exports", "users"
 end

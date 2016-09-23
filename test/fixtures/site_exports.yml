@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  search: one
+  status: MyString
+  progress: MyString
+
+two:
+  user: one
+  search: two
+  status: MyString
+  progress: MyString

@@ -1,0 +1,32 @@
+%br/
+.container
+  .panel.panel-default
+    .panel-heading
+      %h1.panel-title Export status
+    .panel-body
+      - if @site_export.completed? && !@site_export.download_available?
+        .alert.alert-danger
+          The download has expired and is no longer available
+
+      %dl.dl-horizontal
+        %dt Status
+        %dd= @site_export.status.humanize
+        %dt Progress
+        %dd #{@site_export.progress}%
+    .panel-footer
+      = link_to root_url, class: 'btn btn-default' do
+        %i.fa.fa-arrow-left
+        Back to map
+
+      .pull-right
+        - if @site_export.can_retry?
+          = link_to 'Redo', retry_site_export_path(@site_export), method: :patch, class: 'btn btn-danger'
+
+        - if @site_export.download_available?
+          = link_to site_export_path(@site_export, :csv), class: 'btn btn-primary' do
+            %i.fa.fa-download
+            Download
+
+- unless @site_export.completed?
+  :javascript
+    setTimeout(function() { Turbolinks.visit('#{site_export_path(@site_export)}') }, 3000)

@@ -1,4 +1,11 @@
 ENV["RAILS_ENV"] ||= "test"
+
+require 'simplecov'
+SimpleCov.start 'rails'
+
+require 'sidekiq/testing'
+Sidekiq::Testing.fake! # fake is the default mode
+
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
@@ -10,4 +17,8 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+
+  def login_user(user_id)
+    session[:user_gid] = users(user_id).to_global_id.to_s
+  end
 end

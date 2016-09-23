@@ -1,81 +1,119 @@
 require 'fileutils'
+require 'uri'
+require 'net/http'
 
-class DownloadWorker
-  include Sidekiq::Worker
-  sidekiq_options retry: false
-  
-  def perform(id)
-    export = Export.find(id)
+class DownloadWorker < ActiveJob::Base
+
+  def perform(export)
+    @progress = 0
+
     now = Time.zone.now
 
+    sites = export.search.fetch(1, Export::DEFAULT_SITE_LIMIT)
+
+    site_ids = sites.collect(:siteid).uniq.compact
+    raise "No sites found" if site_ids.empty?
+
+    variable_urls = export.variable_urls(site_ids)
+
     # number of urls + 2 extra steps
-    fetch_api_uris = export.site_list_urls + export.urls
-    total = (fetch_api_uris.count + 3).to_f
-    prog = 0
-    
-    puts "Total steps: #{total}"
-    
-    status(export, 'Downloading data', (prog/total*100).to_i)
-    
+    @total_steps = (variable_urls.count + 3).to_f
+
+    Rails.logger.info "Total steps: #{@total_steps}"
+
+    status(export, 'Starting export', 0)
+
     identity = "imiq_export_#{now.strftime('%Y%m%d_%H%M%S')}"
-    save_directory = Rails.root.join("exports/#{now.year}/#{now.month}/#{now.day}/#{now.to_i}#{id}").to_s
-    zip_filename = "#{identity}_#{id}.zip"
-    
-    FileUtils.mkdir_p(save_directory)
-    
-    Dir.chdir(save_directory) do
-      FileUtils.mkdir_p(identity)
-      Dir.chdir(identity) do
-        run_cmd("cp -r #{Rails.root.join('export_template/*')} .")
-        
-        prog += 1
-        status(export, 'Copying template', (prog/total*100).to_i)          
-      
-      
-        fetch_api_uris.each_with_index do |url,index|
-          # run_cmd("curl -O -J -L \"#{url}\"")
-          run_cmd("wget --content-disposition  \"#{url}\"")
-          
-          prog += 1
-          status(export, 'Downloading data', (prog/total*100).to_i)    
+    save_directory = Rails.root.join("exports/#{now.year}/#{now.month}/#{now.day}/#{now.to_i}#{export.id}").to_s
+    zip_filename = "#{identity}_#{export.id}.zip"
+
+    workspace = ::File.join(save_directory, identity)
+
+    FileUtils.mkdir_p(workspace)
+    Dir.chdir(workspace) do
+      status(export, 'Copying template')
+      run_cmd("cp -r #{Rails.root.join('export_template/*')} .")
+
+      variable_urls.each do |url|
+        page = 1
+        header = true
+
+        default_csv_filename = File.basename(URI(url).path)
+        status(export, "Exporting #{default_csv_filename}")
+
+        response = fetch_content(url, header, page)
+        while response.body.length > 0
+          File.open(get_filename(response['Content-Disposition']) || default_csv_filename, 'a') do |fp|
+            fp << response.body
+          end
+
+          header = false
+          page += 1
+          response = fetch_content(url, header, page)
         end
       end
-      
-      prog += 1
-      status(export, 'Building zip file', (prog/total*100).to_i)    
 
-      if run_cmd("zip -r #{zip_filename} #{identity}")
-        run_cmd("rm #{identity}/* && rmdir #{identity}")
-      end
-      
-      prog += 1      
-      status(export, 'Building zip file', (prog/total*100).to_i)    
+      status(export, 'Building zip file')
     end
-    
+
+    Dir.chdir(save_directory) do
+      if run_cmd("zip -r #{::File.join(save_directory, zip_filename)} #{identity}")
+        run_cmd("rm #{workspace}/* && rmdir #{workspace}")
+      end
+    end
+
     if export.download.nil?
       export.create_download(file: File.join(save_directory, zip_filename))
     else
       export.download.update_attribute(:file, File.join(save_directory, zip_filename))
     end
-    
+
     unless export.email.blank?
       DownloadMailer.download_ready_email(export).deliver
     end
-    
+
     status(export, 'Complete', 100)
   rescue => e
-    export.update_attributes({ status: 'Error', message: e.message, progress: 0 })    
+    export.update_attributes({ status: 'Error', message: e.message, progress: 0 })
     raise e
   end
-  
-  def status(m, message, progress)
-    m.update_attributes(status: message, progress: progress)    
+
+  def status(m, message, increment = 1)
+    @progress += increment
+    @progress = [@progress, 100].min
+    m.update_attributes(status: message, progress: (@progress/@total_steps*100).to_i)
   end
-  
+
   protected
-  
+
+  def get_filename(disposition)
+    disposition.match(/filename=(\"?)(.+)\1/)[2]
+  end
+
+  def update_params(url, header, page)
+    uri = URI(url)
+
+    params = URI.decode_www_form(uri.query).to_h
+    params['header'] = header
+    params['page'] = page
+
+    uri.query = URI.encode_www_form(params)
+
+    uri
+  end
+
+  def fetch_content(url, header, page)
+    uri = URI(url)
+    params = URI.decode_www_form(uri.query).to_h
+    params['header'] = header
+    params['page'] = page
+    uri.query = URI.encode_www_form(params)
+    Rails.logger.info "Fetching: #{uri.to_s}"
+    Net::HTTP.get_response(uri)
+  end
+
   def run_cmd(cmd, opts = {})
-    puts cmd
+    Rails.logger.info(cmd)
     system(cmd) unless opts[:pretend]
   end
 end

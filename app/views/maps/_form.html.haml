@@ -1,56 +1,60 @@
-= form_tag '/search', remote: true, role: 'form', class: 'form-horizontal', id: 'search-form' do
-  = submit_tag '', style: 'width:0px; height:0px; padding:0; margin:0; display:none;' # default submit button!
-  = label_tag :q, 'Keywords', class: 'control-label'
-  = text_field_tag :q, params[:q], class: 'form-control'
+= form_tag current_search, remote: true, role: 'form', class: 'form-horizontal', id: 'search-form' do
+  .panel.panel-default.form-panel
+    .panel-body
+      = submit_tag '', style: 'width:0px; height:0px; padding:0; margin:0; display:none;' # default submit button!
+      = label_tag :q, 'Keywords', class: 'control-label'
+      = text_field_tag :q, current_search.params['q'], class: 'form-control'
 
-  = label_tag :networkcode, 'Networks', class: 'control-label'
-  = select_tag :networkcode, network_option_list, prompt: 'Any', class: 'form-control'
+      = label_tag :networkcode, 'Networks', class: 'control-label'
+      = select_tag :networkcode, network_option_list, prompt: 'Any', class: 'form-control'
 
-  = label_tag :organizationcode, 'Organizations', class: 'control-label'
-  = select_tag :organizationcode, organization_option_list, prompt: 'Any', class: 'form-control'
+      = label_tag :organizationcode, 'Organizations', class: 'control-label'
+      = select_tag :organizationcode, organization_option_list, prompt: 'Any', class: 'form-control'
 
-  = label_tag :variablename, 'Parameters', class: 'control-label'
-  / = select_tag :variablename, options_for_select(imiq_api.variables_list['names']), prompt: 'Select a variable name', class: 'form-control'
-  = select_tag :variablename, grouped_options_for_select(geophysical_params), prompt: 'Any', class: 'form-control'
+      = label_tag :variablename, 'Parameters', class: 'control-label'
+      / = select_tag :variablename, options_for_select(imiq_api.variables_list['names']), prompt: 'Select a variable name', class: 'form-control'
+      = select_tag :variablename, grouped_options_for_select(geophysical_params, current_search.params['variablename']), prompt: 'Any', class: 'form-control'
 
-  = label_tag :time_step, 'Time Steps', class: 'control-label'
-  = select_tag :time_step, options_for_select(timesteps), prompt: 'Any', class: 'form-control'
+      = label_tag :time_step, 'Time Steps', class: 'control-label'
+      = select_tag :time_step, options_for_select(timesteps, current_search.params['time_step']), prompt: 'Any', class: 'form-control'
 
-  = label_tag :bounds, 'Bounds', class: 'control-label'
-  .row
-    .col-lg-2.col-md-2
-      &nbsp;
-    .col-lg-5.col-md-5
-      = label_tag :bounds_ll_lat, 'Latitude'
-    .col-lg-5.col-md-5
-      = label_tag :bounds_ll_lng, 'Longitude'
-  .row{ style: 'margin-bottom: 5px;' }
-    .col-lg-2.col-md-2
-      %abbr{ title: 'South West' }
-        = label_tag :lower_left, 'SW', class: 'control-label'
+      %br/
 
-    .col-lg-5.col-md-5
-      = text_field_tag 'bounds[sw_lat]', params[:bounds].try(:[], :sw_lat), class: 'form-control bounds'
-    .col-lg-5.col-md-5
-      = text_field_tag 'bounds[sw_lng]', params[:bounds].try(:[], :sw_lng), class: 'form-control bounds'
-  .row
-    .col-lg-2.col-md-2
-      %abbr{ title: 'North East' }
-        = label_tag :upper_right, 'NE', class: 'control-label'
-    .col-lg-5.col-md-5
-      = text_field_tag 'bounds[ne_lat]', params[:bounds].try(:[], :ne_lat), class: 'form-control bounds'
-    .col-lg-5.col-md-5
-      = text_field_tag 'bounds[ne_lng]', params[:bounds].try(:[], :ne_lng), class: 'form-control bounds'
+      .panel.panel-default.bounds
+        .panel-heading
+          %h1.panel-title Bounds
+        %table.table.table-condensed
+          %tbody
+            %tr
+              %td
+              %th.text-center
+                Latitude
+              %th.text-center
+                Longitude
+            %tr
+              %td
+                %abbr{ title: 'South West' }
+                  = label_tag :lower_left, 'SW', class: 'control-label'
+              %td
+                = text_field_tag 'bounds[sw_lat]', current_search.params['bounds'].try(:[], 'sw_lat'), class: 'form-control bounds'
+              %td
+                = text_field_tag 'bounds[sw_lng]', current_search.params['bounds'].try(:[], 'sw_lng'), class: 'form-control bounds'
+            %tr
+              %td
+                %abbr{ title: 'North East' }
+                  = label_tag :upper_right, 'NE', class: 'control-label'
+              %td
+                = text_field_tag 'bounds[ne_lat]', current_search.params['bounds'].try(:[], 'ne_lat'), class: 'form-control bounds'
+              %td
+                = text_field_tag 'bounds[ne_lng]', current_search.params['bounds'].try(:[], 'ne_lng'), class: 'form-control bounds'
+        .panel-footer.text-center
+          .btn-group
+            = link_to '#', data: { behavior: 'clear-aoi' }, title: 'Remove Bounds', class: 'btn btn-danger btn-sm' do
+              %i.fa.fa-times
+              Clear bounds
+            = link_to '#', class: 'btn btn-default btn-sm', data: { behavior: 'draw-aoi' }, title: 'Select bounds' do
+              %i.fa.fa-pencil
+              Select bounds
 
-  / %br/
-  = render 'layouts/navbar'
-  / .text-right
-  /   = link_to 'Reset form', '/', class: 'btn btn-default btn-danger'
-
-:javascript
-  $(document).on('aoi::drawn', function(e, layer) {
-    $('#bounds_field').val(layer.getBounds().toBBoxString());
-  });
-  $(document).on('aoi::removed', function(e) {
-    $('#bounds_field').val('');
-  });
+      = hidden_field_tag :commit, 'submit', id: 'commit_value'
+    = render 'form_buttons'

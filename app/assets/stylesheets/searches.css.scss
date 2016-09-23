@@ -1,0 +1,46 @@
+// Place all the styles related to the searches controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#search-form {
+  margin: 0px;
+}
+
+#search-form > .form-panel {
+  border: none;
+
+  & > .panel-body {
+    padding: 0px 5px;
+    margin:0px;
+    margin-bottom: 90px;
+    overflow: auto;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    position:absolute;
+  }
+  margin-bottom: 0px;
+
+  & > .panel-footer {
+    position: absolute;
+    bottom: 0px;
+  }
+}
+
+.panel-default.bounds {
+  & > .panel-heading {
+    padding: 9px 9px 8px 9px;
+    position: relative;
+  }
+
+  .bound-buttons {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+  }
+
+  td {
+    border-top: none;
+  }
+}

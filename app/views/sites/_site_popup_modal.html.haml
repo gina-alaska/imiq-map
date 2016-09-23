@@ -1,19 +1,19 @@
 .modal.fade
-  .modal-dialog
+  .modal-dialog.modal-lg
     .modal-content
       .modal-header
         %button.close{ type: "button", data: { dismiss: "modal" } }
           &times;
-          
+
         %h4.modal-title
-          Export Value-Added Products
-      .modal-body
-        - @download_urls.each do |time_period, url_list|
-          %h4= time_period.humanize
-          %ul.nav
-            - url_list.each do |name,url|
-              %li= link_to name.humanize, url
+          Sites Export
+      %iframe{ src: sites_path, style: 'width: 100%; height: 500px; border: none;' }
 
       .modal-footer
-        %button.btn.btn-default{ type: "button", data: { dismiss: "modal" } }
+        = link_to sites_path(format: :csv), class: 'btn btn-primary' do
+          Export
+          - if @sites.total_count > 200
+            %b (Only the first 200 sites will be exported)
+
+        %button.btn.btn-default.pull-left{ type: "button", data: { dismiss: "modal" } }
           Close

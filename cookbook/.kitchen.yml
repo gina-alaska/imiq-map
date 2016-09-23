@@ -1,7 +1,10 @@
 ---
 driver:
   name: vagrant
-
+  synced_folders:
+    - ["../", '/www/imiq-map/current']
+  network:
+    - ["private_network", {ip: "192.168.222.227"}]
 provisioner:
   name: chef_solo
 

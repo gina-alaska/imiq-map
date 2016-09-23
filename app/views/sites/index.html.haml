@@ -1,0 +1,20 @@
+- content_for :header do
+  %nav.navbar.navbar-default.navbar-static-top
+    .container-fluid
+      = paginate @sites
+      .navbar-right
+        .navbar-text= page_entries_info @sites
+        = link_to site_exports_path, method: :post, class: 'btn btn-default navbar-btn' do
+          Export site list
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th SiteID
+      %th Name
+      %th Location
+      %th Networks
+      %th Organizations
+  %tbody
+    - @sites.each do |site|
+      = render 'row', site: site

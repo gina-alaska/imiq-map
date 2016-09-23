@@ -17,7 +17,7 @@ require 'capistrano/deploy'
 #
 # require 'capistrano/rvm'
 # require 'capistrano/rbenv'
-#require 'capistrano/chruby'
+require 'capistrano/chruby'
 #set :chruby_ruby, '1.9.3p448'
 
 require 'capistrano/bundler'

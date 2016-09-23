@@ -14,7 +14,6 @@ class MapsController < ApplicationController
   end
 
   def search
-
     respond_to do |format|
       format.js {
         case params[:commit]
@@ -24,8 +23,13 @@ class MapsController < ApplicationController
           @export = Export.new
 
           render '/exports/new'
+        when 'show-sites'
+          #  redirect_via_turbolinks_to export_sites_path(search_params)
+           #imiq_api.sites_uri(search_params, 1, 1500, :point, :pdf)
+           self.current_search = search_params
+           render '/sites/export'
         when 'export-sites'
-           redirect_via_turbolinks_to imiq_api.sites_uri(search_params, 1, 1500, :point, :pdf)
+
         else
           @imiq_api_url = imiq_api.sites_uri(search_params).to_s
         end
@@ -33,12 +37,4 @@ class MapsController < ApplicationController
     end
   end
 
-  protected
-
-  def search_params    
-    @search ||= params.permit(:q, :datatype, :samplemedium, :generalcategory,
-      :valuetype, :variablename, :networkcode, :organizationcode, :derived_values,
-      :time_step, bounds: [:sw_lat, :sw_lng, :ne_lat, :ne_lng])      
-  end
-  helper_method :search_params
 end
