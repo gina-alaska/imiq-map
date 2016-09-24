@@ -14,10 +14,9 @@
     .form-group
       = f.label :email, class: 'control-label'
       = f.text_field :email, value: current_user.email, class: 'form-control', placeholder: 'Email address'
-  .text-left{ style: 'padding:10px; border-top: 1px solid #efefef;' }
+  .text-right{ style: 'padding:10px; border-top: 1px solid #efefef;' }
     %a.btn.btn-primary{ href: '#export-options', data: { toggle: "tab" } }
       %i.fa.fa-arrow-left
-      Back
-    = f.submit 'Export', class: 'btn btn-primary pull-right'
-    = link_to root_path(params: current_search.params), class: 'btn btn-default pull-right', style: 'margin-right: 10px;' do
-      Back to Map
+      Previous
+    = link_to 'Cancel', root_path, class: 'btn btn-default'
+    = f.submit 'Export', class: 'btn btn-primary'
