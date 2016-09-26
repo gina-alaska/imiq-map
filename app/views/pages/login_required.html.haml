@@ -2,7 +2,18 @@
   %h2.bg-danger.text-center
     %br/
     %i.fa.fa-warning
-    We're sorry, but you do not have permission to view this page!
-    Please log in to the site to continue.
+    You need to be logged in to view this content, redirecting you to the login page.
+    %br/
+    If you do not get redirected, within 5 seconds please select the button below.  
     %br/
     %br/
+%br/
+= link_to '/login', class: 'btn btn-primary btn-block' do
+  Login to Site
+
+:javascript
+  $(document).ready(function(){
+    setTimeout(function() {
+      window.location.href = "/login"
+      }, 3000);
+    });

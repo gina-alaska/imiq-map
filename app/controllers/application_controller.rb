@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
       redirect_to root_url
     else
       session[:redirect_back_to] = request.original_url
-      redirect_to login_path
+      redirect_to page_path('login_required')
     end
   end
 
