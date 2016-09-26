@@ -266,5 +266,4 @@ class @Map
     <a href="/exports/new?siteid=#{feature.properties.siteid}" data-remote="true" class="btn btn-block btn-primary" >Export</a>
     """
 
-
     output
