@@ -1,3 +1,5 @@
+- summary_products = summary_products_list(@site)
+
 %h3= @site.sitename
 %ul.nav.nav-tabs
   %li.active
@@ -50,10 +52,10 @@
           #{@site.end_date}
       %dt Summary Products:
       %dd
-        - if @site.derived_variables.values.flatten.compact.empty?
+        - if summary_products.empty?
           No summary products available yet
         - else
-          = @site.derived_variables.collect { |k,v| v.collect { |i| i[0].chomp } unless v.empty? or k.downcase == 'source' }.flatten.compact.uniq.sort.join('; ')
+          = summary_products.join('; ')
       %dt Source Data:
       %dd
         - if @site.variables.empty?
@@ -63,6 +65,6 @@
   - @site.derived_variables['daily'].each do |variable|
     .tab-pane{ id: "graph_#{variable[1]}" }
 
-- unless @site.derived_variables.values.flatten.compact.empty?
+- unless summary_products.empty?
   = link_to new_export_path(siteid: @site.siteid), class: 'btn btn-block btn-primary' do
     Export
