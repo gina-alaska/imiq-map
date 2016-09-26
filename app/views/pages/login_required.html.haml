@@ -8,12 +8,12 @@
     %br/
     %br/
 %br/
-= link_to '/login', class: 'btn btn-primary btn-block' do
+= link_to login_path, class: 'btn btn-primary btn-block' do
   Login to Site
 
 :javascript
   $(document).ready(function(){
     setTimeout(function() {
-      window.location.href = "/login"
+      window.location.href = "#{login_path}"
       }, 3000);
     });
