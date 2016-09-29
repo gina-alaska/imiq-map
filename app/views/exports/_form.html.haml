@@ -103,6 +103,7 @@
                           = check_box :export, :variables, { multiple: true, class: 'export_variable', checked: (variable.last == select_parameter ? 'checked' : '') }, variable.last, nil
                           = variable.first
       .text-right{ style: 'padding:10px; border-top: 1px solid #efefef;' }
+        = link_to 'Cancel', root_path, class: 'btn btn-default'
         %a.btn.btn-primary{ href: '#notification-options', data: { toggle: 'tab' } }
           Next
           %i.fa.fa-arrow-right
