@@ -11,7 +11,7 @@
     - @exports.each do |export|
       %tr
         %td= export.created_at
-        %td= "#{export.progress}%"
+        %td= number_to_percentage export.progress, precision: 0
         %td= export.variables.map(&:humanize).try(:join, ', ')
         %td
           - unless export.download.nil?
