@@ -14,6 +14,7 @@
   - maxdate = site.end_date if maxdate.nil? || (!site.end_date.nil? && site.end_date > maxdate)
 
 = form_for @export, remote: true do |f|
+  = f.hidden_field :search_id
   .tab-content
     #export-options.tab-pane.active
       .form-content{ style: 'padding:10px;' }

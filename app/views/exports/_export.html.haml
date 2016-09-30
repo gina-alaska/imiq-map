@@ -5,8 +5,8 @@
   %dt Progress
   %dd
     .progress
-      .progress-bar{ style: "width: #{@export.progress}%"}
-        = "#{@export.progress}%"
+      .progress-bar{ style: "width: #{number_to_percentage @export.progress, precision: 0}"}
+        = number_to_percentage @export.progress, precision: 0
 
   - unless export.message.nil?
     %dt Message
