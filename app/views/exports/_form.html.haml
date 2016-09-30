@@ -10,51 +10,13 @@
   - dvars['daily'] += site.derived_variables['daily']
   - dvars['hourly'] += site.derived_variables['hourly']
   - dvars['monthly'] += site.derived_variables['monthly']
+  - dvars['fifteenmin'] += site.derived_variables['fifteenmin']
   - mindate = site.begin_date if mindate.nil? || (!site.begin_date.nil? && site.begin_date < mindate)
   - maxdate = site.end_date if maxdate.nil? || (!site.end_date.nil? && site.end_date > maxdate)
 
 = form_for @export, remote: true do |f|
   .tab-content
-    #site-list.tab-pane.active
-      .list{ style: 'max-height: 500px; overflow: auto;' }
-        %table.table
-          %thead
-            %tr
-              %th
-                = check_box_tag :select_all, 1, true, data: { toggle: 'checkboxes', target: '.site_ids' }
-              %th Site name
-              %th Location
-              %th Start Date
-              %th End Date
-              %th Summary Data Products
-          %tbody
-            - @sites.each do |site|
-              - dvars['daily'] += site['derived_variables']['daily']
-              - dvars['fifteenmin'] += site['derived_variables']['fifteenmin']
-              - dvars['hourly'] += site['derived_variables']['hourly']
-              - dvars['monthly'] += site['derived_variables']['monthly']
-              - dvars['annual'] += site['derived_variables']['annual']
-              - mindate = site['begin_date'] if mindate > site['begin_date']
-              - maxdate = site['end_date'] if maxdate < site['end_date']
-
-              %tr
-                %td
-                  = check_box_tag "export[sites][]", site['siteid'], true, class: 'site_ids'
-                %td
-                  %abbr{ title: site['sitename'] }
-                    = truncate(site['sitename'], length: 25, omission: '...')
-                %td
-                  %nobr= format_geolocation(site['geolocation'])
-                %td
-                  %nobr= site['begin_date'] if site['begin_date'].present?
-                %td
-                  %nobr= site['end_date'] if site['end_date'].present?
-                %td= "#{params_list(site) }"
-      .text-right{ style: 'padding:10px; border-top: 1px solid #efefef;' }
-        %a.btn.btn-primary{ href: '#export-options', data: { toggle: 'tab' } }
-          Next
-          %i.fa.fa-arrow-right
-    #export-options.tab-pane
+    #export-options.tab-pane.active
       .form-content{ style: 'padding:10px;' }
         %p.form-control-static
           %b Exporting:
