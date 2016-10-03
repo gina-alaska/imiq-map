@@ -24,17 +24,9 @@ class ExportsController < ApplicationController
 
   def create
     @export = build_new_export(export_params)
-    if params[:siteid].present?
-      @export.search = find_or_create_search({ siteids: params[:siteid] })
-    else
-      @export.search = current_search
-    end
 
     respond_to do |format|
       if @export.save
-        session[:exports] ||= []
-        session[:exports] << @export.id
-
         @export.async_build_download()
         format.any { redirect_to @export }
       else
@@ -68,33 +60,15 @@ class ExportsController < ApplicationController
   protected
 
   def build_new_export(export_params = {})
-    export = current_user.exports.build(export_params)
-    if params[:siteid].present?
-      export.search = find_or_create_search({ siteids: params[:siteid] })
-    else
-      export.search = current_search
-    end
-
-    export
+    current_user.exports.build(export_params)
   end
 
   def fetch_export
     @export = Export.find(params[:id]) if params[:id].present?
   end
 
-  def export_search
-    @export_search ||= GlobalID::Locator.locate session[:export_search_gid]
-  end
-
-  def export_search=(search)
-    session[:export_search_gid] = search.to_global_id.to_s
-
-    search
-  end
-
   def export_params
-    eparms = params.require(:export).permit({ variables: [] },
-      :starts_at, :ends_at, :timestep, :email)
+    eparms = params.require(:export).permit(:search_id, :starts_at, :ends_at, :timestep, :email, variables: [])
 
     eparms
   end

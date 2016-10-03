@@ -4,7 +4,7 @@ module MapsHelper
       imiq_api.network_list.collect{ |org|
         [org['networkcode']]
       },
-      current_search.params['networkcode']
+      current_search.networkcode
     )
   end
 
@@ -13,7 +13,7 @@ module MapsHelper
       imiq_api.organization_list.collect{ |org|
         [org['description_with_code'], org['organizationcode']]
       },
-      current_search.params['organizationcode']
+      current_search.organizationcode
     )
   end
 

@@ -1,5 +1,10 @@
 class Search < ActiveRecord::Base
-  serialize :params, JSON
+  has_many :exports, dependent: :destroy
+  has_one :bound
+
+  QUERY_PARAMS = [:q, :datatype, :samplemedium, :generalcategory,
+    :valuetype, :variablename, :networkcode, :organizationcode, :derived_values,
+    :time_step, :bounds]
 
   def export_filename
     Rails.root.join('exports/sites', "sites-#{self.id}.csv")
@@ -32,18 +37,33 @@ class Search < ActiveRecord::Base
     end
   end
 
-  def self.params_dump(data)
-    JSON.dump(data.to_hash)
-  end
-
   def fetch(page = 1, limit = 50)
     imiq_api = ImiqAPI.new
 
-    SitesPager.new(imiq_api.sites(params, page, limit))
+    SitesPager.new(imiq_api.sites(imiq_api_params, page, limit))
   end
 
   def total_sites
     @total_sites ||= fetch(1,1).total_count
+  end
+
+  def self.first_or_create_with_search(search)
+    bounds = search.delete('bounds')
+    s = where(search)
+
+    s = s.includes(:bound).where(bounds: bounds).references(:bound) unless bounds.nil?
+
+    s.first_or_create do |search|
+      search.build_bound(bounds) unless bounds.nil?
+    end
+  end
+
+  def imiq_api_params
+    as_json(only: Search::QUERY_PARAMS, method: :bounds)
+  end
+
+  def bounds
+    bound.as_json(only: [:sw_lat, :sw_lng, :ne_lat, :ne_lng])
   end
 
   def each_page(limit=50, &block)

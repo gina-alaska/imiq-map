@@ -79,9 +79,10 @@ class DownloadWorker < ActiveJob::Base
   end
 
   def status(m, message, increment = 1)
-    @progress += increment
-    @progress = [@progress, 100].min
-    m.update_attributes(status: message, progress: (@progress/@total_steps*100).to_i)
+    @steps ||= 0
+    @steps += increment
+    progress = [@steps/@total_steps*100, 100].min
+    m.update_attributes(status: message, progress: progress.to_i)
   end
 
   protected
