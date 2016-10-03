@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sw_lat: MyString
+  sw_lng: MyString
+  ne_lat: MyString
+  ne_lng: MyString
+  search_id: 
+
+two:
+  sw_lat: MyString
+  sw_lng: MyString
+  ne_lat: MyString
+  ne_lng: MyString
+  search_id: 
