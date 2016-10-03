@@ -4,19 +4,15 @@
   %thead
     %tr
       %th Date
-      %th Sites
-      %th Status
+      %th Percent Complete
       %th Variables
-      %th Email
       %th Actions
   %tbody
     - @exports.each do |export|
       %tr
         %td= export.created_at
-        %td= export.sites.try(:join, ', ')
-        %td= export.status
+        %td= number_to_percentage export.progress, precision: 0
         %td= export.variables.map(&:humanize).try(:join, ', ')
-        %td= export.email
         %td
           - unless export.download.nil?
             = link_to download_export_path(export), class: 'btn btn-primary', target: :_blank do

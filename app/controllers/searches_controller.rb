@@ -12,7 +12,7 @@ class SearchesController < ApplicationController
 
   def show
     @search = current_search
-    @imiq_api_url = imiq_api.sites_uri(@search.params).to_s
+    @imiq_api_url = imiq_api.sites_uri(@search.imiq_api_params).to_s
 
     respond_to do |format|
       format.js

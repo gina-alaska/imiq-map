@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
     @current_search
   end
 
-  def find_or_create_search(search)
-    Search.where(params: Search.params_dump(search)).first || Search.create(params:search.to_hash)
+  def find_or_create_search(search = {})
+    Search.first_or_create_with_search(search)
   end
 end

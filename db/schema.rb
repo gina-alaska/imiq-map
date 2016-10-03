@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160608190735) do
+ActiveRecord::Schema.define(version: 20161003203051) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,18 @@ ActiveRecord::Schema.define(version: 20160608190735) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "bounds", force: :cascade do |t|
+    t.string   "sw_lat"
+    t.string   "sw_lng"
+    t.string   "ne_lat"
+    t.string   "ne_lng"
+    t.integer  "search_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "bounds", ["search_id"], name: "index_bounds_on_search_id", using: :btree
 
   create_table "downloads", force: :cascade do |t|
     t.integer  "export_id"
@@ -71,9 +83,19 @@ ActiveRecord::Schema.define(version: 20160608190735) do
   end
 
   create_table "searches", force: :cascade do |t|
-    t.text     "params"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "q"
+    t.string   "siteids"
+    t.string   "networkcode"
+    t.string   "organizationcode"
+    t.string   "datatype"
+    t.string   "samplemedium"
+    t.string   "generalcategory"
+    t.string   "valuetype"
+    t.string   "variablename"
+    t.string   "derived_values"
+    t.string   "time_step"
   end
 
   create_table "site_exports", force: :cascade do |t|
@@ -96,6 +118,7 @@ ActiveRecord::Schema.define(version: 20160608190735) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "bounds", "searches"
   add_foreign_key "exports", "searches"
   add_foreign_key "site_exports", "searches"
   add_foreign_key "site_exports", "users"
