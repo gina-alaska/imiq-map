@@ -5,7 +5,7 @@ class Search < ActiveRecord::Base
 
   QUERY_PARAMS = [:q, :siteids, :datatype, :samplemedium, :generalcategory,
     :valuetype, :variablename, :networkcode, :organizationcode, :derived_values,
-    :time_step, :bounds]
+    :time_step]
 
   def export_filename
     Rails.root.join('exports/sites', "sites-#{self.id}.csv")
@@ -60,7 +60,7 @@ class Search < ActiveRecord::Base
   end
 
   def imiq_api_params
-    as_json(only: Search::QUERY_PARAMS, method: :bounds)
+    as_json(only: Search::QUERY_PARAMS, methods: :bounds)
   end
 
   def bounds
