@@ -11,6 +11,7 @@
   - dvars['hourly'] += site.derived_variables['hourly']
   - dvars['monthly'] += site.derived_variables['monthly']
   - dvars['fifteenmin'] += site.derived_variables['fifteenmin']
+  - dvars['annual'] += site.derived_variables['annual']
   - mindate = site.begin_date if mindate.nil? || (!site.begin_date.nil? && site.begin_date < mindate)
   - maxdate = site.end_date if maxdate.nil? || (!site.end_date.nil? && site.end_date > maxdate)
 
