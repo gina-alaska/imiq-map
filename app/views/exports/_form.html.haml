@@ -1,6 +1,6 @@
-- dvars = { 'daily' => [], 'hourly' => [], 'monthly' => [], 'source' => [] }
-- mindate = @sites.first.try(:begin_date)
-- maxdate = @sites.first.try(:end_date)
+- dvars = { 'daily' => [], 'fifteenmin' => [], 'hourly' => [], 'monthly' => [], 'annual' => [], 'source' => [] }
+- mindate = @sites.first.try(:[], 'begin_date')
+- maxdate = @sites.first.try(:[], 'end_date')
 - active_tab = "daily"
 - if params['time_step'].present?
   - active_tab = "#{params['time_step']}"
@@ -10,6 +10,7 @@
   - dvars['daily'] += site.derived_variables['daily']
   - dvars['hourly'] += site.derived_variables['hourly']
   - dvars['monthly'] += site.derived_variables['monthly']
+  - dvars['fifteenmin'] += site.derived_variables['fifteenmin']
   - mindate = site.begin_date if mindate.nil? || (!site.begin_date.nil? && site.begin_date < mindate)
   - maxdate = site.end_date if maxdate.nil? || (!site.end_date.nil? && site.end_date > maxdate)
 
@@ -48,7 +49,7 @@
             - dvars.each do |timestep, items|
               - next if timestep != 'source' && items.empty?
               %li{ class: timestep == "#{active_tab}" ? 'active' : '' }
-                %a{ href: "##{timestep}_fields", data: { toggle: 'tab' } }= timestep.capitalize
+                %a{ href: "##{timestep}_fields", data: { toggle: 'tab' } }= timestep_display(timestep)
           #export_fields.tab-content
             - dvars.each do |timestep, items|
               .tab-pane{ id: "#{timestep}_fields", class: timestep == "#{active_tab}" ? 'active' : '' }

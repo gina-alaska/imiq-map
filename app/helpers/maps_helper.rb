@@ -27,7 +27,7 @@ module MapsHelper
   end
 
   def timesteps
-    [['Hourly','hourly'],['Daily', 'daily'],['Monthly', 'monthly']]
+    [['Fifteen Minutes', 'fifteenmin'], ['Hourly','hourly'],['Daily', 'daily'],['Monthly', 'monthly'], ['Annual', 'annual']]
   end
 
   def geophysical_params(type = 'any')
@@ -36,9 +36,14 @@ module MapsHelper
         ['Discharge', 'discharge'],
         ['Water Temperature', 'watertemp']
       ],
+      'fifteenmin'=> [
+        ['Water Temperature', 'watertemp']
+      ],
       'hourly'=> [
       ],
       'monthly'=> [
+      ],
+      'annual'=> [
       ],
       'any'=> [
         ['Discharge', 'discharge'],
@@ -55,8 +60,8 @@ module MapsHelper
         [ 'Precipitation'                       , 'precip'              ],
         [ 'Snow Depth'                          , 'snowdepth'           ],
         [ 'Snow Water Equivalent'               , 'swe'                 ],
-        [ 'Discharge (only daily,monthly)'      , 'discharge'           ],
-        [ 'Water Temperature (only daily)'      ,    'watertemp'           ]
+        [ 'Discharge (only daily,monthly,annual)'      , 'discharge'           ],
+        [ 'Water Temperature (only fifteen minute, daily)'      ,    'watertemp'           ]
       ],
 
       'Air' => [
