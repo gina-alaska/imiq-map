@@ -2,7 +2,7 @@ class Search < ActiveRecord::Base
   has_many :exports, dependent: :destroy
   has_one :bound
 
-  QUERY_PARAMS = [:q, :datatype, :samplemedium, :generalcategory,
+  QUERY_PARAMS = [:q, :siteids, :datatype, :samplemedium, :generalcategory,
     :valuetype, :variablename, :networkcode, :organizationcode, :derived_values,
     :time_step, :bounds]
 
