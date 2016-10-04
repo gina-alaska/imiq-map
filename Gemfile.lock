@@ -1,11 +1,3 @@
-GIT
-  remote: git://github.com/capistrano/chruby.git
-  revision: a3d2160f2aa0e221a7a85457ca41577d0588b279
-  specs:
-    capistrano-chruby (0.1.2)
-      capistrano (~> 3.0)
-      sshkit (~> 1.3)
-
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -65,9 +57,12 @@ GEM
       sshkit (>= 1.9.0)
     capistrano-bower (1.1.0)
       capistrano (~> 3.0)
-    capistrano-bundler (1.1.4)
+    capistrano-bundler (1.2.0)
       capistrano (~> 3.1)
       sshkit (~> 1.2)
+    capistrano-chruby (0.1.2)
+      capistrano (~> 3.0)
+      sshkit (~> 1.3)
     capistrano-harrow (0.5.3)
     capistrano-rails (1.1.8)
       capistrano (~> 3.1)
@@ -309,7 +304,7 @@ DEPENDENCIES
   capistrano
   capistrano-bower
   capistrano-bundler
-  capistrano-chruby!
+  capistrano-chruby
   capistrano-rails
   chartkick
   coffee-rails (~> 4.0.0)
