@@ -1,5 +1,6 @@
 class Search < ActiveRecord::Base
   has_many :exports, dependent: :destroy
+  has_many :site_exports, dependent: :destroy
   has_one :bound
 
   QUERY_PARAMS = [:q, :siteids, :datatype, :samplemedium, :generalcategory,
