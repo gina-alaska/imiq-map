@@ -1,0 +1,19 @@
+%p
+  %h2.bg-danger.text-center
+    %br/
+    %i.fa.fa-warning
+    You need to be logged in to view this content, redirecting you to the login page.
+    %br/
+    If you do not get redirected, within 5 seconds please select the button below.  
+    %br/
+    %br/
+%br/
+= link_to login_path, class: 'btn btn-primary btn-block' do
+  Login to Site
+
+:javascript
+  $(document).ready(function(){
+    setTimeout(function() {
+      window.location.href = "#{login_path}"
+      }, 3000);
+    });

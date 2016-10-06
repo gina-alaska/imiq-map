@@ -19,7 +19,7 @@ class ExportsControllerTest < ActionController::TestCase
   test "should need to login to create export" do
     get :new
 
-    assert_redirected_to login_path
+    assert_redirected_to page_path('login_required')
   end
 
   test "should allow user to create export" do
