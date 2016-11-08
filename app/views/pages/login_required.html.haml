@@ -1,19 +1,24 @@
-%p
-  %h2.bg-danger.text-center
-    %br/
-    %i.fa.fa-warning
-    You need to be logged in to view this content, redirecting you to the login page.
-    %br/
-    If you do not get redirected, within 5 seconds please select the button below.  
-    %br/
-    %br/
 %br/
-= link_to login_path, class: 'btn btn-primary btn-block' do
-  Login to Site
+
+.container
+  .row
+    .col-sm-8.col-sm-offset-2.text-center
+      .alert.alert-info
+        %h2{ style: 'margin-top: 0px; padding-top: 0px;' }
+          You must be logged in to view this page, you will be automatically redirected to the GINA::ID login page.
+
+        %br/
+
+        %h4
+          If you are not redirected within 5 seconds please click the button below
+
+        %p
+          = link_to login_path, class: 'btn btn-primary btn-lg' do
+            Login
 
 :javascript
   $(document).ready(function(){
     setTimeout(function() {
       window.location.href = "#{login_path}"
-      }, 3000);
+      }, 5000);
     });
