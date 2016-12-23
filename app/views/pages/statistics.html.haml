@@ -1,0 +1,8 @@
+- @parameters = imiq_api.variables_list['names'].length
+- @sources = imiq_api.organization_list.collect{ |org| [org['organizationcode']] }.length
+- @networks = imiq_api.network_list.collect{ |org| [org['networkcode']] }.length
+%h1 Imiq by the numbers
+
+%h3= "Parameters #{@parameters}"
+%h3= "Sources #{@sources}"
+%h3= "Networks #{@networks}"
