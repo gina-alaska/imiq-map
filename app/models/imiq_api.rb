@@ -35,6 +35,11 @@ class ImiqAPI
     @variables_list ||= self.class.get("/variables/list.json")
   end
 
+  #get statistics about Imiq database
+  def statistics
+    @statistics ||= self.class.get("/statistics.json")
+  end
+
   #get list of networks
   def network_list
     @network_list ||= self.class.get("/networks/list.json")
