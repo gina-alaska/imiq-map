@@ -1,0 +1,6 @@
+%h1 Exports Report
+
+%h3= "Number of exports #{@export_count}"
+%h3 Users
+- @user_count.each do |name|
+  = "#{name}"

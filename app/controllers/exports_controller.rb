@@ -1,5 +1,5 @@
 class ExportsController < ApplicationController
-  before_action :fetch_export
+  before_action :fetch_export, except: :report
 
   authorize_resource
 
@@ -51,6 +51,16 @@ class ExportsController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
+  def report
+    @export_count = Export.count
+    @user_count = Export.all.map(&:user).map(&:name).uniq
+    
     respond_to do |format|
       format.html
       format.js
