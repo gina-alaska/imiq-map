@@ -1,5 +1,5 @@
 var modal = $("<%= escape_javascript render('/exports/report_modal.html') %>").modal()
-modal.on('turbolinks:load loaded.bs.modal', function() {
+modal.on('shown.bs.modal', function() {
   $('.date-editor').datetimepicker({
     format: 'YYYY/MM/DD'
   });

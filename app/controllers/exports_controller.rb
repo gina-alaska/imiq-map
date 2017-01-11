@@ -58,8 +58,15 @@ class ExportsController < ApplicationController
   end
 
   def report
-    @export_count = Export.count
-    @user_count = Export.all.map(&:user).map(&:name).uniq
+    if params["/exports/report"]
+      @start_date = params["/exports/report"]["starts_at"]
+      @end_date = params["/exports/report"]["ends_at"]
+
+      exports = Export.where(created_at: @start_date...@end_date)
+      @export_count = exports.count
+      @user_names = exports.map(&:user).map(&:name).uniq
+      @new_user_count = User.where(created_at: @start_date...@end_date).count
+    end
     
     respond_to do |format|
       format.html

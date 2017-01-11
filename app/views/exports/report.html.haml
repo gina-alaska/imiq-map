@@ -1,6 +1,8 @@
-%h1 Exports Report
+%h2 Exports reported from #{@start_date} to #{@end_date}.
 
 %h3= "Number of exports #{@export_count}"
+%h3= "Number of new users #{@new_user_count}"
+%h3= "Total number of users #{@user_names.length}"
 %h3 Users
-- @user_count.each do |name|
+- @user_names.each do |name|
   = "#{name}"
