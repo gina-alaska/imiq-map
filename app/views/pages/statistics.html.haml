@@ -1,8 +1,13 @@
 %h1 Imiq database statistics
 
-%h3= "Data Values 954,975,920"
-%h3= "Parameters #{imiq_api.statistics['parameters']}"
-%h3= "Sources #{imiq_api.statistics['sources']}"
-%h3= "Networks #{imiq_api.statistics['networks']}"
-%br/
+%dl.dl-horizontal{ style: 'font-size: 1.5em;'}
+  %dt Data values
+  %dd 954,975,920
+  %dt Parameters
+  %dd= imiq_api.statistics['parameters']
+  %dt Sources
+  %dd= imiq_api.statistics['sources']
+  %dt Networks
+  %dd= imiq_api.statistics['networks']
+
 %h4 Last updated on 1/5/2017
