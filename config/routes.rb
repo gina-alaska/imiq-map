@@ -21,6 +21,11 @@ Rails.application.routes.draw do
   resources :exports do
     patch :retry, on: :member
     get :download, on: :member
+
+    collection do
+      get :report
+      post :report
+    end
   end
   resources :maps
   resources :graphs
