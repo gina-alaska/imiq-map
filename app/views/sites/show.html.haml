@@ -65,6 +65,9 @@
   - @site.derived_variables['daily'].each do |variable|
     .tab-pane{ id: "graph_#{variable[1]}" }
 
-- unless summary_products.empty?
+- if summary_products.empty?
+  %p{ style: "padding-left: 10px;" }
+    Calibrated, instantaneous source data from Imiq Database available by request.  Contact <strong>imiq@arcticlcc.org</strong> to check availability.
+- else
   = link_to new_export_path(siteid: @site.siteid), class: 'btn btn-block btn-primary' do
     Export
