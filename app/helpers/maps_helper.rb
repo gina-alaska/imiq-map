@@ -108,7 +108,6 @@ module MapsHelper
         ["Ice"                              , "sw_ice"              ],
         ["Physical Water Properties"        , "sw_physical"         ],
         ["Water Pressure"                   , "sw_pressure"         ],
-        ["Radiation, PAR"                   , "air_radiation_par"   ],
         ["Surface Water Temperature"        , "sw_temperature"      ]
       ]
 
