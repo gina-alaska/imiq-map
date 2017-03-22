@@ -31,9 +31,11 @@ class Ability
 
     user ||= User.new
 
+    cannot :report, Export
+
     unless user.new_record?
       can :manage, Export, user_id: user.id
-      can :report, Export if user.admin?
+      can :manage, :report if user.admin?
       can :manage, SiteExport, user_id: user.id
     end
   end
