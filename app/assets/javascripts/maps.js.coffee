@@ -30,7 +30,7 @@ class @Map
 
     baseLayers = {
       'Terrain': L.mapbox.tileLayer('gina-alaska.heb1gpfg')
-      'GINA BestDataLayer': L.tileLayer('http://tiles.gina.alaska.edu/tilesrv/bdl/tile/{x}/{y}/{z}', {
+      'GINA BestDataLayer': L.tileLayer('http://tiles.gina.alaska.edu/tilesrv/bdl/tile/{x}/{y}/{z}?GOGC=C181D5D73000', {
         maxZoom: 15
       })
     }
