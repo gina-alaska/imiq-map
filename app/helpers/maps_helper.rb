@@ -66,8 +66,9 @@ module MapsHelper
 
       'Air' => [
         ["Barometric Pressure"              , "air_barometric_pressure"],
+        ["Carbon Dioxide"                   , "carbon_dioxide"],
         ["Clouds"                           , "air_clouds"             ] ,
-        ["Humidity"                         , "air_humidity"           ],
+        ["Moisture"                         , "air_humidity"           ],
         ["Radiation, Longwave/Shortwave"    , "air_radiation_lwsw"     ],
         ["Radiation, PAR"                   , "radiation_par"          ],
         ["Temperature, Air"                 , "air_temperature"        ],
@@ -79,6 +80,10 @@ module MapsHelper
         ["Pan Evaporation"                  , "precipitation_pan_evaporation" ],
         ["Precipitation"                    , "precipitation_precipitation"   ],
         ["Snowfall"                         , "precipitation_snowfall"        ]
+      ],
+
+      'Sediment' => [
+        ["General Properties"               , "general_properties" ]
       ],
 
       'Snow' => [
@@ -99,11 +104,10 @@ module MapsHelper
       'Surface Water' => [
         ["Water Chemistry"                  , "sw_chemistry"        ],
         ["Discharge/Runoff"                 , "sw_discharge"        ],
-        ["Fish Detected"                    , "sw_fish_detected"    ],
+        ["Biology"                          , "sw_fish_detected"    ],
         ["Ice"                              , "sw_ice"              ],
         ["Physical Water Properties"        , "sw_physical"         ],
         ["Water Pressure"                   , "sw_pressure"         ],
-        ["Radiation, PAR"                   , "air_radiation_par"   ],
         ["Surface Water Temperature"        , "sw_temperature"      ]
       ]
 
