@@ -6,6 +6,8 @@
 * PostgreSQL
 * Otto (https://ottoproject.io/downloads.html)
 
+Wahoo
+
 ## Installation
 
 Checkout the code
