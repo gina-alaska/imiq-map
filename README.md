@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/gina-alaska/imiq-map.png?label=ready&title=Ready)](https://waffle.io/gina-alaska/imiq-map)
 ## Requirements
 * Ruby 2.0
 * Rails 4.0.1
