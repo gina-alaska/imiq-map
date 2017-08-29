@@ -31,7 +31,7 @@ template "/etc/init.d/unicorn" do
     pidfile: ::File.join(node['imiq_map']['paths']['pids'], node['unicorn']['pid']).to_s,
     unicorn_config_file: node['unicorn']['config_path'],
     environment: node['imiq_map']['environment'],
-    ruby_version: "2.1"
+    ruby_version: "2.2.4"
   })
 end
 
