@@ -9,7 +9,6 @@ default['postfix']['main'] = {
   "myorigin" => "gina.alaska.edu"
 }
 
-default['yum']['gina']['mirrorlist'] = 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=os'
 
 default[app_name]['account'] = "webdev"
 default[app_name]['environment'] = "production"
