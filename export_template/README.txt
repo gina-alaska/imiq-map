@@ -36,7 +36,7 @@ Imiq Data Portal should be cited as:
 
 Cherry, Jessica, Amy Jacobs, Tom Heinrichs, Will Fisher, Jennifer Delamere, 
 Cheryl Haase, Philip Martin, Josh Bradley, Jennifer Jenkins, Jess Grunblatt, 
-Greg Balogh. Imiq Hydroclimate Database at the University of Alaska Fairbanks. 
+Greg Balogh, Rawser Spicer, Jason Grimes. Imiq Hydroclimate Database at the University of Alaska Fairbanks. 
 http://arcticlcc.org/projects/imiq/, accessed on [Date accessed].
 
 PROJECT PARTNERS

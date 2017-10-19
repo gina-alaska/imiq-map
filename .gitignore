@@ -20,3 +20,5 @@
 .otto
 .env
 .powenv
+
+*.DS_Store
