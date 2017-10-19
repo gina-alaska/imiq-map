@@ -1,79 +1,63 @@
-## Requirements
-* Ruby 2.0
-* Rails 4.0.1
-* NodeJS
-* Bower (npm install -g bower)
-* PostgreSQL
-* Otto (https://ottoproject.io/downloads.html)
+# Development Setup
 
-## Installation
+How to set up a development environment for [[imiq-map|https://github.com/gina-alaska/imiq-map]].
+These directions should work for linux or macOS
 
-Checkout the code
+[[See this projects Wiki for more infromation|https://github.com/gina-alaska/imiq-map/wiki/Development-Setup]]
 
-    git clone <repo>
-    bundle
-    cp config/database.yml.example config/database.yml
-    cp config/secrets.yml.example config/secrets.yml
-    vim config/database.yml #add the appropriate values
+## Contents
+* Requiremnts 
+* Install ruby
+* Install postgress
+* Imiq-map setup
 
-    # start up the server / browser
-    rails server
-    # setup the database
-    rake db:setup
-    # seed data into the database
-    rake db:seed
+## Requiremnts 
+* Ruby 2.3.1
+* bundler
+* postgres
 
-### Setup Ruby
+## Install ruby
+Install ruby 2.3.1, it is recommended that you use [[ruby-install|https://github.com/postmodern/ruby-install]] and [[chruby|https://github.com/postmodern/chruby]]. 
 
-This application requires ruby 2.1.1
+`ruby-install ruby 2.3.1`
+
+`chruby 2.3.1`
+
+Note: the repo contains a .ruby-version file. If you set up chruby's [[auto switching|https://github.com/postmodern/chruby#auto-switching]] feature ruby 2.3.1 should automatically be set as the ruby version when you cd to the imiq-map directory if ruby 2.3.1 is installed on your system.
 
 
-In OSX run the following commands
+## Install postgress
+At the [[postgress|https://www.postgresql.org/download/]] download web site follow the directions for the OS you are using. Mac users should use [[postgress.app|http://postgresapp.com]]
 
-    brew update
-    brew upgrade rbenv ruby-install
-    rbenv install 2.1.1
-    gem install bundler
-    bundle
+## Imiq-map setup 
+Clone [[imiq-map|https://github.com/gina-alaska/imiq-map]] 
 
-## Using otto
+`git clone git@github.com:gina-alaska/imiq-map.git`
 
-1. Checkout repo
-2. Install otto
-3. If this is the first time starting up the development vm you'll need to do a few extra steps
+Change to the the repo. 
 
-  ```bash
-  # create otto config files
-  otto compile
+`cd imiq-map`
 
-  # startup and provision the vm
-  otto dev # it should spit out an ipaddress copy that or run the following command to find it later
+Check the ruby version. 
 
-  # Note that there is currently a bug with otto and the first time building of rails app vm,
-  # so you'll need to reboot it to fix the problem
-  otto dev halt
-  otto dev
+`ruby -v` 
 
-  # login to the vm
-  otto dev ssh
+If you used ruby-install and chruby it should show that ruby 2.3.1 is the version being used. If you are using those tools and the version is wrong run 
 
-  # get your dependancies setup
-  bundle
+`chruby 2.3.1`.
 
-  # build the database
-  rake db:setup
-  ```
+Install dependencies
 
-4. Start up the development vm in general
+`bundle`, if not installed run `gem install bundler` first.
 
-  ```bash
+Setup the database and load the database seed information.
 
-  # this will start vm if it's not already running
-  otto dev
-  # make a note of the ip
-  otto dev address
-  # log into the vm
-  otto dev ssh
-  # start the rails server
-  foreman start
-  ```
+`rake db:setup`
+
+Start up the web service, it should default to port 3000.  
+
+`rails server`
+
+To access it with your web browser, use the following URL: http://localhost:3000. 
+
+At this point the map interface should be pointing at the production [[imiq-api|https://github.com/gina-alaska/imiq-api]]. If you want to point to a local development version of the api set the `imiq_api_url` under `development` in [[config/secrets.yml|https://github.com/gina-alaska/imiq-map/blob/master/config/secrets.yml]] to `http://localhost:3001`. You'll then need to set up the [[development api| https://github.com/gina-alaska/imiq-api/wiki/Development-Setup#imiq-api-setup]]
