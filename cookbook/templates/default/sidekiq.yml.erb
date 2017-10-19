@@ -1,9 +1,0 @@
----
-:concurrency: <%=@concurrency%>
-:pidfile: <%=@pidfile%>
-<% @environments.each do |env, opts| %>
-<%=env%>:
-<% opts.each do |k,v| %>
-  <%=k.to_sym%>: <%=v%>
-<% end %>
-<% end %>
