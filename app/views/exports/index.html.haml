@@ -15,6 +15,11 @@
         %td= export.variables.map(&:humanize).try(:join, ', ')
         %td
           - unless export.download.nil?
-            = link_to download_export_path(export), class: 'btn btn-primary', target: :_blank do
-              %i.fa.fa-download
-              Download
+            - if File.exist?(export.download.file)
+              = link_to download_export_path(export), class: 'btn btn-primary', target: :_blank do
+                %i.fa.fa-download
+                Download
+            - else
+              = button_to export.async_build_download, class: 'btn btn-primary', target: :_blank do
+                %i.fa.fa-download
+                export
