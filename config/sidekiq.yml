@@ -2,6 +2,6 @@
 :concurrency: 1
 :pidfile: tmp/pids/sidekiq.pid
 development:
-  concurrency: 1
+  concurrency: 2
 production:
   concurrency: 2

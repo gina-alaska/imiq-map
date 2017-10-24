@@ -20,6 +20,6 @@
                 %i.fa.fa-download
                 Download
             - else
-              = button_to export.async_build_download, class: 'btn btn-primary', target: :_blank do
+              = button_to , class: 'btn btn-primary', target: :_blank, action: export.async_build_download do
                 %i.fa.fa-download
                 export
