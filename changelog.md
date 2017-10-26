@@ -1,5 +1,9 @@
 #Changelog
 
+## [1.3.1] - 2017-10-26
+###
+- added message, when downloads don't work
+
 ## [1.3.0] - 2017-10-19
 ### added
 - resources page, with ndn
