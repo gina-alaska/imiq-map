@@ -206,11 +206,8 @@ GEM
       rails-assets-jquery (>= 1.5)
     rails-assets-leaflet (0.7.7)
     rails-assets-leaflet-dist (0.7.2)
-    rails-assets-leaflet-draw (0.2.4)
-      rails-assets-leaflet-dist (~> 0.7.0)
     rails-assets-leaflet.markercluster (0.4.0.hotfix.1)
       rails-assets-leaflet (>= 0.7.0)
-    rails-assets-mapbox.js (2.2.3)
     rails-assets-moment (2.10.6)
     rails-assets-moment-timezone (0.5.0)
       rails-assets-moment (>= 2.6.0)
@@ -339,9 +336,7 @@ DEPENDENCIES
   rails-assets-eonasdan-bootstrap-datetimepicker!
   rails-assets-highcharts!
   rails-assets-jquery.xdomainrequest!
-  rails-assets-leaflet-draw!
   rails-assets-leaflet.markercluster (= 0.4.0.hotfix.1)!
-  rails-assets-mapbox.js!
   redis-namespace
   sass-rails (~> 4.0.0)
   sdoc
