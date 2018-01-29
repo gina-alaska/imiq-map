@@ -15,8 +15,7 @@
 //= require jquery_ujs
 //= require turbolinks
 
-//= require mapbox.js
-//= require leaflet-draw
+
 //= require leaflet.markercluster
 //= require Leaflet.Coordinates
 //= require wicket/wicket
