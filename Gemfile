@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.10'
+gem 'rails','4.2.10'
 gem 'bundler', '>= 1.8.4'
 
 gem 'dotenv-rails', :require => 'dotenv/rails-now'
@@ -14,7 +14,7 @@ gem 'httparty'
 #~ gem 'quiet_assets'
 gem 'sidekiq'
 gem 'redis-namespace'
-gem 'sinatra', '>= 1.3.0', :require => nil
+gem 'sinatra'#, '>= 1.3.0', :require => nil
 gem 'spring', group: :development
 gem "chartkick"
 gem 'kaminari'
