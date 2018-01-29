@@ -11,7 +11,7 @@ gem 'pg'
 gem 'haml'
 
 gem 'httparty'
-gem 'quiet_assets'
+#~ gem 'quiet_assets'
 gem 'sidekiq'
 gem 'redis-namespace'
 gem 'sinatra', '>= 1.3.0', :require => nil
@@ -58,16 +58,9 @@ end
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
 # Use unicorn as the app server
-gem 'unicorn', group: :production
 gem 'puma', group: :development
 
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
-gem 'capistrano', group: :development
-gem 'capistrano-chruby'
-gem 'capistrano-bundler'
-gem 'capistrano-rails'
-gem 'capistrano-bower'
+
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
