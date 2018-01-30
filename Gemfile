@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails','4.2.10'
+gem 'rails','5.0.0'#,'4.2.10'
 gem 'bundler', '>= 1.8.4'
 
 gem 'dotenv-rails', :require => 'dotenv/rails-now'

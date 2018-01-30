@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_search
 
   def current_search=(search)
-    @current_search = find_or_create_search(search)
+    @current_search = find_or_create_search(search.to_h)
     session[:current_search_id] = @current_search.id
 
     @current_search

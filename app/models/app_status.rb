@@ -1,2 +1,2 @@
-class AppStatus < ActiveRecord::Base
+class AppStatus < ApplicationRecord
 end

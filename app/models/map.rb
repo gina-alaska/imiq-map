@@ -1,2 +1,2 @@
-class Map < ActiveRecord::Base
+class Map < ApplicationRecord
 end

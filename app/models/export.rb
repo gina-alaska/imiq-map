@@ -1,4 +1,4 @@
-class Export < ActiveRecord::Base
+class Export < ApplicationRecord
   DEFAULT_SITE_LIMIT = 100
   
   serialize :variables, JSON

@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -23,12 +22,6 @@ ActiveRecord::Schema.define(version: 20170920050406) do
     t.datetime "updated_at"
   end
 
-  create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
-    t.string   "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "authorizations", force: :cascade do |t|
     t.string   "provider"
     t.string   "uid"
@@ -45,9 +38,8 @@ ActiveRecord::Schema.define(version: 20170920050406) do
     t.integer  "search_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["search_id"], name: "index_bounds_on_search_id", using: :btree
   end
-
-  add_index "bounds", ["search_id"], name: "index_bounds_on_search_id", using: :btree
 
   create_table "downloads", force: :cascade do |t|
     t.integer  "export_id"
@@ -71,9 +63,8 @@ ActiveRecord::Schema.define(version: 20170920050406) do
     t.integer  "progress",   default: 0
     t.text     "message"
     t.integer  "search_id"
+    t.index ["search_id"], name: "index_exports_on_search_id", using: :btree
   end
-
-  add_index "exports", ["search_id"], name: "index_exports_on_search_id", using: :btree
 
   create_table "maps", force: :cascade do |t|
     t.string   "name"
@@ -118,10 +109,9 @@ ActiveRecord::Schema.define(version: 20170920050406) do
     t.string   "progress"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["search_id"], name: "index_site_exports_on_search_id", using: :btree
+    t.index ["user_id"], name: "index_site_exports_on_user_id", using: :btree
   end
-
-  add_index "site_exports", ["search_id"], name: "index_site_exports_on_search_id", using: :btree
-  add_index "site_exports", ["user_id"], name: "index_site_exports_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name"

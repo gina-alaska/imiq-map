@@ -1,4 +1,4 @@
-class SiteExport < ActiveRecord::Base
+class SiteExport < ApplicationRecord
   belongs_to :user
   belongs_to :search
 

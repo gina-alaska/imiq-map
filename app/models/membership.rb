@@ -1,3 +1,3 @@
-class Membership < ActiveRecord::Base
+class Membership < ApplicationRecord
   include GinaAuthentication::MembershipModel
 end

@@ -1,4 +1,4 @@
-class Search < ActiveRecord::Base
+class Search < ApplicationRecord
   has_many :exports, dependent: :destroy
   has_many :site_exports, dependent: :destroy
   has_one :bound
