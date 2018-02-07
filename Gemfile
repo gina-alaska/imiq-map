@@ -85,3 +85,5 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-openid'
 gem 'google-api-client'
 gem 'version'
+
+gem 'rails-controller-testing'
