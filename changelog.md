@@ -1,7 +1,11 @@
 #Changelog
 
+## [1.4.0] - 2018-02-07
+### updated
+- rails 5 and related updates
+
 ## [1.3.2] - 2017-11-28
-### fixes 
+### fixed 
 - rails security issues by updateing to rails 4.2.10
 
 ## [1.3.1] - 2017-10-26
