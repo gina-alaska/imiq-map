@@ -75,7 +75,7 @@ end
 gem "font-awesome-rails"
 
 group :development, :test do
-  gem 'web-console', '~> 2.0'
+  gem 'web-console', '~> 2.0', group: :development
   gem 'simplecov', :require => false
 end
 
