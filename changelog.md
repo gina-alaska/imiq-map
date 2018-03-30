@@ -1,5 +1,9 @@
 #Changelog
 
+## [1.4.2] - 2018-03-30
+## updated
+- Updated Gemfile.lock for sinatra security update to 2.0.1
+
 ## [1.4.1] - 2018-03-30
 ### fixed
 - Rails 5 production configuration.
