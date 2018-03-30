@@ -1,5 +1,12 @@
 #Changelog
 
+## [1.4.1] - 2018-03-30
+### fixed
+- Rails 5 production configuration.
+
+### updated
+- Updated Gemfile.lock for loofah security update to 2.2.2.
+
 ## [1.4.0] - 2018-02-07
 ### updated
 - rails 5 and related updates
