@@ -21,12 +21,10 @@ Rails.application.routes.draw do
   resources :exports do
     patch :retry, on: :member
     get :download, on: :member
-
-    collection do
-      get :report
-      post :report
-    end
   end
+
+  get 'downloads', to: 'reports#downloads'
+
   resources :maps
   resources :graphs
   resources :sites, only: [:index, :show] do

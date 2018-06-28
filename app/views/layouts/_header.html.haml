@@ -6,9 +6,9 @@
       - if can? :read, Export
         %li.navbar-link
           = link_to 'Exports', exports_path
-      - if can? :report, Export
+      - if can? :manage, :report
         %li.navbar-link
-          = link_to 'Export Report', report_exports_path(), remote: true
+          = link_to 'Export Report', downloads_path(), remote: true
       %li.navbar-link
         = link_to 'About IMIQ', 'http://arcticlcc.org/projects/imiq/'
       %li.navbar-link
