@@ -29,6 +29,10 @@ class SitesPager
   def count
     @sites.count
   end
+  
+  def size
+    @sites.count
+  end
 
   def to_csv
     attributes = %w{ siteid sitecode sitename organizations networks state county geolocation begin_date end_date comments }
@@ -53,7 +57,7 @@ class SitesPager
     SitesPager.site(@sites.last)
   end
 
-  def entry_name
+  def entry_name (thisvardoesnothing)
     'site'
   end
 
