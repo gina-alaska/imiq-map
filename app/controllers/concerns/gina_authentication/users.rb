@@ -3,7 +3,7 @@ module GinaAuthentication
     extend ActiveSupport::Concern
     
     included do
-      before_filter :login_required!
+      before_action :login_required!
     end
 
     def disable_provider
