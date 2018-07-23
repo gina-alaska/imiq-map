@@ -1,5 +1,9 @@
 #Changelog
 
+## [1.5.0]
+- Updated to rails 5.1.x
+- fixed site list export
+
 ## [1.4.2] - 2018-03-30
 ## updated
 - Updated Gemfile.lock for sinatra security update to 2.0.1
