@@ -88,4 +88,9 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+  
+  
+  ## this is important fot the emails to be sent to users
+  config.action_mailer.default_url_options = { :host => 'imiq-map.gina.alaska.edu' }
+
 end

@@ -1,6 +1,9 @@
 #Changelog
 
-## [1.5.0]
+## [1.5.1] - 2018-07-32
+- fix config for mailer
+
+## [1.5.0] - 2018-07-23
 - Updated to rails 5.1.x
 - fixed site list export
 
