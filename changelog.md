@@ -1,6 +1,9 @@
 #Changelog
 
-## [1.5.1] - 2018-07-32
+## [1.6.0] - 2018-07-31
+- add in ability to restart exports that are missing from download page
+
+## [1.5.1] - 2018-07-23
 - fix config for mailer
 
 ## [1.5.0] - 2018-07-23

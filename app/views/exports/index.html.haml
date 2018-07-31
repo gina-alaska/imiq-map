@@ -14,15 +14,14 @@
         %td= number_to_percentage export.progress, precision: 0
         %td= export.variables.map(&:humanize).try(:join, ', ')
         %td
-          - unless export.download.nil?
+          - if not export.download.nil?
             - if File.exist?(export.download.file)
               = link_to download_export_path(export), class: 'btn btn-primary', target: :_blank do
                 %i.fa.fa-download
                 Download
             - else
-              Download temporarily unavailable
-              /
-                button_to , class: 'btn btn-primary', target: :_blank, action: export.async_build_download do
-                %i.fa.fa-download
-                export
-              
+              = form_tag  retry_export_path(export), :method => :patch,  remote: true  do
+                = submit_tag "Retry Export.",  class: 'btn btn-danger'
+          - else
+            = form_tag  retry_export_path(export), :method => :patch,  remote: true do
+              = submit_tag "Retry Export.",  class: 'btn btn-danger'  

@@ -1,6 +1,8 @@
 class ExportsController < ApplicationController
   before_action :fetch_export, except: :report
-
+  protect_from_forgery except: :retry
+  
+  
   authorize_resource
 
   def index
@@ -43,7 +45,7 @@ class ExportsController < ApplicationController
   def retry
     @export.async_build_download()
 
-    render 'show'
+    #~ render 'show'
   end
 
   def download
