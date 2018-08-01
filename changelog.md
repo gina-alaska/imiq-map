@@ -1,5 +1,8 @@
 #Changelog
 
+## [1.6.1] - 2018-08-01
+- fixed download worker find_filename
+
 ## [1.6.0] - 2018-07-31
 - add in ability to restart exports that are missing from download page
 

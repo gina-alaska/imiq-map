@@ -88,7 +88,11 @@ class DownloadWorker < ActiveJob::Base
   protected
 
   def get_filename(disposition)
-    disposition.match(/filename=(\"?)(.+)\1/)[2]
+    if not disposition.nil?
+        disposition.match(/filename=(\"?)(.+)\1/)[2]
+    else
+        nil
+    end
   end
 
   def update_params(url, header, page)
