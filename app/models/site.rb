@@ -1,3 +1,5 @@
+require 'json'
+
 class Site
   FIELDS = %w{ organizations }
   def initialize(data = {})
@@ -41,4 +43,25 @@ class Site
       super
     end
   end
+  
+  def metadata_blurb
+    "#{@attributes['sitename']}:
+    Siteid: #{@attributes['siteid']}
+    Sitecode: #{@attributes['sitecode']}
+    Location(lat,long,elev):  #{@attributes['lat']},#{@attributes['lng']},#{@attributes['elevation']},
+    Variables: #{@attributes['variables']}
+    Begin Date: #{@attributes['begin_date']}
+    End_Date: #{@attributes['end_date']}
+    networks: #{networks}
+    Organization: #{organizations}
+    Source Link: #{@attributes['source']['sourcelink']}
+    Contact: 
+        Name: #{@attributes['source']['contactname']}
+        Phone:  #{@attributes['source']['phone']}
+        Email:  #{@attributes['source']['email']}
+        Address:  #{@attributes['source']['address']}
+                  #{@attributes['source']['city']}, #{@attributes['source']['state']}
+                  #{@attributes['source']['zipcode']}
+    Citation:  #{@attributes['source']['citation']}"
+  end 
 end

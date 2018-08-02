@@ -66,7 +66,7 @@ class ExportsController < ApplicationController
 
       exports = Export.where(created_at: @start_date...@end_date).joins(:user).where(users: {admin: false})
       @export_count = exports.count
-      @user_names = exports.map(&:user).map(&:name).uniq
+      @user_names = exports.map(&:user).uniq
       @new_user_count = User.where(created_at: @start_date...@end_date).count
     end
     

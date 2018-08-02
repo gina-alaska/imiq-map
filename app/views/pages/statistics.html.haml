@@ -2,7 +2,7 @@
 
 %dl.dl-horizontal{ style: 'font-size: 1.5em;'}
   %dt Data values
-  %dd 954,975,920
+  %dd= number_with_delimiter(imiq_api.statistics['data_values'])
   %dt Parameters
   %dd= imiq_api.statistics['parameters']
   %dt Sources
@@ -10,4 +10,6 @@
   %dt Networks
   %dd= imiq_api.statistics['networks']
 
-%h4 Last updated on 1/5/2017
+%h4
+  Last updated on 
+  = imiq_api.statistics['updated_at'][0...10]

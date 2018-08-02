@@ -1,5 +1,10 @@
 #Changelog
 
+## [1.6.2] - 2018-08-01
+- updated stats page
+- added in site metadata text file to exports
+- updated content of export report page
+
 ## [1.6.1] - 2018-08-01
 - fixed download worker find_filename
 

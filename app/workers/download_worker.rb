@@ -2,6 +2,7 @@ require 'fileutils'
 require 'uri'
 require 'net/http'
 
+
 class DownloadWorker < ActiveJob::Base
 
   def perform(export)
@@ -10,6 +11,8 @@ class DownloadWorker < ActiveJob::Base
     now = Time.zone.now
 
     sites = export.search.fetch(1, Export::DEFAULT_SITE_LIMIT)
+    
+   
 
     site_ids = sites.collect(:siteid).uniq.compact
     raise "No sites found" if site_ids.empty?
@@ -28,9 +31,18 @@ class DownloadWorker < ActiveJob::Base
     zip_filename = "#{identity}_#{export.id}.zip"
 
     workspace = ::File.join(save_directory, identity)
-
+    
+    
     FileUtils.mkdir_p(workspace)
     Dir.chdir(workspace) do
+      
+      File.open('sites-metadata.txt', 'w') do |fp|
+        sites.each do |site|
+          fp << site.metadata_blurb
+          fp << "\n"
+        end
+      end
+
       status(export, 'Copying template')
       run_cmd("cp -r #{Rails.root.join('export_template/*')} .")
 
