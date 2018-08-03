@@ -1,5 +1,8 @@
 #Changelog
 
+## [1.6.3] - 2018-08-03
+- channged active worker backend to sidekiq, and added other appication config options back
+
 ## [1.6.2] - 2018-08-01
 - updated stats page
 - added in site metadata text file to exports

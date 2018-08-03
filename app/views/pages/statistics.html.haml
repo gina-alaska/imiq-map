@@ -11,5 +11,16 @@
   %dd= imiq_api.statistics['networks']
 
 %h4
-  Last updated on 
+  Statistics Last updated on 
   = imiq_api.statistics['updated_at'][0...10]
+  
+
+%h2 Recent Changes:
+
+- imiq_api.statistics['changelog'][0...10].each do|c|
+  %dl.dl-horizontal{ style: 'font-size: 1.5em;'}
+    %dt
+    =c['versionnumber'] 
+    on
+    = c['creationdate'][0...10]
+    %dd= c['versiondescription']
